@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import { useApp } from '../src/context/AppContext';
 import QatariPattern from '../src/components/QatariPattern';
 import { COLORS, FONT, RADIUS, SPACING, SHADOW } from '../src/constants/theme';
-import { MOCK_IMPACT } from '../src/data/mockData';
+import { MOCK_IMPACT, WEEKLY_SUMMARY, ENV_EQUIVALENTS } from '../src/data/mockData';
 
 const { height: SCREEN_H } = Dimensions.get('window');
 
@@ -94,14 +94,33 @@ export default function ImpactModal() {
             ))}
           </View>
 
-          {/* Weekly chart — clean and big */}
+          {/* Weekly chart with summary */}
           <View style={styles.chartCard}>
             <View style={[styles.chartHead, isRTL && { flexDirection: 'row-reverse' }]}>
-              <Text style={[styles.cardTitle, isRTL && styles.rtl]}>{t('thisWeek')}</Text>
+              <Text style={[styles.cardTitle, isRTL && styles.rtl]}>{t('weeklySummary')}</Text>
               <View style={styles.todayPill}>
-                <Text style={styles.todayPillTxt}>+12%</Text>
+                <Text style={styles.todayPillTxt}>+{WEEKLY_SUMMARY.changePct}%</Text>
               </View>
             </View>
+
+            {/* Summary stats (4 mini-stats) */}
+            <View style={styles.weekSummary}>
+              <View style={styles.weekStat}>
+                <Text style={styles.weekStatVal}>{WEEKLY_SUMMARY.totalThisWeek.toLocaleString()}</Text>
+                <Text style={styles.weekStatLabel}>{t('totalThisWeek')}</Text>
+              </View>
+              <View style={styles.weekDivider} />
+              <View style={styles.weekStat}>
+                <Text style={styles.weekStatVal}>{WEEKLY_SUMMARY.bestDayValue}</Text>
+                <Text style={styles.weekStatLabel}>{t('bestDay')} · {lang === 'ar' ? WEEKLY_SUMMARY.bestDayLabel_ar : lang === 'fa' ? WEEKLY_SUMMARY.bestDayLabel_fa : WEEKLY_SUMMARY.bestDayLabel_en}</Text>
+              </View>
+              <View style={styles.weekDivider} />
+              <View style={styles.weekStat}>
+                <Text style={styles.weekStatVal}>{WEEKLY_SUMMARY.avgPerDay}</Text>
+                <Text style={styles.weekStatLabel}>{t('avgPerDay')}</Text>
+              </View>
+            </View>
+
             <View style={styles.barRow}>
               {MOCK_IMPACT.weeklyTrend.map((v, i) => {
                 const h = (v / maxWeek) * 140;
@@ -117,22 +136,21 @@ export default function ImpactModal() {
             </View>
           </View>
 
-          {/* Food categories — minimal stacked bar with legend */}
+          {/* Environmental Impact Equivalents */}
           <View style={styles.chartCard}>
-            <Text style={[styles.cardTitle, isRTL && styles.rtl]}>{t('foodCategories')}</Text>
-            <View style={styles.stackedBar}>
-              {MOCK_IMPACT.foodCategories.map((c, i) => (
-                <View key={i} style={[styles.stackSeg, { flex: c.share, backgroundColor: c.color }]} />
-              ))}
-            </View>
-            <View style={styles.legendGrid}>
-              {MOCK_IMPACT.foodCategories.map((c, i) => (
-                <View key={i} style={styles.legendItem}>
-                  <View style={[styles.legendDot, { backgroundColor: c.color }]} />
-                  <Text style={styles.legendName}>{lang === 'ar' || lang === 'fa' ? c.ar : c.en}</Text>
-                  <Text style={styles.legendVal}>{c.share}%</Text>
-                </View>
-              ))}
+            <Text style={[styles.cardTitle, isRTL && styles.rtl]}>{t('envImpact')}</Text>
+            <Text style={[styles.envSub, isRTL && styles.rtl]}>{t('envImpactSub')}</Text>
+            <View style={styles.envGrid}>
+              {ENV_EQUIVALENTS.map((e, i) => {
+                const label = lang === 'ar' ? e.label_ar : lang === 'fa' ? e.label_fa : e.label_en;
+                return (
+                  <View key={i} style={styles.envCard}>
+                    <Text style={styles.envEmoji}>{e.icon}</Text>
+                    <Text style={styles.envValue}>{e.value.toLocaleString()}</Text>
+                    <Text style={styles.envLabel} numberOfLines={2}>{label}</Text>
+                  </View>
+                );
+              })}
             </View>
           </View>
 
@@ -199,6 +217,21 @@ const styles = StyleSheet.create({
   legendDot: { width: 10, height: 10, borderRadius: 5 },
   legendName: { flex: 1, fontSize: FONT.size.xs, color: COLORS.textPrimary, marginStart: 6 },
   legendVal: { fontSize: FONT.size.xs, fontWeight: '800', color: COLORS.textSecondary, marginEnd: 4 },
+
+  // Weekly summary stats
+  weekSummary: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.surfaceAlt, borderRadius: RADIUS.lg, paddingVertical: SPACING.md, marginBottom: SPACING.lg },
+  weekStat: { flex: 1, alignItems: 'center', paddingHorizontal: 4 },
+  weekStatVal: { fontSize: FONT.size.lg, fontWeight: FONT.weight.extrabold, color: COLORS.primary },
+  weekStatLabel: { fontSize: 10, color: COLORS.textMuted, marginTop: 2, textAlign: 'center' },
+  weekDivider: { width: 1, height: 32, backgroundColor: COLORS.border },
+
+  // Environmental equivalents
+  envSub: { fontSize: FONT.size.sm, color: COLORS.textMuted, marginTop: -SPACING.sm, marginBottom: SPACING.md },
+  envGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
+  envCard: { width: '48%', backgroundColor: COLORS.surfaceAlt, borderRadius: RADIUS.lg, padding: SPACING.md, marginBottom: SPACING.sm, alignItems: 'center' },
+  envEmoji: { fontSize: 32, marginBottom: 4 },
+  envValue: { fontSize: FONT.size.xl, fontWeight: FONT.weight.extrabold, color: COLORS.textPrimary, letterSpacing: -0.5 },
+  envLabel: { fontSize: FONT.size.xs, color: COLORS.textSecondary, textAlign: 'center', marginTop: 4, lineHeight: 16 },
 
   footnote: { textAlign: 'center', fontSize: FONT.size.sm, color: COLORS.textSecondary, marginTop: SPACING.lg, fontWeight: '600' },
 });

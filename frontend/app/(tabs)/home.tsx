@@ -8,22 +8,26 @@ import { useApp } from '../../src/context/AppContext';
 import { COLORS, FONT, RADIUS, SPACING, SHADOW } from '../../src/constants/theme';
 import { LANGUAGES } from '../../src/constants/i18n';
 import { getTier, getNextTier } from '../../src/constants/gamification';
-import { MOCK_IMPACT, MOCK_RECENT, VOLUNTEER_STATS, MOCK_MY_REQUESTS, MOCK_LEADERBOARD, MY_RANK, MY_TOTAL_MEALS } from '../../src/data/mockData';
+import QatariPattern, { PalmTree } from '../../src/components/QatariPattern';
+import { MOCK_IMPACT, MOCK_RECENT, VOLUNTEER_STATS, MOCK_MY_REQUESTS, MOCK_LEADERBOARD, MOCK_LEADERBOARD_ORGS, MY_RANK, MY_TOTAL_MEALS, MY_DONOR_IMPACT } from '../../src/data/mockData';
 
 export default function Home() {
   const { t, lang, isRTL, role } = useApp();
   const router = useRouter();
   const [langOpen, setLangOpen] = useState(false);
+  const [lbTab, setLbTab] = useState<'individuals' | 'orgs'>('individuals');
 
   const counter = useRef(new Animated.Value(0)).current;
   const [display, setDisplay] = useState(0);
   useEffect(() => {
     const id = counter.addListener(({ value }) => setDisplay(Math.floor(value)));
-    Animated.timing(counter, { toValue: MOCK_IMPACT.mealsRescued, duration: 1400, easing: Easing.out(Easing.cubic), useNativeDriver: false }).start();
+    // For donor: count up to their personal meals; for others: global meals
+    const target = role === 'donor' ? MY_DONOR_IMPACT.totalMeals : MOCK_IMPACT.mealsRescued;
+    Animated.timing(counter, { toValue: target, duration: 1400, easing: Easing.out(Easing.cubic), useNativeDriver: false }).start();
     return () => counter.removeListener(id);
-  }, []);
+  }, [role]);
 
-  const peopleFed = Math.round(MOCK_IMPACT.mealsRescued / 3);
+  const peopleFed = role === 'donor' ? MY_DONOR_IMPACT.peopleFed : Math.round(MOCK_IMPACT.mealsRescued / 3);
   const co2SavedTons = Math.round(MOCK_IMPACT.co2AvoidedKg / 1000);
   const maxVal = Math.max(...MOCK_IMPACT.weeklyTrend);
   const days = lang === 'en' ? ['M', 'T', 'W', 'T', 'F', 'S', 'S'] : ['ن', 'ث', 'ر', 'خ', 'ج', 'س', 'ح'];
@@ -45,7 +49,7 @@ export default function Home() {
     }
   })();
 
-  // Donor tier card (Qatari gamified)
+  // Donor tier card (Qatari gamified) — polished
   const renderTierCard = () => {
     if (role !== 'donor') return null;
     const tier = getTier(MY_TOTAL_MEALS);
@@ -55,8 +59,16 @@ export default function Home() {
     const nextName = next ? (lang === 'ar' ? next.name_ar : lang === 'fa' ? next.name_fa : next.name_en) : '';
     return (
       <View style={[styles.tierCard, { backgroundColor: tier.color }]} testID="donor-tier-card">
+        <QatariPattern color="#fff" opacity={0.08} size={36} />
+        <View style={styles.tierPalm}>
+          <PalmTree size={48} color="rgba(255,255,255,0.4)" />
+        </View>
+        <View style={styles.tierShine} />
+
         <View style={[styles.tierRow, isRTL && { flexDirection: 'row-reverse' }]}>
-          <Text style={styles.tierEmoji}>{tier.emoji}</Text>
+          <View style={styles.tierEmojiCircle}>
+            <Text style={styles.tierEmoji}>{tier.emoji}</Text>
+          </View>
           <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
             <Text style={[styles.tierLabel, isRTL && styles.rtl]}>{lang === 'ar' ? 'لقبك' : lang === 'fa' ? 'عنوان شما' : 'Your Title'}</Text>
             <Text style={[styles.tierName, isRTL && styles.rtl]}>{tierName}</Text>
@@ -77,24 +89,39 @@ export default function Home() {
     );
   };
 
-  // Donor leaderboard card
+  // Donor leaderboard with tabs
   const renderLeaderboard = () => {
     if (role !== 'donor') return null;
-    const top5 = MOCK_LEADERBOARD.slice(0, 5);
+    const list = lbTab === 'individuals' ? MOCK_LEADERBOARD : MOCK_LEADERBOARD_ORGS;
+    const top5 = list.slice(0, 5);
     return (
       <View style={styles.lbCard} testID="donor-leaderboard">
         <View style={[styles.lbHead, isRTL && { flexDirection: 'row-reverse' }]}>
           <View style={{ flex: 1 }}>
             <Text style={[styles.lbTitle, isRTL && styles.rtl]}>{t('donorLeaderboard')}</Text>
-            <Text style={[styles.lbSub, isRTL && styles.rtl]}>{t('topDonors')}</Text>
           </View>
-          <View style={styles.rankPill}>
-            <Ionicons name="trophy" size={12} color="#fff" />
-            <Text style={styles.rankPillTxt}>#{MY_RANK} · {MY_TOTAL_MEALS} {t('meals')}</Text>
-          </View>
+          {lbTab === 'individuals' && (
+            <View style={styles.rankPill}>
+              <Ionicons name="trophy" size={12} color="#fff" />
+              <Text style={styles.rankPillTxt}>#{MY_RANK}</Text>
+            </View>
+          )}
         </View>
-        {top5.map((d, i) => {
-          const isMe = d.isMe;
+
+        {/* Tabs */}
+        <View style={styles.lbTabs}>
+          <TouchableOpacity testID="lb-tab-individuals" onPress={() => setLbTab('individuals')} style={[styles.lbTab, lbTab === 'individuals' && styles.lbTabActive]}>
+            <Ionicons name="person" size={14} color={lbTab === 'individuals' ? '#fff' : COLORS.textSecondary} />
+            <Text style={[styles.lbTabTxt, lbTab === 'individuals' && { color: '#fff', fontWeight: '800' }]}>{t('individuals')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity testID="lb-tab-orgs" onPress={() => setLbTab('orgs')} style={[styles.lbTab, lbTab === 'orgs' && styles.lbTabActive]}>
+            <Ionicons name="business" size={14} color={lbTab === 'orgs' ? '#fff' : COLORS.textSecondary} />
+            <Text style={[styles.lbTabTxt, lbTab === 'orgs' && { color: '#fff', fontWeight: '800' }]}>{t('organizations')}</Text>
+          </TouchableOpacity>
+        </View>
+
+        {top5.map((d: any, i) => {
+          const isMe = (d as any).isMe;
           const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
           return (
             <View key={d.id} style={[styles.lbRow, isMe && styles.lbRowMe, isRTL && { flexDirection: 'row-reverse' }]}>
@@ -107,6 +134,11 @@ export default function Home() {
             </View>
           );
         })}
+
+        <TouchableOpacity testID="lb-view-full" style={styles.lbViewAll} activeOpacity={0.85}>
+          <Text style={styles.lbViewAllTxt}>{t('viewFullLeaderboard')}</Text>
+          <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={14} color={COLORS.primary} />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -179,11 +211,11 @@ export default function Home() {
             <View style={styles.liveDot} />
             <Text style={styles.liveTxt}>LIVE • QATAR</Text>
           </View>
-          <Text style={[styles.heroLabel, isRTL && styles.rtl]}>{t('mealsRescuedToday')}</Text>
+          <Text style={[styles.heroLabel, isRTL && styles.rtl]}>{role === 'donor' ? t('yourMealsRescued') : t('mealsRescuedToday')}</Text>
           <Text style={styles.heroValue}>{display.toLocaleString()}</Text>
           <View style={styles.translateRow}>
             <Ionicons name="people" size={14} color="#fff" />
-            <Text style={styles.translateTxt}>{peopleFed.toLocaleString()} {t('peopleFed')}</Text>
+            <Text style={styles.translateTxt}>{peopleFed.toLocaleString()} {role === 'donor' ? t('yourPeopleFed') : t('peopleFed')}</Text>
           </View>
           <View style={styles.miniChart}>
             {MOCK_IMPACT.weeklyTrend.map((v, i) => {
@@ -198,7 +230,7 @@ export default function Home() {
             })}
           </View>
           <TouchableOpacity testID="hero-see-full-impact" style={styles.heroCta} activeOpacity={0.85} onPress={() => router.push('/impact')}>
-            <Text style={styles.heroCtaTxt}>{t('seeImpact')}</Text>
+            <Text style={styles.heroCtaTxt}>{role === 'donor' ? t('seeCommunityImpact') : t('seeImpact')}</Text>
             <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={16} color={COLORS.primary} />
           </TouchableOpacity>
         </View>
@@ -322,4 +354,27 @@ const styles = StyleSheet.create({
   lbAvatarTxt: { fontSize: FONT.size.sm, fontWeight: '700', color: COLORS.textPrimary },
   lbName: { flex: 1, fontSize: FONT.size.sm, color: COLORS.textPrimary, fontWeight: '600' },
   lbMeals: { fontSize: FONT.size.sm, fontWeight: '800', color: COLORS.primary },
+
+  // Donor tier card (polished)
+  tierCard: { borderRadius: 28, padding: SPACING.lg, marginTop: SPACING.md, overflow: 'hidden', position: 'relative', ...SHADOW.md },
+  tierPalm: { position: 'absolute', top: -8, right: -8, opacity: 0.5 },
+  tierShine: { position: 'absolute', top: -40, left: -40, width: 120, height: 120, borderRadius: 60, backgroundColor: '#fff', opacity: 0.08 },
+  tierRow: { flexDirection: 'row', alignItems: 'center' },
+  tierEmojiCircle: { width: 64, height: 64, borderRadius: 32, backgroundColor: 'rgba(255,255,255,0.18)', alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: 'rgba(255,255,255,0.3)' },
+  tierEmoji: { fontSize: 36 },
+  tierLabel: { color: '#fff', opacity: 0.8, fontSize: FONT.size.xs, letterSpacing: 1, textTransform: 'uppercase', fontWeight: '700' },
+  tierName: { color: '#fff', fontSize: FONT.size.xxl, fontWeight: FONT.weight.extrabold, marginTop: 4, letterSpacing: -0.5 },
+  tierMeals: { color: '#fff', opacity: 0.9, fontSize: FONT.size.sm, marginTop: 2, fontWeight: '600' },
+  tierProgressWrap: { marginTop: SPACING.lg },
+  tierTrack: { height: 8, backgroundColor: 'rgba(255,255,255,0.25)', borderRadius: 4, overflow: 'hidden' },
+  tierFill: { height: '100%', backgroundColor: '#fff', borderRadius: 4 },
+  tierNext: { color: '#fff', opacity: 0.95, fontSize: FONT.size.xs, marginTop: 8, fontWeight: '700' },
+
+  // Leaderboard tabs
+  lbTabs: { flexDirection: 'row', backgroundColor: COLORS.surfaceAlt, borderRadius: RADIUS.full, padding: 4, marginBottom: SPACING.md, gap: 4 },
+  lbTab: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 8, borderRadius: RADIUS.full },
+  lbTabActive: { backgroundColor: COLORS.primary },
+  lbTabTxt: { fontSize: FONT.size.sm, fontWeight: '600', color: COLORS.textSecondary, marginStart: 4 },
+  lbViewAll: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: SPACING.md, paddingVertical: 12, borderTopWidth: 1, borderTopColor: COLORS.border },
+  lbViewAllTxt: { fontSize: FONT.size.sm, fontWeight: '700', color: COLORS.primary, marginEnd: 6 },
 });

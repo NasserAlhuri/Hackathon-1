@@ -25,6 +25,7 @@ export default function Donate() {
   const [eventType, setEventType] = useState<string>('wedding');
   const [pickupTime, setPickupTime] = useState('19:00');
   const [packagingReady, setPackagingReady] = useState(true);
+  const [deliveryMethod, setDeliveryMethod] = useState<'volunteer' | 'self'>('volunteer');
 
   const mealsNum = parseInt(meals || '0', 10);
   const isBulk = mealsNum >= 50;
@@ -100,6 +101,31 @@ export default function Donate() {
             {isBulk ? t('bulkModeBadge') : t('quickModeBadge')}
           </Text>
           <Text style={styles.modeNote}>{isBulk ? t('bulkModeNote') : t('quickModeNote')}</Text>
+        </View>
+      </View>
+
+      {/* Delivery method selector */}
+      <View style={styles.section}>
+        <Text style={[styles.label, isRTL && styles.rtl]}>{t('deliveryMethod')}</Text>
+        <View style={styles.methodRow}>
+          <TouchableOpacity
+            testID="method-volunteer"
+            onPress={() => setDeliveryMethod('volunteer')}
+            style={[styles.methodCard, deliveryMethod === 'volunteer' && styles.methodCardActive]}
+          >
+            <Ionicons name="car" size={22} color={deliveryMethod === 'volunteer' ? COLORS.primary : COLORS.textMuted} />
+            <Text style={[styles.methodTitle, deliveryMethod === 'volunteer' && { color: COLORS.primary }]}>{t('volunteerPickup')}</Text>
+            <Text style={styles.methodDesc} numberOfLines={2}>{t('volunteerPickupDesc')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            testID="method-self"
+            onPress={() => setDeliveryMethod('self')}
+            style={[styles.methodCard, deliveryMethod === 'self' && styles.methodCardActive]}
+          >
+            <Ionicons name="walk" size={22} color={deliveryMethod === 'self' ? COLORS.primary : COLORS.textMuted} />
+            <Text style={[styles.methodTitle, deliveryMethod === 'self' && { color: COLORS.primary }]}>{t('selfDropoff')}</Text>
+            <Text style={styles.methodDesc} numberOfLines={2}>{t('selfDropoffDesc')}</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -292,4 +318,10 @@ const styles = StyleSheet.create({
   allergenChipActive: { backgroundColor: COLORS.accent + '15', borderColor: COLORS.accent },
   allergenEmoji: { fontSize: 28, marginBottom: 4 },
   allergenLabel: { fontSize: FONT.size.xs, color: COLORS.textPrimary, fontWeight: '600' },
+  // Delivery method
+  methodRow: { flexDirection: 'row', gap: 10 },
+  methodCard: { flex: 1, backgroundColor: COLORS.surface, borderRadius: RADIUS.lg, padding: SPACING.md, borderWidth: 1.5, borderColor: COLORS.border, alignItems: 'flex-start' },
+  methodCardActive: { borderColor: COLORS.primary, backgroundColor: COLORS.primary + '08' },
+  methodTitle: { fontSize: FONT.size.sm, fontWeight: '700', color: COLORS.textPrimary, marginTop: 8 },
+  methodDesc: { fontSize: 11, color: COLORS.textMuted, marginTop: 2, lineHeight: 14 },
 });

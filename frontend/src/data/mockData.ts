@@ -143,6 +143,42 @@ export const MOCK_LEADERBOARD = [
   { id: 'l6', name: 'Omar Abdullah', meals: 380, avatar: 'O' },
 ];
 
+export const MOCK_LEADERBOARD_ORGS = [
+  { id: 'o1', name: 'Marriott Doha', meals: 5240, avatar: '🏨' },
+  { id: 'o2', name: 'Souq Waqif Catering', meals: 3980, avatar: '🍽️' },
+  { id: 'o3', name: 'Al Meera Stores', meals: 2850, avatar: '🛒' },
+  { id: 'o4', name: 'Education City Cafes', meals: 1920, avatar: '☕' },
+  { id: 'o5', name: 'Lusail Banquet Hall', meals: 1410, avatar: '🎉' },
+  { id: 'o6', name: 'Pearl Hotels Group', meals: 980, avatar: '🏨' },
+];
+
+export const MY_DONOR_IMPACT = {
+  totalMeals: 642,
+  peopleFed: 214,
+  donationsCount: 28,
+  rankPercentile: 8, // top 8%
+  thisMonthMeals: 84,
+  ngosHelped: 5,
+};
+
+export const WEEKLY_SUMMARY = {
+  totalThisWeek: 4280,
+  lastWeekTotal: 3820,
+  changePct: 12,
+  bestDayValue: 820,
+  bestDayLabel_en: 'Sunday',
+  bestDayLabel_ar: 'الأحد',
+  bestDayLabel_fa: 'یکشنبه',
+  avgPerDay: 611,
+};
+
+export const ENV_EQUIVALENTS = [
+  { icon: '🚗', value: 230, label_en: 'cars off the road for a year', label_ar: 'سيارة خارج الطريق لسنة', label_fa: 'خودرو از جاده برای یک سال' },
+  { icon: '🚿', value: 22800, label_en: 'showers worth of water saved', label_ar: 'دش من المياه الموفرة', label_fa: 'دوش از آب صرفه‌جویی' },
+  { icon: '🌳', value: 1700, label_en: 'trees planted equivalent', label_ar: 'شجرة مزروعة معادل', label_fa: 'درخت معادل کاشته' },
+  { icon: '⚡', value: 84000, label_en: 'kWh of energy saved', label_ar: 'كيلوواط ساعة موفرة', label_fa: 'کیلووات ساعت صرفه‌جویی' },
+];
+
 export const MY_RANK = 4;
 export const MY_TOTAL_MEALS = 642;
 
