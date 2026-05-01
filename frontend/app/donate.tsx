@@ -9,6 +9,7 @@ import Button from '../src/components/Button';
 import { useApp } from '../src/context/AppContext';
 import { COLORS, FONT, RADIUS, SPACING, SHADOW } from '../src/constants/theme';
 import { QATAR_LOCATIONS, MOCK_NGOS, computeSafety, suggestVehicle } from '../src/data/mockData';
+import { ALLERGEN_ICONS } from '../src/constants/gamification';
 
 type Storage = 'hot' | 'cold' | 'room';
 
@@ -73,7 +74,7 @@ export default function Donate() {
     });
   };
 
-  const allergenOpts = ['Nuts', 'Dairy', 'Gluten', 'Seafood'];
+  const allergenOpts = ['gluten', 'dairy', 'nuts', 'seafood', 'eggs', 'soy'];
   const storageOpts: { id: Storage; key: string; icon: keyof typeof Ionicons.glyphMap }[] = [
     { id: 'hot', key: 'storageHot', icon: 'flame-outline' },
     { id: 'cold', key: 'storageCold', icon: 'snow-outline' },
@@ -166,12 +167,21 @@ export default function Donate() {
           </View>
           <View style={styles.section}>
             <Text style={[styles.label, isRTL && styles.rtl]}>{t('allergens')} <Text style={styles.optional}>({t('optional')})</Text></Text>
-            <View style={styles.chipRow}>
+            <View style={styles.allergenGrid}>
               {allergenOpts.map((a) => {
                 const active = allergens.includes(a);
+                const info = ALLERGEN_ICONS[a];
                 return (
-                  <TouchableOpacity key={a} testID={`allergen-${a.toLowerCase()}`} onPress={() => toggleAllergen(a)} style={[styles.chip, active && styles.chipActiveSoft]}>
-                    <Text style={[styles.chipTxt, active && { color: COLORS.accentDark }]}>{a}</Text>
+                  <TouchableOpacity
+                    key={a}
+                    testID={`allergen-${a}`}
+                    onPress={() => toggleAllergen(a)}
+                    style={[styles.allergenChip, active && styles.allergenChipActive]}
+                  >
+                    <Text style={styles.allergenEmoji}>{info.emoji}</Text>
+                    <Text style={[styles.allergenLabel, active && { color: COLORS.accentDark, fontWeight: '700' }]}>
+                      {lang === 'ar' || lang === 'fa' ? info.ar : info.en}
+                    </Text>
                   </TouchableOpacity>
                 );
               })}
@@ -273,4 +283,13 @@ const styles = StyleSheet.create({
   recRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 6 },
   recLabel: { flex: 1, fontSize: FONT.size.sm, color: COLORS.textSecondary, marginStart: 8 },
   recVal: { fontSize: FONT.size.md, fontWeight: FONT.weight.bold, color: COLORS.accentDark },
+  allergenGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  allergenChip: {
+    width: '31%', alignItems: 'center', paddingVertical: 14,
+    backgroundColor: COLORS.surface, borderRadius: RADIUS.lg,
+    borderWidth: 1.5, borderColor: COLORS.border,
+  },
+  allergenChipActive: { backgroundColor: COLORS.accent + '15', borderColor: COLORS.accent },
+  allergenEmoji: { fontSize: 28, marginBottom: 4 },
+  allergenLabel: { fontSize: FONT.size.xs, color: COLORS.textPrimary, fontWeight: '600' },
 });

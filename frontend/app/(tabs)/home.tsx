@@ -7,6 +7,7 @@ import LanguageSheet from '../../src/components/LanguageSheet';
 import { useApp } from '../../src/context/AppContext';
 import { COLORS, FONT, RADIUS, SPACING, SHADOW } from '../../src/constants/theme';
 import { LANGUAGES } from '../../src/constants/i18n';
+import { getTier, getNextTier } from '../../src/constants/gamification';
 import { MOCK_IMPACT, MOCK_RECENT, VOLUNTEER_STATS, MOCK_MY_REQUESTS, MOCK_LEADERBOARD, MY_RANK, MY_TOTAL_MEALS } from '../../src/data/mockData';
 
 export default function Home() {
@@ -43,6 +44,38 @@ export default function Home() {
         return [{ id: 'donate', icon: 'gift-outline' as const, label: t('donateFood'), color: COLORS.primary, route: '/donate' }];
     }
   })();
+
+  // Donor tier card (Qatari gamified)
+  const renderTierCard = () => {
+    if (role !== 'donor') return null;
+    const tier = getTier(MY_TOTAL_MEALS);
+    const next = getNextTier(MY_TOTAL_MEALS);
+    const progress = next ? (MY_TOTAL_MEALS - tier.threshold) / (next.threshold - tier.threshold) : 1;
+    const tierName = lang === 'ar' ? tier.name_ar : lang === 'fa' ? tier.name_fa : tier.name_en;
+    const nextName = next ? (lang === 'ar' ? next.name_ar : lang === 'fa' ? next.name_fa : next.name_en) : '';
+    return (
+      <View style={[styles.tierCard, { backgroundColor: tier.color }]} testID="donor-tier-card">
+        <View style={[styles.tierRow, isRTL && { flexDirection: 'row-reverse' }]}>
+          <Text style={styles.tierEmoji}>{tier.emoji}</Text>
+          <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
+            <Text style={[styles.tierLabel, isRTL && styles.rtl]}>{lang === 'ar' ? 'لقبك' : lang === 'fa' ? 'عنوان شما' : 'Your Title'}</Text>
+            <Text style={[styles.tierName, isRTL && styles.rtl]}>{tierName}</Text>
+            <Text style={[styles.tierMeals, isRTL && styles.rtl]}>{MY_TOTAL_MEALS} {t('meals')}</Text>
+          </View>
+        </View>
+        {next && (
+          <View style={styles.tierProgressWrap}>
+            <View style={styles.tierTrack}>
+              <View style={[styles.tierFill, { width: `${Math.min(progress * 100, 100)}%` }]} />
+            </View>
+            <Text style={styles.tierNext}>
+              {lang === 'ar' ? `${next.threshold - MY_TOTAL_MEALS} وجبة متبقية لـ ${nextName} ${next.emoji}` : `${next.threshold - MY_TOTAL_MEALS} meals to ${nextName} ${next.emoji}`}
+            </Text>
+          </View>
+        )}
+      </View>
+    );
+  };
 
   // Donor leaderboard card
   const renderLeaderboard = () => {
@@ -137,6 +170,7 @@ export default function Home() {
         </View>
 
         {renderRoleStats()}
+        {renderTierCard()}
 
         <View testID="home-impact-hero" style={[styles.hero, role === 'volunteer' || role === 'recipient' ? { marginTop: SPACING.md } : null]}>
           <View style={styles.heroBlob1} />
