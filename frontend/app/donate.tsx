@@ -38,7 +38,7 @@ export default function Donate() {
     try {
       if (fromCamera) {
         const perm = await ImagePicker.requestCameraPermissionsAsync();
-        if (!perm.granted) return Alert.alert('Permission', 'Camera permission required');
+        if (!perm.granted) return Alert.alert(t('permission'), t('cameraPermissionRequired'));
         const res = await ImagePicker.launchCameraAsync(options);
         if (!res.canceled && res.assets[0]) setPhoto(res.assets[0].uri);
       } else {
@@ -82,11 +82,11 @@ export default function Donate() {
     { id: 'room', key: 'storageRoom', icon: 'thermometer-outline' },
   ];
   const events = [
-    { id: 'wedding', label: lang === 'en' ? 'Wedding' : 'عرس', icon: 'heart-circle-outline' as const },
-    { id: 'graduation', label: lang === 'en' ? 'Graduation' : 'تخرج', icon: 'school-outline' as const },
-    { id: 'restaurant', label: lang === 'en' ? 'Restaurant' : 'مطعم', icon: 'restaurant-outline' as const },
-    { id: 'hotel', label: lang === 'en' ? 'Hotel' : 'فندق', icon: 'bed-outline' as const },
-    { id: 'catering', label: lang === 'en' ? 'Catering' : 'تموين', icon: 'fast-food-outline' as const },
+    { id: 'wedding', label: t('eventWedding'), icon: 'heart-circle-outline' as const },
+    { id: 'graduation', label: t('eventGraduation'), icon: 'school-outline' as const },
+    { id: 'restaurant', label: t('eventRestaurant'), icon: 'restaurant-outline' as const },
+    { id: 'hotel', label: t('eventHotel'), icon: 'bed-outline' as const },
+    { id: 'catering', label: t('eventCatering'), icon: 'fast-food-outline' as const },
   ];
 
   return (

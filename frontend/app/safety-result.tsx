@@ -53,13 +53,13 @@ export default function SafetyResult() {
       )}
 
       <View style={styles.summaryCard}>
-        <Text style={styles.summaryTitle}>Donation Summary</Text>
+        <Text style={styles.summaryTitle}>{t('donationSummary')}</Text>
         <View style={styles.sumRow}>
-          <Text style={styles.sumLabel}>Meals</Text>
+          <Text style={styles.sumLabel}>{t('mealsLabel')}</Text>
           <Text style={styles.sumVal}>{params.meals}</Text>
         </View>
         <View style={styles.sumRow}>
-          <Text style={styles.sumLabel}>Location</Text>
+          <Text style={styles.sumLabel}>{t('locationLabel')}</Text>
           <Text style={styles.sumVal}>{params.location}</Text>
         </View>
       </View>

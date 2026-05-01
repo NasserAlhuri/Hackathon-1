@@ -70,7 +70,7 @@ export default function Home() {
             <Text style={styles.tierEmoji}>{tier.emoji}</Text>
           </View>
           <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
-            <Text style={[styles.tierLabel, isRTL && styles.rtl]}>{lang === 'ar' ? 'لقبك' : lang === 'fa' ? 'عنوان شما' : 'Your Title'}</Text>
+            <Text style={[styles.tierLabel, isRTL && styles.rtl]}>{t('yourTitle')}</Text>
             <Text style={[styles.tierName, isRTL && styles.rtl]}>{tierName}</Text>
             <Text style={[styles.tierMeals, isRTL && styles.rtl]}>{MY_TOTAL_MEALS} {t('meals')}</Text>
           </View>
@@ -81,7 +81,7 @@ export default function Home() {
               <View style={[styles.tierFill, { width: `${Math.min(progress * 100, 100)}%` }]} />
             </View>
             <Text style={styles.tierNext}>
-              {lang === 'ar' ? `${next.threshold - MY_TOTAL_MEALS} وجبة متبقية لـ ${nextName} ${next.emoji}` : lang === 'fa' ? `${next.threshold - MY_TOTAL_MEALS} وعده تا ${nextName} ${next.emoji}` : `${next.threshold - MY_TOTAL_MEALS} meals to ${nextName} ${next.emoji}`}
+              {`${next.threshold - MY_TOTAL_MEALS} ${t('mealsTo')} ${nextName} ${next.emoji}`}
             </Text>
           </View>
         )}
@@ -175,7 +175,7 @@ export default function Home() {
                 <Text style={[styles.statusTxt, { color: COLORS.accentDark }]}>{t('matchedStatus')}</Text>
               </View>
               <Text style={styles.matchTxt}>
-                {lang === 'en' ? `Matched with ${active.match_en} for ${active.familySize} people` : `${active.match_ar} - ${active.familySize}`}
+                {lang === 'ar' || lang === 'fa' ? `${active.match_ar} - ${active.familySize}` : `${t('matchedWith')} ${active.match_en} · ${t('familyOf')} ${active.familySize}`}
               </Text>
             </View>
           ) : (

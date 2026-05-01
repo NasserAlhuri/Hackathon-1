@@ -155,7 +155,7 @@ export default function ImpactModal() {
           </View>
 
           <Text style={styles.footnote}>
-            {lang === 'ar' ? '🇶🇦 معاً نُنقذ المزيد من الطعام' : lang === 'fa' ? '🇶🇦 با هم غذای بیشتری نجات می‌دهیم' : '🇶🇦 Together we rescue more'}
+            🇶🇦 {t('togetherWeRescue')}
           </Text>
         </ScrollView>
       </Animated.View>
