@@ -7,7 +7,7 @@ import LanguageSheet from '../../src/components/LanguageSheet';
 import { useApp } from '../../src/context/AppContext';
 import { COLORS, FONT, RADIUS, SPACING, SHADOW } from '../../src/constants/theme';
 import { LANGUAGES } from '../../src/constants/i18n';
-import { MOCK_IMPACT, MOCK_RECENT, VOLUNTEER_STATS, MOCK_MY_REQUESTS } from '../../src/data/mockData';
+import { MOCK_IMPACT, MOCK_RECENT, VOLUNTEER_STATS, MOCK_MY_REQUESTS, MOCK_LEADERBOARD, MY_RANK, MY_TOTAL_MEALS } from '../../src/data/mockData';
 
 export default function Home() {
   const { t, lang, isRTL, role } = useApp();
@@ -34,12 +34,49 @@ export default function Home() {
       case 'volunteer':
         return [{ id: 'deliver', icon: 'car-outline' as const, label: t('volunteerDelivery'), color: COLORS.accent, route: '/(tabs)/activity' }];
       case 'recipient':
-        return [{ id: 'request', icon: 'hand-left-outline' as const, label: t('requestFood'), color: COLORS.warning, route: '/request-food' }];
+        return [
+          { id: 'findFood', icon: 'map-outline' as const, label: t('findFoodNearby'), color: COLORS.accent, route: '/find-food' },
+          { id: 'request', icon: 'hand-left-outline' as const, label: t('requestFood'), color: COLORS.warning, route: '/request-food' },
+        ];
       case 'donor':
       default:
         return [{ id: 'donate', icon: 'gift-outline' as const, label: t('donateFood'), color: COLORS.primary, route: '/donate' }];
     }
   })();
+
+  // Donor leaderboard card
+  const renderLeaderboard = () => {
+    if (role !== 'donor') return null;
+    const top5 = MOCK_LEADERBOARD.slice(0, 5);
+    return (
+      <View style={styles.lbCard} testID="donor-leaderboard">
+        <View style={[styles.lbHead, isRTL && { flexDirection: 'row-reverse' }]}>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.lbTitle, isRTL && styles.rtl]}>{t('donorLeaderboard')}</Text>
+            <Text style={[styles.lbSub, isRTL && styles.rtl]}>{t('topDonors')}</Text>
+          </View>
+          <View style={styles.rankPill}>
+            <Ionicons name="trophy" size={12} color="#fff" />
+            <Text style={styles.rankPillTxt}>#{MY_RANK} · {MY_TOTAL_MEALS} {t('meals')}</Text>
+          </View>
+        </View>
+        {top5.map((d, i) => {
+          const isMe = d.isMe;
+          const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
+          return (
+            <View key={d.id} style={[styles.lbRow, isMe && styles.lbRowMe, isRTL && { flexDirection: 'row-reverse' }]}>
+              <Text style={styles.lbRank}>{medal || `#${i + 1}`}</Text>
+              <View style={[styles.lbAvatar, isMe && { backgroundColor: COLORS.primary }]}>
+                <Text style={styles.lbAvatarTxt}>{d.avatar}</Text>
+              </View>
+              <Text style={[styles.lbName, isMe && { fontWeight: '800', color: COLORS.primary }]} numberOfLines={1}>{d.name}{isMe ? ` (${lang === 'ar' ? 'أنت' : lang === 'fa' ? 'شما' : 'You'})` : ''}</Text>
+              <Text style={styles.lbMeals}>{d.meals.toLocaleString()}</Text>
+            </View>
+          );
+        })}
+      </View>
+    );
+  };
 
   const renderRoleStats = () => {
     if (role === 'volunteer') {
@@ -155,7 +192,7 @@ export default function Home() {
         <Text style={[styles.sectionTitle, isRTL && styles.rtl]}>{t('quickActions')}</Text>
         <View style={styles.grid}>
           {actions.map((a) => (
-            <TouchableOpacity key={a.id} testID={`home-action-${a.id}`} activeOpacity={0.85} onPress={() => router.push(a.route as any)} style={[styles.tile, { width: '100%' }]}>
+            <TouchableOpacity key={a.id} testID={`home-action-${a.id}`} activeOpacity={0.85} onPress={() => router.push(a.route as any)} style={[styles.tile, actions.length === 1 ? { width: '100%' } : null]}>
               <View style={[styles.tileIcon, { backgroundColor: a.color + '1A' }]}>
                 <Ionicons name={a.icon} size={22} color={a.color} />
               </View>
@@ -163,6 +200,8 @@ export default function Home() {
             </TouchableOpacity>
           ))}
         </View>
+
+        {renderLeaderboard()}
 
         <Text style={[styles.sectionTitle, isRTL && styles.rtl]}>{t('recentActivity')}</Text>
         <View style={{ marginBottom: SPACING.xl }}>
@@ -234,4 +273,19 @@ const styles = StyleSheet.create({
   activityDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: COLORS.accent },
   activityText: { flex: 1, marginHorizontal: SPACING.md, color: COLORS.textPrimary, fontSize: FONT.size.sm },
   activityTime: { color: COLORS.textMuted, fontSize: FONT.size.xs, fontWeight: FONT.weight.semibold },
+
+  // Leaderboard
+  lbCard: { backgroundColor: COLORS.surface, borderRadius: RADIUS.xxl, padding: SPACING.md, borderWidth: 1, borderColor: COLORS.border, marginTop: SPACING.lg, ...SHADOW.sm },
+  lbHead: { flexDirection: 'row', alignItems: 'center', marginBottom: SPACING.md },
+  lbTitle: { fontSize: FONT.size.md, fontWeight: FONT.weight.bold, color: COLORS.textPrimary },
+  lbSub: { fontSize: FONT.size.xs, color: COLORS.textMuted, marginTop: 2 },
+  rankPill: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: COLORS.primary, paddingHorizontal: 10, paddingVertical: 6, borderRadius: RADIUS.full },
+  rankPillTxt: { color: '#fff', fontSize: 11, fontWeight: '800', marginStart: 4 },
+  lbRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 8, gap: 10 },
+  lbRowMe: { backgroundColor: COLORS.primary + '0F', marginHorizontal: -SPACING.md, paddingHorizontal: SPACING.md, borderRadius: RADIUS.md },
+  lbRank: { width: 30, fontSize: FONT.size.sm, fontWeight: '700', color: COLORS.textSecondary },
+  lbAvatar: { width: 32, height: 32, borderRadius: 16, backgroundColor: COLORS.surfaceAlt, alignItems: 'center', justifyContent: 'center' },
+  lbAvatarTxt: { fontSize: FONT.size.sm, fontWeight: '700', color: COLORS.textPrimary },
+  lbName: { flex: 1, fontSize: FONT.size.sm, color: COLORS.textPrimary, fontWeight: '600' },
+  lbMeals: { fontSize: FONT.size.sm, fontWeight: '800', color: COLORS.primary },
 });

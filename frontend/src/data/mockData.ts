@@ -134,6 +134,26 @@ export const MOCK_IMPACT = {
   ],
 };
 
+export const MOCK_LEADERBOARD = [
+  { id: 'l1', name: 'Fatima Al-Thani', meals: 1240, avatar: 'F' },
+  { id: 'l2', name: 'Mohammed Hassan', meals: 980, avatar: 'M' },
+  { id: 'l3', name: 'Sara Al-Kuwari', meals: 870, avatar: 'S' },
+  { id: 'l4', name: 'Ahmed Al-Mahmoud', meals: 642, avatar: 'A', isMe: true },
+  { id: 'l5', name: 'Layla Ibrahim', meals: 510, avatar: 'L' },
+  { id: 'l6', name: 'Omar Abdullah', meals: 380, avatar: 'O' },
+];
+
+export const MY_RANK = 4;
+export const MY_TOTAL_MEALS = 642;
+
+export const MOCK_NEARBY_RESTAURANTS = [
+  { id: 'r1', name_en: 'Doha Bakery', name_ar: 'مخبز الدوحة', cuisine_en: 'Bakery & Pastries', cuisine_ar: 'مخبوزات وحلويات', area_en: 'Doha', area_ar: 'الدوحة', distanceKm: 0.8, mealsAvailable: 12, openNow: true, allowsBYO: true, allowsPickup: true, x: 35, y: 45 },
+  { id: 'r2', name_en: 'Lusail Grill House', name_ar: 'مطعم لوسيل للمشاوي', cuisine_en: 'Grills & Mixed', cuisine_ar: 'مشاوي ومتنوع', area_en: 'Lusail', area_ar: 'لوسيل', distanceKm: 2.3, mealsAvailable: 28, openNow: true, allowsBYO: false, allowsPickup: true, x: 55, y: 25 },
+  { id: 'r3', name_en: 'Pearl Cafe', name_ar: 'مقهى اللؤلؤة', cuisine_en: 'Cafe & Sandwiches', cuisine_ar: 'مقهى وسندويشات', area_en: 'The Pearl', area_ar: 'اللؤلؤة', distanceKm: 3.7, mealsAvailable: 8, openNow: true, allowsBYO: true, allowsPickup: true, x: 70, y: 55 },
+  { id: 'r4', name_en: 'Souq Family Kitchen', name_ar: 'مطبخ سوق العائلة', cuisine_en: 'Traditional Qatari', cuisine_ar: 'مأكولات قطرية', area_en: 'Souq Waqif', area_ar: 'سوق واقف', distanceKm: 4.2, mealsAvailable: 18, openNow: true, allowsBYO: true, allowsPickup: true, x: 25, y: 65 },
+  { id: 'r5', name_en: 'Al Wakrah Eats', name_ar: 'مأكولات الوكرة', cuisine_en: 'Mixed Cuisine', cuisine_ar: 'مأكولات متنوعة', area_en: 'Al Wakrah', area_ar: 'الوكرة', distanceKm: 5.6, mealsAvailable: 22, openNow: false, allowsBYO: true, allowsPickup: true, x: 50, y: 80 },
+];
+
 export const VOLUNTEER_STATS = {
   tasksToday: 2,
   kmCovered: 12.5,

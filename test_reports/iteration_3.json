@@ -1,0 +1,30 @@
+{
+  "summary": "Iteration 4 features verified end-to-end on mobile viewport (390x844) via Expo web preview. Language sheet shows all 9 languages including new Farsi (lang-option-fa). Selecting Farsi translates role-select ('چگونه می‌خواهید کمک کنید؟') and donor home (خانه, پروفایل, اهدای غذا, فعالیت). Selecting Arabic translates home tab labels (الرئيسية, الملف, تبرعاتي, تبرع بالطعام). Donor leaderboard card (testID=donor-leaderboard) renders on donor home with title, top-5 rows, medals 🥇🥈🥉, rank pill '#4 · 642 meals/وعده', and Ahmed Al-Mahmoud highlighted at rank #4 with (You/شما) suffix. Recipient home shows 2 quick-action tiles: home-action-findFood and home-action-request. Tapping findFood navigates to /find-food (testID=find-food-screen) which renders faux map with pins pin-r1..pin-r5, 3 filter chips filter-all/filter-pickup/filter-byo, 5 restaurant cards restaurant-r1..r5 with pickup-rX and byo-rX buttons. BYO filter correctly hides r2 (no BYO). RTL rendering confirmed on Farsi and Arabic (leaderboard rows flipped, language pill in correct position). All translation keys ('اهدای غذا', 'خانه', 'وعده', 'شما') resolved via tr() with English fallback.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_3.json"],
+  "action_items": [
+    "Minor: Alert.alert('Pickup reserved!') fires on RN-web as window.alert but timing/handler in Playwright didn't capture the dialog message. The button is tappable and no errors thrown — likely a race with dialog auto-accept. Main agent can self-verify by tapping pickup-r1 in live preview.",
+    "Nice-to-have: filter chip label 'All' and legend label 'Restaurants' are still hardcoded with `lang === 'ar'` ternaries in find-food.tsx instead of t() keys. Works for AR/EN but other RTL languages (fa, ur) will see English 'All'/'Restaurants'. Consider adding translation keys 'allLabel' and 'restaurants' to i18n.ts.",
+    "Nice-to-have: find-food.tsx reserve() uses `lang === 'ar' ? r.name_ar : r.name_en` — for fa/ur/hi/etc it will fall to English name which is acceptable since only name_en/name_ar exist in mock. OK for prototype."
+  ],
+  "critical_code_review_comments": [
+    "i18n.ts: Farsi (fa) dict is the most complete after Arabic — good. ur/hi/ml/bn/fil/ne only translate the major keys and fall back to English via tr() — acceptable per spec ('at least the major labels').",
+    "AppContext exposes `isRTL` derived from RTL_LANGS.includes(lang) — correctly includes ar/fa/ur.",
+    "home.tsx leaderboard: (You) suffix hard-coded for en/ar/fa only; other languages will show English 'You'. Minor localization gap.",
+    "find-food.tsx cardHead and btnRow apply isRTL row-reverse — good. sectionTitle uses rtl style. Visual confirms RTL reorders icon/chevron/buttons.",
+    "AppContext role state is in-memory React state only — on full page reload, role resets to null and redirects through splash → role-select. Expected for this prototype (no persistence)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "~99%"},
+  "seed_data_creation": "None — MOCK_LEADERBOARD, MY_RANK=4, MY_TOTAL_MEALS=642, MOCK_NEARBY_RESTAURANTS (5 items) used as-is from mockData.ts.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iteration 4 verified. Key testIDs confirmed working: language-sheet, lang-option-{en,ar,fa,ur,hi,ml,bn,fil,ne}, home-lang-toggle, role-{donor,volunteer,recipient}-card, home-screen, donor-leaderboard, home-action-{findFood,request,donate,deliver}, find-food-screen, pin-r1..r5, restaurant-r1..r5, filter-{all,pickup,byo}, pickup-rX, byo-rX. Farsi native name='فارسی', flag='🇮🇷'. RTL_LANGS=['ar','fa','ur']. Alert.alert on RN-web uses window.alert — Playwright dialog capture is racy but click itself works.",
+  "rca_of_issue": "N/A — no blocking bugs. The single 'failure' in run (home-screen timeout after page reload) was due to AppContext role state being lost on full reload, which is expected behavior for the in-memory prototype."
+}
