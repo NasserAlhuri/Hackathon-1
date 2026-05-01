@@ -100,6 +100,24 @@ export const MOCK_IMPACT = {
   weeklyTrend: [320, 450, 380, 610, 540, 720, 820],
 };
 
+export const VOLUNTEER_STATS = {
+  tasksToday: 2,
+  kmCovered: 12.5,
+  totalDeliveries: 47,
+  rating: 4.9,
+};
+
+export const MOCK_MY_DONATIONS = [
+  { id: 'd1', title_en: 'Iftar leftovers', title_ar: 'بقايا إفطار', meals: 22, status: 'delivered', date: 'Yesterday' },
+  { id: 'd2', title_en: 'Office lunch surplus', title_ar: 'فائض غداء مكتب', meals: 14, status: 'in_transit', date: 'Today' },
+  { id: 'd3', title_en: 'Family gathering', title_ar: 'تجمع عائلي', meals: 8, status: 'delivered', date: '3 days ago' },
+];
+
+export const MOCK_MY_REQUESTS = [
+  { id: 'q1', familySize: 4, urgency: 'high', area_en: 'Al Wakrah', area_ar: 'الوكرة', status: 'matched', match_en: 'RAF Qatar', match_ar: 'راف قطر', date: 'Today' },
+  { id: 'q2', familySize: 4, urgency: 'mid', area_en: 'Al Wakrah', area_ar: 'الوكرة', status: 'fulfilled', match_en: 'Qatar Charity', match_ar: 'قطر الخيرية', date: 'Last week' },
+];
+
 export const MOCK_RECENT = [
   {
     id: 'r1',

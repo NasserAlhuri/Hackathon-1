@@ -5,7 +5,27 @@ import { COLORS } from '../../src/constants/theme';
 import { useApp } from '../../src/context/AppContext';
 
 export default function TabsLayout() {
-  const { t } = useApp();
+  const { t, role } = useApp();
+
+  // Activity tab label varies by role
+  const activityLabel = (() => {
+    switch (role) {
+      case 'volunteer': return t('deliveries');
+      case 'ngo': return t('incomingDonations');
+      case 'requester': return 'My Requests';
+      default: return 'My Donations';
+    }
+  })();
+
+  const activityIcon = (() => {
+    switch (role) {
+      case 'volunteer': return 'car-outline';
+      case 'ngo': return 'archive-outline';
+      case 'requester': return 'document-text-outline';
+      default: return 'list-outline';
+    }
+  })();
+
   return (
     <Tabs
       screenOptions={{
@@ -30,17 +50,10 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="deliveries"
+        name="activity"
         options={{
-          title: t('deliveries'),
-          tabBarIcon: ({ color, size }) => <Ionicons name="car-outline" color={color} size={size} />,
-        }}
-      />
-      <Tabs.Screen
-        name="impact"
-        options={{
-          title: t('impact'),
-          tabBarIcon: ({ color, size }) => <Ionicons name="bar-chart-outline" color={color} size={size} />,
+          title: activityLabel,
+          tabBarIcon: ({ color, size }) => <Ionicons name={activityIcon as any} color={color} size={size} />,
         }}
       />
       <Tabs.Screen

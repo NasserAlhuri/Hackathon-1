@@ -9,7 +9,19 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <AppProvider>
         <StatusBar style="dark" />
-        <Stack screenOptions={{ headerShown: false, animation: 'slide_from_right' }} />
+        <Stack screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="role-select" />
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen
+            name="impact"
+            options={{
+              presentation: 'transparentModal',
+              animation: 'fade',
+              headerShown: false,
+            }}
+          />
+        </Stack>
       </AppProvider>
     </SafeAreaProvider>
   );

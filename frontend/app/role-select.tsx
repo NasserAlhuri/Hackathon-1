@@ -28,10 +28,7 @@ export default function RoleSelect() {
 
   const pick = (r: Exclude<Role, null>) => {
     setRole(r);
-    if (r === 'volunteer') router.replace('/(tabs)/deliveries');
-    else if (r === 'ngo') router.replace('/ngo-dashboard');
-    else if (r === 'requester') router.replace('/request-food');
-    else router.replace('/(tabs)/home');
+    router.replace('/(tabs)/home');
   };
 
   return (
