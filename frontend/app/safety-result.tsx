@@ -40,7 +40,7 @@ export default function SafetyResult() {
       </View>
 
       {level !== 'risky' && (
-        <View style={styles.infoCard}>
+        <View style={[styles.infoCard, isRTL && { flexDirection: 'row-reverse' }]}>
           <Ionicons name="time-outline" size={22} color={COLORS.primary} />
           <View style={{ marginHorizontal: SPACING.md, flex: 1 }}>
             <Text style={styles.infoLabel}>{t('deliveryWindow')}</Text>

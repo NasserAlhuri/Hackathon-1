@@ -9,6 +9,7 @@ import { COLORS, FONT, RADIUS, SPACING, SHADOW } from '../../src/constants/theme
 import { LANGUAGES } from '../../src/constants/i18n';
 import { getTier, getNextTier } from '../../src/constants/gamification';
 import QatariPattern, { PalmTree } from '../../src/components/QatariPattern';
+import { LogoRow } from '../../src/components/NekhwaLogo';
 import { MOCK_IMPACT, MOCK_RECENT, VOLUNTEER_STATS, MOCK_MY_REQUESTS, MOCK_LEADERBOARD, MOCK_LEADERBOARD_ORGS, MY_RANK, MY_TOTAL_MEALS, MY_DONOR_IMPACT } from '../../src/data/mockData';
 
 export default function Home() {
@@ -191,10 +192,7 @@ export default function Home() {
     <>
       <Screen testID="home-screen">
         <View style={[styles.header, isRTL && { flexDirection: 'row-reverse' }]}>
-          <View>
-            <Text style={[styles.greet, isRTL && styles.rtl]}>{t('hello')} 👋</Text>
-            <Text style={[styles.appname, isRTL && styles.rtl]}>{t('appName')}</Text>
-          </View>
+          <LogoRow size={40} />
           <TouchableOpacity testID="home-lang-toggle" onPress={() => setLangOpen(true)} style={styles.langBtn}>
             <Text style={styles.langFlag}>{currentLang?.flag}</Text>
             <Text style={styles.langTxt} numberOfLines={1}>{currentLang?.native}</Text>
@@ -209,7 +207,7 @@ export default function Home() {
           <View style={styles.heroBlob2} />
           <View style={styles.liveBadge}>
             <View style={styles.liveDot} />
-            <Text style={styles.liveTxt}>LIVE • QATAR</Text>
+            <Text style={styles.liveTxt}>{t('liveLocation')}</Text>
           </View>
           <Text style={[styles.heroLabel, isRTL && styles.rtl]}>{role === 'donor' ? t('yourMealsRescued') : t('mealsRescuedToday')}</Text>
           <Text style={styles.heroValue}>{display.toLocaleString()}</Text>
@@ -287,8 +285,6 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: SPACING.md },
-  greet: { fontSize: FONT.size.sm, color: COLORS.textMuted },
-  appname: { fontSize: FONT.size.xl, fontWeight: FONT.weight.extrabold, color: COLORS.primary, marginTop: 2 },
   rtl: { textAlign: 'right', writingDirection: 'rtl' },
   langBtn: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingVertical: 8, borderRadius: RADIUS.full, backgroundColor: COLORS.surfaceAlt, borderWidth: 1, borderColor: COLORS.border, maxWidth: 130 },
   langFlag: { fontSize: 14, marginEnd: 6 },
@@ -311,7 +307,7 @@ const styles = StyleSheet.create({
   heroBlob1: { position: 'absolute', width: 220, height: 220, borderRadius: 220, backgroundColor: COLORS.primaryLight, opacity: 0.5, top: -80, right: -60 },
   heroBlob2: { position: 'absolute', width: 140, height: 140, borderRadius: 140, backgroundColor: COLORS.accent, opacity: 0.35, bottom: -50, left: -30 },
   liveBadge: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.18)', alignSelf: 'flex-start', paddingHorizontal: 10, paddingVertical: 5, borderRadius: RADIUS.full },
-  liveDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: '#5DEE9C', marginRight: 6 },
+  liveDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: '#5DEE9C', marginEnd: 6 },
   liveTxt: { color: '#fff', fontSize: 9, fontWeight: '800', letterSpacing: 1.4 },
   heroLabel: { color: '#fff', opacity: 0.85, fontSize: FONT.size.sm, marginTop: SPACING.md },
   heroValue: { color: '#fff', fontSize: 56, fontWeight: FONT.weight.extrabold, marginTop: 2, letterSpacing: -2, lineHeight: 60 },

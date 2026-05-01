@@ -14,8 +14,14 @@ function StackInner() {
       <StatusBar style="dark" />
       <Stack screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
         <Stack.Screen name="index" />
+        <Stack.Screen name="login" />
         <Stack.Screen name="role-select" />
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="donate" />
+        <Stack.Screen name="safety-check" />
+        <Stack.Screen name="safety-result" />
+        <Stack.Screen name="find-food" />
+        <Stack.Screen name="request-food" />
         <Stack.Screen name="impact" options={{ presentation: 'transparentModal', animation: 'fade', headerShown: false }} />
       </Stack>
     </View>
