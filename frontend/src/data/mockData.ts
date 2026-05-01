@@ -132,13 +132,13 @@ export function computeSafety(hoursAgo: number, storage: 'hot' | 'cold' | 'room'
   windowMinutes: number;
 } {
   if (storage === 'cold') {
-    if (hoursAgo <= 4) return { level: 'safe', windowMinutes: 180 };
-    if (hoursAgo <= 8) return { level: 'caution', windowMinutes: 90 };
+    if (hoursAgo <= 3) return { level: 'safe', windowMinutes: 180 };
+    if (hoursAgo <= 6) return { level: 'caution', windowMinutes: 90 };
     return { level: 'risky', windowMinutes: 0 };
   }
   if (storage === 'hot') {
     if (hoursAgo <= 2) return { level: 'safe', windowMinutes: 120 };
-    if (hoursAgo <= 4) return { level: 'caution', windowMinutes: 60 };
+    if (hoursAgo <= 3) return { level: 'caution', windowMinutes: 60 };
     return { level: 'risky', windowMinutes: 0 };
   }
   // room temperature
