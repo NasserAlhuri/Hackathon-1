@@ -76,7 +76,7 @@ export default function SafetyResult() {
           <Button
             testID="find-volunteer-btn"
             label={t('findVolunteer')}
-            onPress={() => router.replace('/(tabs)/deliveries')}
+            onPress={() => router.replace('/(tabs)/activity')}
           />
         )}
         <Button testID="safety-done-btn" label={t('back')} variant="outline" onPress={() => router.replace('/(tabs)/home')} />
