@@ -22,6 +22,13 @@ export default function Activity() {
     return (
       <Screen testID="activity-screen">
         <Header title={t('nearbyTasks')} showBack={false} />
+        {openTasks.length === 0 && (
+          <View style={styles.emptyState}>
+            <Text style={styles.emptyEmoji}>🎉</Text>
+            <Text style={styles.emptyTitle}>{t('great')}</Text>
+            <Text style={styles.emptySub}>{t('allDeliveriesDone')}</Text>
+          </View>
+        )}
         {openTasks.map((task) => {
           const label = task.status === 'open' ? t('accept') : task.status === 'accepted' ? t('markPickup') : task.status === 'pickup' ? t('markOnWay') : t('confirmDelivery');
           const nextStatus = task.status === 'open' ? 'accepted' : task.status === 'accepted' ? 'pickup' : task.status === 'pickup' ? 'onway' : 'delivered';
@@ -152,4 +159,8 @@ const styles = StyleSheet.create({
   newBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: COLORS.primary + '10', borderWidth: 1.5, borderColor: COLORS.primary + '40', borderStyle: 'dashed', paddingVertical: 14, borderRadius: RADIUS.lg, marginBottom: SPACING.md },
   newBtnTxt: { color: COLORS.primary, fontWeight: FONT.weight.bold, fontSize: FONT.size.md, marginStart: 6 },
   matchInfo: { fontSize: FONT.size.sm, color: COLORS.accentDark, fontWeight: FONT.weight.semibold, marginTop: SPACING.sm, paddingTop: SPACING.sm, borderTopWidth: 1, borderTopColor: COLORS.surfaceAlt },
+  emptyState: { alignItems: 'center', justifyContent: 'center', paddingVertical: SPACING.xxl },
+  emptyEmoji: { fontSize: 56, marginBottom: SPACING.md },
+  emptyTitle: { fontSize: FONT.size.xl, fontWeight: FONT.weight.extrabold, color: COLORS.textPrimary, marginBottom: SPACING.sm },
+  emptySub: { fontSize: FONT.size.md, color: COLORS.textMuted, textAlign: 'center' },
 });

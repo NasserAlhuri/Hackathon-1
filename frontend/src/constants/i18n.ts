@@ -224,6 +224,18 @@ const en = {
   kg: 'kg',
   hours: 'hrs',
   minutes: 'min',
+
+  // Login screen
+  welcomeBack: 'Welcome back',
+  signInToContinue: 'Sign in to continue',
+  email: 'Email',
+  password: 'Password',
+  signIn: 'Sign In',
+  continueAsDemo: 'Continue as Demo',
+  demoAccounts: 'Demo Accounts',
+  demoPasswordHint: 'Password for all: demo123',
+  liveLocation: 'LIVE • QATAR',
+  ok: 'OK',
 };
 
 type Dict = typeof en;
@@ -309,6 +321,11 @@ const ar: Dict = {
   success_thanks: 'شكراً لكرمك!', donationSubmitted: 'تم إرسال التبرع',
   requestSubmitted: 'تم إرسال الطلب', taskCompleted: 'تم التسليم',
   kg: 'كجم', hours: 'ساعة', minutes: 'دقيقة',
+  welcomeBack: 'مرحباً بعودتك', signInToContinue: 'سجّل دخولك للمتابعة',
+  email: 'البريد الإلكتروني', password: 'كلمة المرور',
+  signIn: 'تسجيل الدخول', continueAsDemo: 'المتابعة كتجربة',
+  demoAccounts: 'حسابات تجريبية', demoPasswordHint: 'كلمة مرور الجميع: demo123',
+  liveLocation: 'مباشر • قطر', ok: 'حسنًا',
 };
 
 const fa: Dict = {
@@ -393,6 +410,11 @@ const fa: Dict = {
   success_thanks: 'از مهربانی شما سپاسگزاریم!', donationSubmitted: 'اهدا ارسال شد',
   requestSubmitted: 'درخواست ارسال شد', taskCompleted: 'تحویل انجام شد',
   kg: 'کیلوگرم', hours: 'ساعت', minutes: 'دقیقه',
+  welcomeBack: 'خوش آمدید', signInToContinue: 'برای ادامه وارد شوید',
+  email: 'ایمیل', password: 'رمز عبور',
+  signIn: 'ورود', continueAsDemo: 'ادامه به عنوان نمایش',
+  demoAccounts: 'حساب‌های نمایشی', demoPasswordHint: 'رمز همه: demo123',
+  liveLocation: 'زنده • قطر', ok: 'باشه',
 };
 
 const ur: Dict = {
@@ -476,6 +498,11 @@ const ur: Dict = {
   success_thanks: 'آپ کی مہربانی کا شکریہ!', donationSubmitted: 'عطیہ بھیج دیا',
   requestSubmitted: 'درخواست بھیج دی', taskCompleted: 'ڈیلیوری مکمل',
   kg: 'کلوگرام', hours: 'گھنٹہ', minutes: 'منٹ',
+  welcomeBack: 'خوش آمدید', signInToContinue: 'جاری رکھنے کے لیے سائن ان کریں',
+  email: 'ای میل', password: 'پاس ورڈ',
+  signIn: 'سائن ان', continueAsDemo: 'ڈیمو کے طور پر جاری رکھیں',
+  demoAccounts: 'ڈیمو اکاؤنٹس', demoPasswordHint: 'سب کا پاس ورڈ: demo123',
+  liveLocation: 'براہ راست • قطر', ok: 'ٹھیک ہے',
 };
 
 const hi: Dict = {
@@ -559,6 +586,11 @@ const hi: Dict = {
   success_thanks: 'आपकी दया का धन्यवाद!', donationSubmitted: 'दान भेजा',
   requestSubmitted: 'अनुरोध भेजा', taskCompleted: 'डिलीवरी पूरी',
   kg: 'किग्रा', hours: 'घंटे', minutes: 'मिनट',
+  welcomeBack: 'वापस स्वागत है', signInToContinue: 'जारी रखने के लिए साइन इन करें',
+  email: 'ईमेल', password: 'पासवर्ड',
+  signIn: 'साइन इन', continueAsDemo: 'डेमो के रूप में जारी रखें',
+  demoAccounts: 'डेमो खाते', demoPasswordHint: 'सभी का पासवर्ड: demo123',
+  liveLocation: 'लाइव • क़तर', ok: 'ठीक है',
 };
 
 const ml: Dict = {
@@ -642,6 +674,11 @@ const ml: Dict = {
   success_thanks: 'നിങ്ങളുടെ കാരുണ്യത്തിന് നന്ദി!', donationSubmitted: 'ദാനം അയച്ചു',
   requestSubmitted: 'അഭ്യർത്ഥന അയച്ചു', taskCompleted: 'ഡെലിവറി പൂർത്തിയായി',
   kg: 'കിലോഗ്രാം', hours: 'മണിക്കൂർ', minutes: 'മിനിറ്റ്',
+  welcomeBack: 'സ്വാഗതം', signInToContinue: 'തുടരാൻ സൈൻ ഇൻ ചെയ്യുക',
+  email: 'ഇമെയിൽ', password: 'പാസ്‌വേഡ്',
+  signIn: 'സൈൻ ഇൻ', continueAsDemo: 'ഡെമോ ആയി തുടരുക',
+  demoAccounts: 'ഡെമോ അക്കൗണ്ടുകൾ', demoPasswordHint: 'എല്ലാ പാസ്‌വേഡ്: demo123',
+  liveLocation: 'തൽസമയം • ഖത്തർ', ok: 'ശരി',
 };
 
 const bn: Dict = {
@@ -725,6 +762,11 @@ const bn: Dict = {
   success_thanks: 'আপনার দয়ার জন্য ধন্যবাদ!', donationSubmitted: 'দান পাঠানো হয়েছে',
   requestSubmitted: 'অনুরোধ পাঠানো হয়েছে', taskCompleted: 'ডেলিভারি সম্পন্ন',
   kg: 'কেজি', hours: 'ঘণ্টা', minutes: 'মিনিট',
+  welcomeBack: 'স্বাগত ফিরে', signInToContinue: 'চালিয়ে যেতে সাইন ইন করুন',
+  email: 'ইমেইল', password: 'পাসওয়ার্ড',
+  signIn: 'সাইন ইন', continueAsDemo: 'ডেমো হিসেবে চালিয়ে যান',
+  demoAccounts: 'ডেমো অ্যাকাউন্ট', demoPasswordHint: 'সবার পাসওয়ার্ড: demo123',
+  liveLocation: 'লাইভ • কাতার', ok: 'ঠিক আছে',
 };
 
 const fil: Dict = {
@@ -808,6 +850,11 @@ const fil: Dict = {
   success_thanks: 'Salamat sa iyong kabaitan!', donationSubmitted: 'Naipadala ang donasyon',
   requestSubmitted: 'Naipadala ang kahilingan', taskCompleted: 'Tapos na ang delivery',
   kg: 'kg', hours: 'oras', minutes: 'min',
+  welcomeBack: 'Maligayang pagbabalik', signInToContinue: 'Mag-sign in upang magpatuloy',
+  email: 'Email', password: 'Password',
+  signIn: 'Mag-sign In', continueAsDemo: 'Magpatuloy bilang Demo',
+  demoAccounts: 'Mga Demo Account', demoPasswordHint: 'Password ng lahat: demo123',
+  liveLocation: 'LIVE • QATAR', ok: 'OK',
 };
 
 const ne: Dict = {
@@ -891,6 +938,11 @@ const ne: Dict = {
   success_thanks: 'तपाईंको दयाको लागि धन्यवाद!', donationSubmitted: 'दान पठाइयो',
   requestSubmitted: 'अनुरोध पठाइयो', taskCompleted: 'डेलिभरी पूरा',
   kg: 'किग्रा', hours: 'घण्टा', minutes: 'मिनेट',
+  welcomeBack: 'फिर्ता स्वागत', signInToContinue: 'जारी राख्न साइन इन गर्नुहोस्',
+  email: 'इमेल', password: 'पासवर्ड',
+  signIn: 'साइन इन', continueAsDemo: 'डेमोको रूपमा जारी राख्नुहोस्',
+  demoAccounts: 'डेमो खाताहरू', demoPasswordHint: 'सबैको पासवर्ड: demo123',
+  liveLocation: 'लाइभ • कतार', ok: 'ठिक छ',
 };
 
 export const translations: Record<Lang, Dict> = {
