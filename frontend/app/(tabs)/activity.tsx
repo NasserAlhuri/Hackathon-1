@@ -26,16 +26,17 @@ export default function Activity() {
           const label = task.status === 'open' ? t('accept') : task.status === 'accepted' ? t('markPickup') : task.status === 'pickup' ? t('markOnWay') : t('confirmDelivery');
           const nextStatus = task.status === 'open' ? 'accepted' : task.status === 'accepted' ? 'pickup' : task.status === 'pickup' ? 'onway' : 'delivered';
           const btnColor = task.status === 'open' ? COLORS.accent : COLORS.primary;
+          const statusKey: any = task.status === 'open' ? 'open' : task.status === 'accepted' ? 'accepted' : task.status === 'pickup' ? 'pickup' : 'onway';
           return (
             <View key={task.id} testID={`task-card-${task.id}`} style={styles.card}>
               <View style={[styles.cardHead, isRTL && { flexDirection: 'row-reverse' }]}>
                 <View style={styles.iconBadge}><Ionicons name="restaurant-outline" size={18} color={COLORS.primary} /></View>
                 <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
-                  <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'ar' ? task.title_ar : task.title_en}</Text>
-                  <Text style={[styles.sub, isRTL && styles.rtl]}>{task.meals} meals · {task.distanceKm} {t('distance')}</Text>
+                  <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'ar' || lang === 'fa' ? task.title_ar : task.title_en}</Text>
+                  <Text style={[styles.sub, isRTL && styles.rtl]}>{task.meals} {t('meals')} · {task.distanceKm} {t('distance')}</Text>
                 </View>
                 <View style={[styles.statusPill, { backgroundColor: task.status === 'open' ? COLORS.accent + '1A' : COLORS.warning + '26' }]}>
-                  <Text style={[styles.statusTxt, { color: task.status === 'open' ? COLORS.accentDark : COLORS.warning }]}>{task.status.toUpperCase()}</Text>
+                  <Text style={[styles.statusTxt, { color: task.status === 'open' ? COLORS.accentDark : COLORS.warning }]}>{t(statusKey)}</Text>
                 </View>
               </View>
               <View style={styles.routeRow}>
@@ -82,15 +83,15 @@ export default function Activity() {
               <View style={[styles.cardHead, isRTL && { flexDirection: 'row-reverse' }]}>
                 <View style={styles.iconBadge}><Ionicons name="hand-left-outline" size={16} color={COLORS.primary} /></View>
                 <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
-                  <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'ar' ? `عائلة من ${r.familySize}` : `Family of ${r.familySize}`}</Text>
-                  <Text style={[styles.sub, isRTL && styles.rtl]}>{lang === 'ar' ? r.area_ar : r.area_en} · {r.date}</Text>
+                  <Text style={[styles.title, isRTL && styles.rtl]}>{t('familyOf')} {r.familySize}</Text>
+                  <Text style={[styles.sub, isRTL && styles.rtl]}>{lang === 'ar' || lang === 'fa' ? r.area_ar : r.area_en} · {r.date}</Text>
                 </View>
                 <View style={[styles.statusPill, { backgroundColor: statusColor + '1A' }]}>
-                  <Text style={[styles.statusTxt, { color: statusColor }]}>{r.status.toUpperCase()}</Text>
+                  <Text style={[styles.statusTxt, { color: statusColor }]}>{r.status === 'matched' ? t('matchedStatus') : r.status === 'fulfilled' ? t('statusFulfilled') : t('statusPending')}</Text>
                 </View>
               </View>
               <Text style={[styles.matchInfo, isRTL && styles.rtl]}>
-                ✓ {lang === 'ar' ? `تم الربط مع ${r.match_ar}` : `Matched with ${r.match_en}`}
+                ✓ {t('matchedWith')} {lang === 'ar' || lang === 'fa' ? r.match_ar : r.match_en}
               </Text>
             </View>
           );
@@ -114,12 +115,12 @@ export default function Activity() {
             <View style={[styles.cardHead, isRTL && { flexDirection: 'row-reverse' }]}>
               <View style={styles.iconBadge}><Ionicons name="gift-outline" size={16} color={COLORS.primary} /></View>
               <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
-                <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'ar' ? d.title_ar : d.title_en}</Text>
-                <Text style={[styles.sub, isRTL && styles.rtl]}>{d.meals} meals · {d.date}</Text>
+                <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'ar' || lang === 'fa' ? d.title_ar : d.title_en}</Text>
+                <Text style={[styles.sub, isRTL && styles.rtl]}>{d.meals} {t('meals')} · {d.date}</Text>
               </View>
               <View style={[styles.statusPill, { backgroundColor: (isDelivered ? COLORS.accent : COLORS.warning) + '1A' }]}>
                 <Text style={[styles.statusTxt, { color: isDelivered ? COLORS.accentDark : COLORS.warning }]}>
-                  {isDelivered ? (lang === 'ar' ? 'تم' : 'DELIVERED') : (lang === 'ar' ? 'في الطريق' : 'IN TRANSIT')}
+                  {isDelivered ? t('statusDelivered') : t('statusInTransit')}
                 </Text>
               </View>
             </View>

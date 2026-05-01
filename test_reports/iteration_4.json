@@ -1,0 +1,40 @@
+{
+  "summary": "Iteration 5 frontend validation for Nekhwa: RTL layout flip on web (direction:'rtl'), expanded Arabic/Farsi/Urdu translations, and new Home Delivery option on Find Food screen all verified end-to-end via mobile-viewport Playwright on the public preview URL. All 7 acceptance criteria pass.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "find-food (Arabic/RTL)", "issues": ["Horizontal filter chip ScrollView is slightly clipped on the leading edge in RTL — the first chip 'الكل' visually overlaps with the section heading 'مطاعم ومتبرعون قريبون'. Functionally OK (chip is tappable), but a small contentInset / paddingStart fix would tidy the look. Minor / cosmetic."]},
+      {"screen": "activity (Arabic)", "issues": ["Date strings (Today/Yesterday/Last week/3 days ago) remain hard-coded English — out of scope for iter 5 but worth queueing for iter 6."]}
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": [],
+  "validation_results": {
+    "1_rtl_flip": "PASS — root View applies direction:'rtl' on web; header back arrow flips to right, content right-aligned, bottom tabs reorder, list cards mirror correctly.",
+    "2_profile_translations_ar": "PASS — Profile screen shows البطاقة القطرية (Qatar ID), الهاتف (Phone), التفضيلات (Preferences), التحقق (Verification), موثق (Verified), تغيير الدور (Switch Role).",
+    "3_activity_translations_ar": "PASS — Recipient activity shows 'عائلة من 4', 'الوكرة', 'تم الربط', 'تم تنفيذه', '✓ تم الربط مع راف قطر'. Donor activity status pills render 'تم' (delivered) and 'في الطريق' (in transit) — no DELIVERED/IN TRANSIT/OPEN English leak. 'وجبة' used for meals.",
+    "4_find_food_4_chips": "PASS — testIDs filter-all, filter-pickup, filter-byo, filter-delivery all present. Labels in AR: الكل / استلام ذاتي / أحضر إناءك / توصيل للمنزل.",
+    "5_r3_no_delivery": "PASS — restaurant-r3 (Pearl Cafe) exposes pickup-r3 and byo-r3 only (delivery-r3 is absent in DOM).",
+    "6_filter_delivery_filters": "PASS — selecting filter-delivery shows exactly restaurant-r1, restaurant-r2, restaurant-r4, restaurant-r5 (4 of 5).",
+    "7_leaderboard_you_label": "PASS — Arabic shows 'Ahmed Al-Mahmoud (أنت)'; English shows 'You'. Direct verification of i18n key 'you'.",
+    "delivery_alert": "PASS — tapping delivery-r1 (warning/orange button) triggers confirmation alert with Arabic restaurant name and 'توصيل للمنزل' label."
+  },
+  "action_items": [
+    "Optional cosmetic: in find-food.tsx filterRow, add paddingStart equal to SPACING.lg or wrap with extra padding so first chip in RTL doesn't visually collide with the section heading.",
+    "Iter 6 candidate: translate relative date strings ('Today', 'Yesterday', 'Last week', '3 days ago', '2h', '5h', '1d') in mockData / activity / recent feed.",
+    "Persist selected language via AsyncStorage so a hard refresh / direct-URL navigation keeps the chosen locale (currently in-memory only via AppContext)."
+  ],
+  "critical_code_review_comments": [
+    "_layout.tsx applies direction:'rtl' on the root View — works on web (where View becomes a div and CSS direction takes effect) but on native iOS/Android this approach has no effect; for production native parity, use I18nManager.forceRTL with an app reload. Not blocking for current web-preview scope.",
+    "find-food.tsx filterRow uses fixed flexDirection:'row' inside horizontal ScrollView — leading-edge clipping in RTL is minor."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (frontend-only run)", "frontend": "100% (7/7 acceptance criteria)"},
+  "seed_data_creation": "None — all data still mocked.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Language state lives only in React context (AppContext); reload or page.goto resets to English. Always switch language via in-app language sheet before navigating, or persist via AsyncStorage if added later. Recipient flow exposes tabs: home, activity (طلباتي), profile. Donor flow exposes: home, activity (تبرعاتي), profile. Find Food screen testIDs: find-food-screen, filter-{all|pickup|byo|delivery}, restaurant-{r1..r5}, pickup-{rid}, byo-{rid}, delivery-{rid}. r3 has no delivery button by design.",
+  "rca_of_issue": "n/a — no failures."
+}

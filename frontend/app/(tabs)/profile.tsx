@@ -43,11 +43,12 @@ export default function Profile() {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>{t('verification')}</Text>
-          <View style={styles.row}><Ionicons name="card-outline" size={20} color={COLORS.textSecondary} /><Text style={styles.rowLabel}>Qatar ID</Text><Text style={styles.rowVal}>••••• 4821</Text></View>
-          <View style={styles.row}><Ionicons name="call-outline" size={20} color={COLORS.textSecondary} /><Text style={styles.rowLabel}>Phone</Text><Text style={styles.rowVal}>+974 •••• 3421</Text></View>
+          <View style={styles.row}><Ionicons name="card-outline" size={20} color={COLORS.textSecondary} /><Text style={styles.rowLabel}>{t('qatarId')}</Text><Text style={styles.rowVal}>••••• 4821</Text></View>
+          <View style={styles.row}><Ionicons name="call-outline" size={20} color={COLORS.textSecondary} /><Text style={styles.rowLabel}>{t('phone')}</Text><Text style={styles.rowVal}>+974 •••• 3421</Text></View>
         </View>
 
         <View style={styles.section}>
+          <Text style={styles.sectionTitle}>{t('preferences')}</Text>
           <TouchableOpacity testID="profile-lang-toggle" style={styles.row} onPress={() => setLangOpen(true)}>
             <Ionicons name="globe-outline" size={20} color={COLORS.textSecondary} />
             <Text style={styles.rowLabel}>{t('language')}</Text>
