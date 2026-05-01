@@ -1,0 +1,134 @@
+{
+  "project_name": "Nekhwa / نخوة - Community Food Rescue",
+  "archetype": "Archetype 1: Organic & Earthy (Light Theme)",
+  "design_vision": "A modern, culturally resonant Qatari food rescue platform. Blending earthy warmth with organic UI patterns (anti-grid touches, soft curves) to feel distinctly local but globally sophisticated. Avoids rigid, clinical SaaS aesthetics; instead, uses the 'Neo-minimalism' approach with soft shadows, tactile surfaces, and generous spacing.",
+  "colors": {
+    "primary": {
+      "DEFAULT": "#8A1538",
+      "light": "#A62148",
+      "dark": "#630E26",
+      "foreground": "#FFFFFF"
+    },
+    "accent": {
+      "DEFAULT": "#4E7B62",
+      "light": "#679B7F",
+      "dark": "#325441",
+      "foreground": "#FFFFFF"
+    },
+    "background": {
+      "DEFAULT": "#FAF9F6",
+      "surface": "#FFFFFF",
+      "alt": "#F3EFEA"
+    },
+    "text": {
+      "primary": "#2C2525",
+      "secondary": "#5C5353",
+      "muted": "#8A8181"
+    },
+    "border": "#E8E2DD",
+    "status": {
+      "success": "#4E7B62",
+      "warning": "#D4A373",
+      "error": "#B23A48"
+    }
+  },
+  "typography": {
+    "primary_font": "Manrope",
+    "secondary_font": "Tajawal (for Arabic RTL harmony)",
+    "scale": {
+      "h1": "text-3xl font-bold tracking-tight",
+      "h2": "text-2xl font-bold tracking-tight",
+      "h3": "text-xl font-semibold",
+      "body": "text-base font-normal leading-relaxed",
+      "small": "text-sm font-medium text-muted",
+      "tiny": "text-xs font-bold uppercase tracking-widest"
+    }
+  },
+  "layout_spacing": {
+    "container": "max-w-md mx-auto h-[100dvh] overflow-hidden flex flex-col bg-background relative shadow-2xl ring-1 ring-black/5",
+    "content_area": "flex-1 overflow-y-auto pb-24 px-4 sm:px-6 pt-6",
+    "section_gap": "space-y-6 lg:space-y-8",
+    "card_padding": "p-4 sm:p-6",
+    "border_radius": {
+      "base": "rounded-2xl",
+      "large": "rounded-[24px]",
+      "full": "rounded-full"
+    }
+  },
+  "components": {
+    "bottom_tab_nav": {
+      "style": "fixed bottom-0 w-full max-w-md bg-white/90 backdrop-blur-xl border-t border-border pb-safe pt-2 px-6 flex justify-between items-center z-50",
+      "active_state": "text-primary scale-110 transition-transform",
+      "inactive_state": "text-muted"
+    },
+    "buttons": {
+      "primary": "bg-primary text-white rounded-full py-4 px-6 font-semibold active:scale-95 transition-all shadow-sm",
+      "secondary": "bg-accent/10 text-accent rounded-full py-4 px-6 font-semibold active:scale-95 transition-all",
+      "outline": "border-2 border-primary/20 text-primary rounded-full py-4 px-6 font-semibold active:bg-primary/5"
+    },
+    "cards": {
+      "default": "bg-white rounded-2xl border border-border shadow-sm p-5",
+      "interactive": "bg-white rounded-2xl border border-border shadow-sm p-5 active:bg-alt transition-colors cursor-pointer"
+    },
+    "inputs": {
+      "text": "bg-alt border-transparent rounded-xl focus:border-primary focus:ring-1 focus:ring-primary px-4 py-3 h-14 w-full text-base",
+      "select": "bg-alt border-transparent rounded-xl px-4 py-3 h-14 w-full"
+    }
+  },
+  "accessibility": {
+    "rtl_support": "Use logical properties (e.g., ms-4 instead of ml-4, pe-4 instead of pr-4, start/end alignments). Entire app must toggle dir='ltr' to dir='rtl' dynamically based on language state.",
+    "contrast": "Ensure primary text meets APCA criteria against soft beige backgrounds.",
+    "testing": "All interactive elements MUST have role-based data-testid attributes (e.g., data-testid='home-donate-button')."
+  },
+  "screens": [
+    {
+      "name": "Splash Screen",
+      "details": "Full-screen primary color (Maroon) with a subtle geometric background pattern. Center aligned Nekhwa / نخوة logo. Smooth fade out after 2s."
+    },
+    {
+      "name": "Role Selection",
+      "details": "White background. Large heading 'How would you like to help?'. Grid of cards for roles: Individual Donor, Org Donor, Volunteer, NGO. Cards feature large icons, soft green active states."
+    },
+    {
+      "name": "Home Screen",
+      "details": "Top bar: User greeting + Language toggle (EN/AR). Hero card: Impact summary (Meals rescued). Grid of Quick Actions: 'Donate Food', 'Volunteer Delivery', 'Request Food'. Bottom Tab Navigation."
+    },
+    {
+      "name": "Quick Donation Form",
+      "details": "Step-by-step mobile-friendly form. 1. Photo Upload (mock camera UI). 2. Food description & Meal count (under 50). 3. Safety Check checkboxes (Allergens, Expiry). 4. Location Picker (static dropdown of Qatar areas)."
+    },
+    {
+      "name": "Delivery Task List (Volunteer)",
+      "details": "List of available food rescues. Each card shows pickup location, drop-off NGO, distance, and meal count. 'Accept Rescue' CTA in accent green."
+    },
+    {
+      "name": "Impact Dashboard",
+      "details": "Visual heavy. Use Shadcn charts (Recharts) to show Meals Rescued, Waste Reduced (kg), and Areas Served. Large typography for key metrics. Soft, rounded bar charts in Maroon and Green."
+    }
+  ],
+  "image_urls": [
+    {
+      "category": "donation_hero",
+      "url": "https://images.unsplash.com/photo-1683363802240-12ca54c27282?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHw0fHxmb29kJTIwZG9uYXRpb24lMjBjaGFyaXR5JTIwdm9sdW50ZWVyJTIwTWlkZGxlJTIwRWFzdHxlbnwwfHx8fDE3Nzc2MzUwMDB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "People sharing food/resources."
+    },
+    {
+      "category": "delivery_boxes",
+      "url": "https://images.unsplash.com/photo-1720811568479-165bff5d9d19?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwzfHxmb29kJTIwYmFuayUyMGRlbGl2ZXJ5JTIwYm94ZXN8ZW58MHx8fHwxNzc3NjM1MDEyfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Stacked boxes for delivery mockups."
+    },
+    {
+      "category": "community_volunteers",
+      "url": "https://images.unsplash.com/photo-1683363831274-b401b5721fb5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwyfHxmb29kJTIwZG9uYXRpb24lMjBjaGFyaXR5JTIwdm9sdW50ZWVyJTIwTWlkZGxlJTIwRWFzdHxlbnwwfHx8fDE3Nzc2MzUwMDB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Young community members."
+    }
+  ],
+  "icon_strategy": {
+    "library": "lucide-react",
+    "style": "stroke-width: 2, slightly rounded caps. Use distinct colors (primary or accent) for active state icons."
+  },
+  "motion_strategy": {
+    "philosophy": "Mobile-native feel. Snappy but organic.",
+    "transitions": "Use Framer Motion for page transitions (slide in from right for forward navigation, slide out to right for back). List items should stagger in softly from the bottom."
+  }
+}
