@@ -12,8 +12,8 @@ export default function TabsLayout() {
     switch (role) {
       case 'volunteer': return t('deliveries');
       case 'ngo': return t('incomingDonations');
-      case 'requester': return 'My Requests';
-      default: return 'My Donations';
+      case 'requester': return t('myRequests');
+      default: return t('myDonations');
     }
   })();
 
