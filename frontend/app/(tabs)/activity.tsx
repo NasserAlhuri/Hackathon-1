@@ -11,10 +11,9 @@ import { QATAR_LOCATIONS, MOCK_MY_DONATIONS, MOCK_MY_REQUESTS } from '../../src/
 export default function Activity() {
   const { t, role, tasks, lang, isRTL, updateTask } = useApp();
   const router = useRouter();
-
   const locName = (id: string) => {
     const l = QATAR_LOCATIONS.find((x) => x.id === id);
-    return l ? (lang === 'en' ? l.en : l.ar) : id;
+    return l ? (lang === 'ar' ? l.ar : l.en) : id;
   };
 
   // VOLUNTEER
@@ -32,7 +31,7 @@ export default function Activity() {
               <View style={[styles.cardHead, isRTL && { flexDirection: 'row-reverse' }]}>
                 <View style={styles.iconBadge}><Ionicons name="restaurant-outline" size={18} color={COLORS.primary} /></View>
                 <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
-                  <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'en' ? task.title_en : task.title_ar}</Text>
+                  <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'ar' ? task.title_ar : task.title_en}</Text>
                   <Text style={[styles.sub, isRTL && styles.rtl]}>{task.meals} meals · {task.distanceKm} {t('distance')}</Text>
                 </View>
                 <View style={[styles.statusPill, { backgroundColor: task.status === 'open' ? COLORS.accent + '1A' : COLORS.warning + '26' }]}>
@@ -47,20 +46,15 @@ export default function Activity() {
                 <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={18} color={COLORS.textMuted} />
                 <View style={[styles.routeCol, { alignItems: 'flex-end' }]}>
                   <Text style={styles.routeLabel}>{t('toLabel')}</Text>
-                  <Text style={styles.routeVal}>{lang === 'en' ? task.toNgo_en : task.toNgo_ar}</Text>
+                  <Text style={styles.routeVal}>{lang === 'ar' ? task.toNgo_ar : task.toNgo_en}</Text>
                 </View>
               </View>
               <View style={styles.metaRow}>
                 <View style={styles.meta}><Ionicons name="time-outline" size={14} color={COLORS.textMuted} /><Text style={styles.metaTxt}>{task.scheduledIn}</Text></View>
                 <View style={styles.meta}><Ionicons name="car-outline" size={14} color={COLORS.textMuted} /><Text style={styles.metaTxt}>{t(task.vehicle)}</Text></View>
               </View>
-              <TouchableOpacity
-                testID={`task-advance-${task.id}`}
-                activeOpacity={0.85}
-                onPress={() => {
-                  updateTask(task.id, { status: nextStatus });
-                  if (nextStatus === 'delivered') Alert.alert(t('taskCompleted'), t('success_thanks'));
-                }}
+              <TouchableOpacity testID={`task-advance-${task.id}`} activeOpacity={0.85}
+                onPress={() => { updateTask(task.id, { status: nextStatus }); if (nextStatus === 'delivered') Alert.alert(t('taskCompleted'), t('success_thanks')); }}
                 style={[styles.cta, { backgroundColor: btnColor }]}
               >
                 <Text style={styles.ctaTxt}>{label}</Text>
@@ -68,53 +62,18 @@ export default function Activity() {
             </View>
           );
         })}
-        {openTasks.length === 0 && (
-          <View style={styles.empty}>
-            <Ionicons name="checkmark-done-outline" size={40} color={COLORS.accent} />
-            <Text style={styles.emptyTxt}>{lang === 'en' ? 'All deliveries completed. Great work!' : 'تم الانتهاء من كل التوصيلات'}</Text>
-          </View>
-        )}
       </Screen>
     );
   }
 
-  // NGO
-  if (role === 'ngo') {
-    const incoming = tasks.slice(0, 4);
+  // RECIPIENT
+  if (role === 'recipient') {
     return (
       <Screen testID="activity-screen">
-        <Header title={t('incomingDonations')} showBack={false} />
-        {incoming.map((task) => (
-          <View key={task.id} style={styles.card}>
-            <View style={[styles.cardHead, isRTL && { flexDirection: 'row-reverse' }]}>
-              <View style={styles.iconBadge}><Ionicons name="restaurant-outline" size={16} color={COLORS.primary} /></View>
-              <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
-                <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'en' ? task.title_en : task.title_ar}</Text>
-                <Text style={[styles.sub, isRTL && styles.rtl]}>{task.meals} meals · {locName(task.from)}</Text>
-              </View>
-            </View>
-            <View style={[styles.actionRow, isRTL && { flexDirection: 'row-reverse' }]}>
-              <TouchableOpacity testID={`ngo-accept-${task.id}`} onPress={() => updateTask(task.id, { status: 'accepted' })} style={[styles.actionBtn, { backgroundColor: COLORS.accent }]}>
-                <Text style={styles.actionTxt}>{t('accept')}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity testID={`ngo-review-${task.id}`} style={[styles.actionBtn, { backgroundColor: COLORS.surfaceAlt }]}>
-                <Text style={[styles.actionTxt, { color: COLORS.textPrimary }]}>{t('reviewNeeded')}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        ))}
-      </Screen>
-    );
-  }
-
-  // REQUESTER
-  if (role === 'requester') {
-    return (
-      <Screen testID="activity-screen">
-        <Header title={lang === 'en' ? 'My Requests' : 'طلباتي'} showBack={false} />
+        <Header title={t('myRequests')} showBack={false} />
         <TouchableOpacity testID="new-request-btn" style={styles.newBtn} onPress={() => router.push('/request-food')}>
           <Ionicons name="add-circle" size={22} color={COLORS.primary} />
-          <Text style={styles.newBtnTxt}>{lang === 'en' ? 'New Request' : 'طلب جديد'}</Text>
+          <Text style={styles.newBtnTxt}>{t('newRequest')}</Text>
         </TouchableOpacity>
         {MOCK_MY_REQUESTS.map((r) => {
           const statusColor = r.status === 'matched' ? COLORS.accent : r.status === 'fulfilled' ? COLORS.accentDark : COLORS.warning;
@@ -123,22 +82,16 @@ export default function Activity() {
               <View style={[styles.cardHead, isRTL && { flexDirection: 'row-reverse' }]}>
                 <View style={styles.iconBadge}><Ionicons name="hand-left-outline" size={16} color={COLORS.primary} /></View>
                 <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
-                  <Text style={[styles.title, isRTL && styles.rtl]}>
-                    {lang === 'en' ? `Family of ${r.familySize}` : `عائلة من ${r.familySize}`}
-                  </Text>
-                  <Text style={[styles.sub, isRTL && styles.rtl]}>
-                    {lang === 'en' ? r.area_en : r.area_ar} · {r.date}
-                  </Text>
+                  <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'ar' ? `عائلة من ${r.familySize}` : `Family of ${r.familySize}`}</Text>
+                  <Text style={[styles.sub, isRTL && styles.rtl]}>{lang === 'ar' ? r.area_ar : r.area_en} · {r.date}</Text>
                 </View>
                 <View style={[styles.statusPill, { backgroundColor: statusColor + '1A' }]}>
                   <Text style={[styles.statusTxt, { color: statusColor }]}>{r.status.toUpperCase()}</Text>
                 </View>
               </View>
-              {r.status !== 'pending' && (
-                <Text style={[styles.matchInfo, isRTL && styles.rtl]}>
-                  ✓ {lang === 'en' ? `Matched with ${r.match_en}` : `تم الربط مع ${r.match_ar}`}
-                </Text>
-              )}
+              <Text style={[styles.matchInfo, isRTL && styles.rtl]}>
+                ✓ {lang === 'ar' ? `تم الربط مع ${r.match_ar}` : `Matched with ${r.match_en}`}
+              </Text>
             </View>
           );
         })}
@@ -146,13 +99,13 @@ export default function Activity() {
     );
   }
 
-  // DONOR (individual / org) - My Donations
+  // DONOR
   return (
     <Screen testID="activity-screen">
-      <Header title={lang === 'en' ? 'My Donations' : 'تبرعاتي'} showBack={false} />
-      <TouchableOpacity testID="new-donation-btn" style={styles.newBtn} onPress={() => router.push(role === 'org' ? '/donate-bulk' : '/donate-quick')}>
+      <Header title={t('myDonations')} showBack={false} />
+      <TouchableOpacity testID="new-donation-btn" style={styles.newBtn} onPress={() => router.push('/donate')}>
         <Ionicons name="add-circle" size={22} color={COLORS.primary} />
-        <Text style={styles.newBtnTxt}>{lang === 'en' ? 'New Donation' : 'تبرع جديد'}</Text>
+        <Text style={styles.newBtnTxt}>{t('newDonation')}</Text>
       </TouchableOpacity>
       {MOCK_MY_DONATIONS.map((d) => {
         const isDelivered = d.status === 'delivered';
@@ -161,12 +114,12 @@ export default function Activity() {
             <View style={[styles.cardHead, isRTL && { flexDirection: 'row-reverse' }]}>
               <View style={styles.iconBadge}><Ionicons name="gift-outline" size={16} color={COLORS.primary} /></View>
               <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
-                <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'en' ? d.title_en : d.title_ar}</Text>
+                <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'ar' ? d.title_ar : d.title_en}</Text>
                 <Text style={[styles.sub, isRTL && styles.rtl]}>{d.meals} meals · {d.date}</Text>
               </View>
               <View style={[styles.statusPill, { backgroundColor: (isDelivered ? COLORS.accent : COLORS.warning) + '1A' }]}>
                 <Text style={[styles.statusTxt, { color: isDelivered ? COLORS.accentDark : COLORS.warning }]}>
-                  {isDelivered ? (lang === 'en' ? 'DELIVERED' : 'تم') : (lang === 'en' ? 'IN TRANSIT' : 'في الطريق')}
+                  {isDelivered ? (lang === 'ar' ? 'تم' : 'DELIVERED') : (lang === 'ar' ? 'في الطريق' : 'IN TRANSIT')}
                 </Text>
               </View>
             </View>
@@ -195,11 +148,6 @@ const styles = StyleSheet.create({
   metaTxt: { fontSize: FONT.size.xs, color: COLORS.textMuted, marginStart: 4 },
   cta: { marginTop: SPACING.md, paddingVertical: 12, borderRadius: RADIUS.full, alignItems: 'center' },
   ctaTxt: { color: '#fff', fontWeight: FONT.weight.semibold, fontSize: FONT.size.md },
-  empty: { alignItems: 'center', paddingVertical: 80 },
-  emptyTxt: { marginTop: 12, color: COLORS.textMuted, fontSize: FONT.size.md, textAlign: 'center' },
-  actionRow: { flexDirection: 'row', gap: 8, marginTop: SPACING.md },
-  actionBtn: { flex: 1, paddingVertical: 10, borderRadius: RADIUS.full, alignItems: 'center' },
-  actionTxt: { color: '#fff', fontWeight: FONT.weight.semibold, fontSize: FONT.size.sm },
   newBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: COLORS.primary + '10', borderWidth: 1.5, borderColor: COLORS.primary + '40', borderStyle: 'dashed', paddingVertical: 14, borderRadius: RADIUS.lg, marginBottom: SPACING.md },
   newBtnTxt: { color: COLORS.primary, fontWeight: FONT.weight.bold, fontSize: FONT.size.md, marginStart: 6 },
   matchInfo: { fontSize: FONT.size.sm, color: COLORS.accentDark, fontWeight: FONT.weight.semibold, marginTop: SPACING.sm, paddingTop: SPACING.sm, borderTopWidth: 1, borderTopColor: COLORS.surfaceAlt },

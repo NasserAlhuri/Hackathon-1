@@ -3,120 +3,81 @@ import { View, Text, StyleSheet, TouchableOpacity, Animated, Easing } from 'reac
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import Screen from '../../src/components/Screen';
+import LanguageSheet from '../../src/components/LanguageSheet';
 import { useApp } from '../../src/context/AppContext';
 import { COLORS, FONT, RADIUS, SPACING, SHADOW } from '../../src/constants/theme';
-import { MOCK_IMPACT, MOCK_RECENT, VOLUNTEER_STATS, MOCK_MY_DONATIONS, MOCK_MY_REQUESTS } from '../../src/data/mockData';
+import { LANGUAGES } from '../../src/constants/i18n';
+import { MOCK_IMPACT, MOCK_RECENT, VOLUNTEER_STATS, MOCK_MY_REQUESTS } from '../../src/data/mockData';
 
 export default function Home() {
-  const { t, lang, setLang, isRTL, role } = useApp();
+  const { t, lang, isRTL, role } = useApp();
   const router = useRouter();
+  const [langOpen, setLangOpen] = useState(false);
 
   const counter = useRef(new Animated.Value(0)).current;
   const [display, setDisplay] = useState(0);
   useEffect(() => {
     const id = counter.addListener(({ value }) => setDisplay(Math.floor(value)));
-    Animated.timing(counter, {
-      toValue: MOCK_IMPACT.mealsRescued,
-      duration: 1400,
-      easing: Easing.out(Easing.cubic),
-      useNativeDriver: false,
-    }).start();
+    Animated.timing(counter, { toValue: MOCK_IMPACT.mealsRescued, duration: 1400, easing: Easing.out(Easing.cubic), useNativeDriver: false }).start();
     return () => counter.removeListener(id);
   }, []);
 
   const peopleFed = Math.round(MOCK_IMPACT.mealsRescued / 3);
-  const co2SavedTons = Math.round((MOCK_IMPACT.wasteReducedKg * 2.5) / 1000);
+  const co2SavedTons = Math.round(MOCK_IMPACT.co2AvoidedKg / 1000);
   const maxVal = Math.max(...MOCK_IMPACT.weeklyTrend);
   const days = lang === 'en' ? ['M', 'T', 'W', 'T', 'F', 'S', 'S'] : ['ن', 'ث', 'ر', 'خ', 'ج', 'س', 'ح'];
+  const currentLang = LANGUAGES.find((l) => l.id === lang);
 
-  // Role-specific quick actions
+  // Role-specific actions
   const actions = (() => {
     switch (role) {
       case 'volunteer':
-        return [
-          { id: 'deliver', icon: 'car-outline' as const, label: t('volunteerDelivery'), color: COLORS.accent, route: '/(tabs)/activity' },
-        ];
-      case 'ngo':
-        return [
-          { id: 'incoming', icon: 'archive-outline' as const, label: t('incomingDonations'), color: COLORS.primary, route: '/(tabs)/activity' },
-        ];
-      case 'requester':
-        return [
-          { id: 'request', icon: 'hand-left-outline' as const, label: t('requestFood'), color: COLORS.warning, route: '/request-food' },
-        ];
-      case 'org':
-        return [
-          { id: 'donate-bulk', icon: 'business-outline' as const, label: t('bulkDonation'), color: COLORS.primary, route: '/donate-bulk' },
-          { id: 'donate-quick', icon: 'gift-outline' as const, label: t('quickDonation'), color: COLORS.primaryDark, route: '/donate-quick' },
-        ];
-      case 'individual':
+        return [{ id: 'deliver', icon: 'car-outline' as const, label: t('volunteerDelivery'), color: COLORS.accent, route: '/(tabs)/activity' }];
+      case 'recipient':
+        return [{ id: 'request', icon: 'hand-left-outline' as const, label: t('requestFood'), color: COLORS.warning, route: '/request-food' }];
+      case 'donor':
       default:
-        return [
-          { id: 'donate', icon: 'gift-outline' as const, label: t('donateFood'), color: COLORS.primary, route: '/donate-quick' },
-        ];
+        return [{ id: 'donate', icon: 'gift-outline' as const, label: t('donateFood'), color: COLORS.primary, route: '/donate' }];
     }
   })();
 
-  // Role-specific stats card (small, above hero for volunteer/ngo/requester)
   const renderRoleStats = () => {
     if (role === 'volunteer') {
       return (
         <View style={styles.roleStatsCard}>
           <View style={[styles.roleStatsHead, isRTL && { flexDirection: 'row-reverse' }]}>
-            <Text style={[styles.roleStatsTitle, isRTL && styles.rtl]}>
-              {lang === 'en' ? 'Your day' : 'يومك'}
-            </Text>
+            <Text style={[styles.roleStatsTitle, isRTL && styles.rtl]}>{t('yourDay')}</Text>
             <View style={styles.ratingPill}>
               <Ionicons name="star" size={12} color="#fff" />
               <Text style={styles.ratingTxt}>{VOLUNTEER_STATS.rating}</Text>
             </View>
           </View>
           <View style={styles.roleStatsRow}>
-            <View style={styles.roleStat}><Text style={styles.roleStatNum}>{VOLUNTEER_STATS.tasksToday}</Text><Text style={styles.roleStatLabel}>{lang === 'en' ? 'tasks today' : 'مهام اليوم'}</Text></View>
+            <View style={styles.roleStat}><Text style={styles.roleStatNum}>{VOLUNTEER_STATS.tasksToday}</Text><Text style={styles.roleStatLabel}>{t('tasksToday')}</Text></View>
             <View style={styles.divider} />
-            <View style={styles.roleStat}><Text style={styles.roleStatNum}>{VOLUNTEER_STATS.kmCovered}</Text><Text style={styles.roleStatLabel}>{lang === 'en' ? 'km covered' : 'كم'}</Text></View>
+            <View style={styles.roleStat}><Text style={styles.roleStatNum}>{VOLUNTEER_STATS.kmCovered}</Text><Text style={styles.roleStatLabel}>{t('kmCovered')}</Text></View>
             <View style={styles.divider} />
-            <View style={styles.roleStat}><Text style={styles.roleStatNum}>{VOLUNTEER_STATS.totalDeliveries}</Text><Text style={styles.roleStatLabel}>{lang === 'en' ? 'total runs' : 'إجمالي'}</Text></View>
+            <View style={styles.roleStat}><Text style={styles.roleStatNum}>{VOLUNTEER_STATS.totalDeliveries}</Text><Text style={styles.roleStatLabel}>{t('totalRuns')}</Text></View>
           </View>
         </View>
       );
     }
-    if (role === 'ngo') {
-      return (
-        <View style={styles.roleStatsCard}>
-          <Text style={[styles.roleStatsTitle, isRTL && styles.rtl, { marginBottom: 10 }]}>
-            {lang === 'en' ? 'Today at your NGO' : 'اليوم في جمعيتك'}
-          </Text>
-          <View style={styles.roleStatsRow}>
-            <View style={styles.roleStat}><Text style={styles.roleStatNum}>4</Text><Text style={styles.roleStatLabel}>{t('incomingDonations')}</Text></View>
-            <View style={styles.divider} />
-            <View style={styles.roleStat}><Text style={styles.roleStatNum}>2</Text><Text style={styles.roleStatLabel}>{t('reviewNeeded')}</Text></View>
-            <View style={styles.divider} />
-            <View style={styles.roleStat}><Text style={styles.roleStatNum}>320</Text><Text style={styles.roleStatLabel}>{lang === 'en' ? 'meals queued' : 'بانتظار التوزيع'}</Text></View>
-          </View>
-        </View>
-      );
-    }
-    if (role === 'requester') {
+    if (role === 'recipient') {
       const active = MOCK_MY_REQUESTS.find((r) => r.status === 'matched');
       return (
         <View style={styles.roleStatsCard}>
-          <Text style={[styles.roleStatsTitle, isRTL && styles.rtl, { marginBottom: 10 }]}>
-            {lang === 'en' ? 'Your active request' : 'طلبك النشط'}
-          </Text>
+          <Text style={[styles.roleStatsTitle, isRTL && styles.rtl, { marginBottom: 10 }]}>{t('activeRequest')}</Text>
           {active ? (
             <View>
               <View style={[styles.statusPill, { backgroundColor: COLORS.accent + '1A', alignSelf: 'flex-start' }]}>
-                <Text style={[styles.statusTxt, { color: COLORS.accentDark }]}>
-                  {lang === 'en' ? 'MATCHED' : 'تم الربط'}
-                </Text>
+                <Text style={[styles.statusTxt, { color: COLORS.accentDark }]}>{t('matchedStatus')}</Text>
               </View>
               <Text style={styles.matchTxt}>
-                {lang === 'en' ? `Matched with ${active.match_en} for ${active.familySize} people` : `تم الربط مع ${active.match_ar} لـ ${active.familySize} أفراد`}
+                {lang === 'en' ? `Matched with ${active.match_en} for ${active.familySize} people` : `${active.match_ar} - ${active.familySize}`}
               </Text>
             </View>
           ) : (
-            <Text style={styles.matchTxt}>{lang === 'en' ? 'No active requests' : 'لا توجد طلبات نشطة'}</Text>
+            <Text style={styles.matchTxt}>—</Text>
           )}
         </View>
       );
@@ -124,135 +85,98 @@ export default function Home() {
     return null;
   };
 
-  const greetByRole = () => {
-    switch (role) {
-      case 'volunteer': return lang === 'en' ? 'Volunteer' : 'متطوع';
-      case 'ngo': return lang === 'en' ? 'NGO Partner' : 'شريك خيري';
-      case 'requester': return lang === 'en' ? 'Welcome' : 'أهلاً بك';
-      case 'org': return lang === 'en' ? 'Organization' : 'مؤسسة';
-      default: return t('appName');
-    }
-  };
-
   return (
-    <Screen testID="home-screen">
-      {/* Compact header */}
-      <View style={[styles.header, isRTL && { flexDirection: 'row-reverse' }]}>
-        <View>
-          <Text style={[styles.greet, isRTL && styles.rtl]}>{t('hello')} 👋</Text>
-          <Text style={[styles.appname, isRTL && styles.rtl]}>{greetByRole()}</Text>
-        </View>
-        <TouchableOpacity
-          testID="home-lang-toggle"
-          onPress={() => setLang(lang === 'en' ? 'ar' : 'en')}
-          style={styles.langBtn}
-        >
-          <Ionicons name="globe-outline" size={16} color={COLORS.textPrimary} />
-          <Text style={styles.langTxt}>{lang === 'en' ? 'العربية' : 'English'}</Text>
-        </TouchableOpacity>
-      </View>
-
-      {renderRoleStats()}
-
-      {/* HERO IMPACT — universal across roles */}
-      <View testID="home-impact-hero" style={[styles.hero, role && role !== 'individual' && role !== 'org' ? { marginTop: SPACING.md } : null]}>
-        <View style={styles.heroBlob1} />
-        <View style={styles.heroBlob2} />
-
-        <View style={styles.liveBadge}>
-          <View style={styles.liveDot} />
-          <Text style={styles.liveTxt}>LIVE • QATAR</Text>
-        </View>
-
-        <Text style={[styles.heroLabel, isRTL && styles.rtl]}>{t('mealsRescuedToday')}</Text>
-        <Text style={styles.heroValue}>{display.toLocaleString()}</Text>
-
-        <View style={styles.translateRow}>
-          <Ionicons name="people" size={14} color="#fff" />
-          <Text style={styles.translateTxt}>
-            {peopleFed.toLocaleString()} {lang === 'en' ? 'people fed across Qatar' : 'شخص أُطعموا في قطر'}
-          </Text>
-        </View>
-
-        <View style={styles.miniChart}>
-          {MOCK_IMPACT.weeklyTrend.map((v, i) => {
-            const h = (v / maxVal) * 56;
-            const isToday = i === 6;
-            return (
-              <View key={i} style={styles.miniBarCol}>
-                <View style={[styles.miniBar, { height: h, backgroundColor: isToday ? '#fff' : 'rgba(255,255,255,0.45)' }]} />
-                <Text style={[styles.miniDay, isToday && { color: '#fff', fontWeight: '800' }]}>{days[i]}</Text>
-              </View>
-            );
-          })}
-        </View>
-
-        <TouchableOpacity
-          testID="hero-see-full-impact"
-          style={styles.heroCta}
-          activeOpacity={0.85}
-          onPress={() => router.push('/impact')}
-        >
-          <Text style={styles.heroCtaTxt}>
-            {lang === 'en' ? 'See Full Impact Dashboard' : 'عرض لوحة الأثر الكاملة'}
-          </Text>
-          <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={16} color={COLORS.primary} />
-        </TouchableOpacity>
-      </View>
-
-      {/* Compact stats strip */}
-      <View style={styles.statsStrip}>
-        <View style={styles.statBox}>
-          <Ionicons name="leaf-outline" size={20} color={COLORS.accent} />
-          <Text style={styles.statNum}>{MOCK_IMPACT.wasteReducedKg.toLocaleString()}</Text>
-          <Text style={styles.statTitle}>{lang === 'en' ? 'kg waste saved' : 'كجم هدر'}</Text>
-        </View>
-        <View style={styles.statDivider} />
-        <View style={styles.statBox}>
-          <Ionicons name="cloud-outline" size={20} color={COLORS.accent} />
-          <Text style={styles.statNum}>{co2SavedTons}t</Text>
-          <Text style={styles.statTitle}>{lang === 'en' ? 'CO₂ avoided' : 'CO₂'}</Text>
-        </View>
-        <View style={styles.statDivider} />
-        <View style={styles.statBox}>
-          <Ionicons name="people-outline" size={20} color={COLORS.accent} />
-          <Text style={styles.statNum}>{MOCK_IMPACT.activeVolunteers}</Text>
-          <Text style={styles.statTitle}>{lang === 'en' ? 'volunteers' : 'متطوع'}</Text>
-        </View>
-      </View>
-
-      {/* Role-specific actions */}
-      <Text style={[styles.sectionTitle, isRTL && styles.rtl]}>{t('quickActions')}</Text>
-      <View style={styles.grid}>
-        {actions.map((a) => (
-          <TouchableOpacity
-            key={a.id}
-            testID={`home-action-${a.id}`}
-            activeOpacity={0.85}
-            onPress={() => router.push(a.route as any)}
-            style={[styles.tile, actions.length === 1 && { width: '100%' }]}
-          >
-            <View style={[styles.tileIcon, { backgroundColor: a.color + '1A' }]}>
-              <Ionicons name={a.icon} size={22} color={a.color} />
-            </View>
-            <Text style={styles.tileLabel}>{a.label}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      <Text style={[styles.sectionTitle, isRTL && styles.rtl]}>{t('recentActivity')}</Text>
-      <View style={{ marginBottom: SPACING.xl }}>
-        {MOCK_RECENT.map((r) => (
-          <View key={r.id} style={[styles.activity, isRTL && { flexDirection: 'row-reverse' }]}>
-            <View style={styles.activityDot} />
-            <Text style={[styles.activityText, isRTL && styles.rtl]} numberOfLines={2}>
-              {lang === 'en' ? r.en : r.ar}
-            </Text>
-            <Text style={styles.activityTime}>{r.time}</Text>
+    <>
+      <Screen testID="home-screen">
+        <View style={[styles.header, isRTL && { flexDirection: 'row-reverse' }]}>
+          <View>
+            <Text style={[styles.greet, isRTL && styles.rtl]}>{t('hello')} 👋</Text>
+            <Text style={[styles.appname, isRTL && styles.rtl]}>{t('appName')}</Text>
           </View>
-        ))}
-      </View>
-    </Screen>
+          <TouchableOpacity testID="home-lang-toggle" onPress={() => setLangOpen(true)} style={styles.langBtn}>
+            <Text style={styles.langFlag}>{currentLang?.flag}</Text>
+            <Text style={styles.langTxt} numberOfLines={1}>{currentLang?.native}</Text>
+          </TouchableOpacity>
+        </View>
+
+        {renderRoleStats()}
+
+        <View testID="home-impact-hero" style={[styles.hero, role === 'volunteer' || role === 'recipient' ? { marginTop: SPACING.md } : null]}>
+          <View style={styles.heroBlob1} />
+          <View style={styles.heroBlob2} />
+          <View style={styles.liveBadge}>
+            <View style={styles.liveDot} />
+            <Text style={styles.liveTxt}>LIVE • QATAR</Text>
+          </View>
+          <Text style={[styles.heroLabel, isRTL && styles.rtl]}>{t('mealsRescuedToday')}</Text>
+          <Text style={styles.heroValue}>{display.toLocaleString()}</Text>
+          <View style={styles.translateRow}>
+            <Ionicons name="people" size={14} color="#fff" />
+            <Text style={styles.translateTxt}>{peopleFed.toLocaleString()} {t('peopleFed')}</Text>
+          </View>
+          <View style={styles.miniChart}>
+            {MOCK_IMPACT.weeklyTrend.map((v, i) => {
+              const h = (v / maxVal) * 56;
+              const isToday = i === 6;
+              return (
+                <View key={i} style={styles.miniBarCol}>
+                  <View style={[styles.miniBar, { height: h, backgroundColor: isToday ? '#fff' : 'rgba(255,255,255,0.45)' }]} />
+                  <Text style={[styles.miniDay, isToday && { color: '#fff', fontWeight: '800' }]}>{days[i]}</Text>
+                </View>
+              );
+            })}
+          </View>
+          <TouchableOpacity testID="hero-see-full-impact" style={styles.heroCta} activeOpacity={0.85} onPress={() => router.push('/impact')}>
+            <Text style={styles.heroCtaTxt}>{t('seeImpact')}</Text>
+            <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={16} color={COLORS.primary} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.statsStrip}>
+          <View style={styles.statBox}>
+            <Ionicons name="leaf-outline" size={20} color={COLORS.accent} />
+            <Text style={styles.statNum}>{MOCK_IMPACT.wasteReducedKg.toLocaleString()}</Text>
+            <Text style={styles.statTitle}>{t('kg')} {t('wasteReduced').toLowerCase()}</Text>
+          </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statBox}>
+            <Ionicons name="cloud-outline" size={20} color={COLORS.accent} />
+            <Text style={styles.statNum}>{co2SavedTons}t</Text>
+            <Text style={styles.statTitle}>{t('co2Avoided')}</Text>
+          </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statBox}>
+            <Ionicons name="people-outline" size={20} color={COLORS.accent} />
+            <Text style={styles.statNum}>{MOCK_IMPACT.activeVolunteers}</Text>
+            <Text style={styles.statTitle}>{t('activeVolunteers')}</Text>
+          </View>
+        </View>
+
+        <Text style={[styles.sectionTitle, isRTL && styles.rtl]}>{t('quickActions')}</Text>
+        <View style={styles.grid}>
+          {actions.map((a) => (
+            <TouchableOpacity key={a.id} testID={`home-action-${a.id}`} activeOpacity={0.85} onPress={() => router.push(a.route as any)} style={[styles.tile, { width: '100%' }]}>
+              <View style={[styles.tileIcon, { backgroundColor: a.color + '1A' }]}>
+                <Ionicons name={a.icon} size={22} color={a.color} />
+              </View>
+              <Text style={styles.tileLabel}>{a.label}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        <Text style={[styles.sectionTitle, isRTL && styles.rtl]}>{t('recentActivity')}</Text>
+        <View style={{ marginBottom: SPACING.xl }}>
+          {MOCK_RECENT.map((r) => (
+            <View key={r.id} style={[styles.activity, isRTL && { flexDirection: 'row-reverse' }]}>
+              <View style={styles.activityDot} />
+              <Text style={[styles.activityText, isRTL && styles.rtl]} numberOfLines={2}>{lang === 'ar' ? r.ar : r.en}</Text>
+              <Text style={styles.activityTime}>{r.time}</Text>
+            </View>
+          ))}
+        </View>
+      </Screen>
+      <LanguageSheet open={langOpen} onClose={() => setLangOpen(false)} />
+    </>
   );
 }
 
@@ -261,18 +185,10 @@ const styles = StyleSheet.create({
   greet: { fontSize: FONT.size.sm, color: COLORS.textMuted },
   appname: { fontSize: FONT.size.xl, fontWeight: FONT.weight.extrabold, color: COLORS.primary, marginTop: 2 },
   rtl: { textAlign: 'right', writingDirection: 'rtl' },
-  langBtn: {
-    flexDirection: 'row', alignItems: 'center',
-    paddingHorizontal: 12, paddingVertical: 8, borderRadius: RADIUS.full,
-    backgroundColor: COLORS.surfaceAlt, borderWidth: 1, borderColor: COLORS.border,
-  },
-  langTxt: { fontSize: FONT.size.sm, fontWeight: FONT.weight.semibold, color: COLORS.textPrimary, marginStart: 6 },
-
-  // Role stats card
-  roleStatsCard: {
-    backgroundColor: COLORS.surface, borderRadius: RADIUS.xxl,
-    padding: SPACING.md, borderWidth: 1, borderColor: COLORS.border, ...SHADOW.sm,
-  },
+  langBtn: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingVertical: 8, borderRadius: RADIUS.full, backgroundColor: COLORS.surfaceAlt, borderWidth: 1, borderColor: COLORS.border, maxWidth: 130 },
+  langFlag: { fontSize: 14, marginEnd: 6 },
+  langTxt: { fontSize: FONT.size.sm, fontWeight: FONT.weight.semibold, color: COLORS.textPrimary },
+  roleStatsCard: { backgroundColor: COLORS.surface, borderRadius: RADIUS.xxl, padding: SPACING.md, borderWidth: 1, borderColor: COLORS.border, ...SHADOW.sm },
   roleStatsHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 },
   roleStatsTitle: { fontSize: FONT.size.md, fontWeight: FONT.weight.bold, color: COLORS.textPrimary },
   roleStatsRow: { flexDirection: 'row', alignItems: 'center' },
@@ -286,10 +202,7 @@ const styles = StyleSheet.create({
   statusTxt: { fontSize: 10, fontWeight: '800', letterSpacing: 0.8 },
   matchTxt: { fontSize: FONT.size.sm, color: COLORS.textPrimary, lineHeight: 20 },
 
-  hero: {
-    backgroundColor: COLORS.primary, borderRadius: 28,
-    padding: SPACING.lg, overflow: 'hidden', position: 'relative', ...SHADOW.md,
-  },
+  hero: { backgroundColor: COLORS.primary, borderRadius: 28, padding: SPACING.lg, overflow: 'hidden', position: 'relative', ...SHADOW.md },
   heroBlob1: { position: 'absolute', width: 220, height: 220, borderRadius: 220, backgroundColor: COLORS.primaryLight, opacity: 0.5, top: -80, right: -60 },
   heroBlob2: { position: 'absolute', width: 140, height: 140, borderRadius: 140, backgroundColor: COLORS.accent, opacity: 0.35, bottom: -50, left: -30 },
   liveBadge: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.18)', alignSelf: 'flex-start', paddingHorizontal: 10, paddingVertical: 5, borderRadius: RADIUS.full },
@@ -307,9 +220,9 @@ const styles = StyleSheet.create({
   heroCtaTxt: { color: COLORS.primary, fontWeight: FONT.weight.bold, fontSize: FONT.size.sm, marginEnd: 6 },
 
   statsStrip: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.surface, borderRadius: RADIUS.xl, paddingVertical: SPACING.md, marginTop: SPACING.md, borderWidth: 1, borderColor: COLORS.border, ...SHADOW.sm },
-  statBox: { flex: 1, alignItems: 'center' },
+  statBox: { flex: 1, alignItems: 'center', paddingHorizontal: 4 },
   statNum: { fontSize: FONT.size.lg, fontWeight: FONT.weight.extrabold, color: COLORS.textPrimary, marginTop: 4 },
-  statTitle: { fontSize: 10, color: COLORS.textMuted, marginTop: 2 },
+  statTitle: { fontSize: 10, color: COLORS.textMuted, marginTop: 2, textAlign: 'center' },
   statDivider: { width: 1, height: 36, backgroundColor: COLORS.border },
 
   sectionTitle: { fontSize: FONT.size.lg, fontWeight: FONT.weight.bold, color: COLORS.textPrimary, marginTop: SPACING.lg, marginBottom: SPACING.md },

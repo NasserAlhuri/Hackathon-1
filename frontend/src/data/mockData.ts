@@ -97,7 +97,41 @@ export const MOCK_IMPACT = {
   activeVolunteers: 312,
   completedDeliveries: 8741,
   areasServed: 9,
+  co2AvoidedKg: 105950,
+  waterSavedLiters: 3420000,
+  avgResponseMinutes: 28,
   weeklyTrend: [320, 450, 380, 610, 540, 720, 820],
+  monthlyTrend: [12400, 15800, 14200, 16900, 18700, 21200, 19800, 22400, 24100, 23500, 26800, 28200],
+  topAreas: [
+    { id: 'doha', en: 'Doha', ar: 'الدوحة', meals: 62800, share: 34 },
+    { id: 'alrayyan', en: 'Al Rayyan', ar: 'الريان', meals: 38900, share: 21 },
+    { id: 'lusail', en: 'Lusail', ar: 'لوسيل', meals: 27600, share: 15 },
+    { id: 'pearl', en: 'The Pearl', ar: 'اللؤلؤة', meals: 18500, share: 10 },
+    { id: 'alwakrah', en: 'Al Wakrah', ar: 'الوكرة', meals: 14200, share: 8 },
+  ],
+  topNgos: [
+    { id: 'qc', en: 'Qatar Charity', ar: 'قطر الخيرية', meals: 58400 },
+    { id: 'eid', en: 'Eid Charity', ar: 'جمعية عيد الخيرية', meals: 41200 },
+    { id: 'raf', en: 'RAF Qatar', ar: 'راف قطر', meals: 32800 },
+    { id: 'fanar', en: 'Fanar', ar: 'فنار', meals: 19600 },
+  ],
+  foodCategories: [
+    { en: 'Cooked Meals', ar: 'وجبات مطبوخة', share: 48, color: '#8A1538' },
+    { en: 'Bakery', ar: 'مخبوزات', share: 18, color: '#A62148' },
+    { en: 'Fresh Produce', ar: 'خضار وفواكه', share: 15, color: '#4E7B62' },
+    { en: 'Dairy', ar: 'ألبان', share: 11, color: '#679B7F' },
+    { en: 'Other', ar: 'أخرى', share: 8, color: '#D4A373' },
+  ],
+  peakHours: [
+    { hour: '8AM', value: 18 },
+    { hour: '10AM', value: 22 },
+    { hour: '12PM', value: 35 },
+    { hour: '2PM', value: 28 },
+    { hour: '4PM', value: 24 },
+    { hour: '6PM', value: 38 },
+    { hour: '8PM', value: 52 },
+    { hour: '10PM', value: 31 },
+  ],
 };
 
 export const VOLUNTEER_STATS = {

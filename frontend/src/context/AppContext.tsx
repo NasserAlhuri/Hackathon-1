@@ -1,22 +1,15 @@
 import React, { createContext, useContext, useMemo, useState, ReactNode } from 'react';
-import { I18nManager } from 'react-native';
-import { translations, Lang, TranslationKey } from '../constants/i18n';
+import { translations, tr, Lang, RTL_LANGS, TranslationKey } from '../constants/i18n';
 import { MOCK_TASKS, DeliveryTask } from '../data/mockData';
 
-export type Role =
-  | 'individual'
-  | 'org'
-  | 'volunteer'
-  | 'ngo'
-  | 'requester'
-  | null;
+export type Role = 'donor' | 'volunteer' | 'recipient' | null;
 
 type AppState = {
   lang: Lang;
   role: Role;
   tasks: DeliveryTask[];
   notifications: boolean;
-  t: (key: TranslationKey) => string;
+  t: (key: TranslationKey | string) => string;
   isRTL: boolean;
   setLang: (lang: Lang) => void;
   setRole: (r: Role) => void;
@@ -28,21 +21,12 @@ type AppState = {
 const AppContext = createContext<AppState | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>('en');
+  const [lang, setLang] = useState<Lang>('en');
   const [role, setRole] = useState<Role>(null);
   const [tasks, setTasks] = useState<DeliveryTask[]>(MOCK_TASKS);
   const [notifications, setNotifications] = useState(true);
 
-  const setLang = (l: Lang) => {
-    setLangState(l);
-    // Note: I18nManager.forceRTL is persistent & requires reload on native.
-    // For prototype/web, we flip layout via style-level logic only.
-    try {
-      I18nManager.allowRTL(l === 'ar');
-    } catch {}
-  };
-
-  const t = (key: TranslationKey) => translations[lang][key] ?? key;
+  const t = (key: TranslationKey | string) => tr(lang, key as string);
 
   const updateTask = (id: string, patch: Partial<DeliveryTask>) => {
     setTasks((prev) => prev.map((t0) => (t0.id === id ? { ...t0, ...patch } : t0)));
@@ -59,7 +43,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       tasks,
       notifications,
       t,
-      isRTL: lang === 'ar',
+      isRTL: RTL_LANGS.includes(lang),
       setLang,
       setRole,
       setNotifications,

@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 export const COLORS = {
   primary: '#8A1538',
   primaryLight: '#A62148',
@@ -63,19 +65,25 @@ export const FONT = {
   },
 };
 
-export const SHADOW = {
-  sm: {
-    shadowColor: '#2C2525',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 6,
-    elevation: 2,
+export const SHADOW = Platform.select({
+  web: {
+    sm: { boxShadow: '0 2px 6px rgba(44,37,37,0.06)' } as any,
+    md: { boxShadow: '0 4px 12px rgba(44,37,37,0.08)' } as any,
   },
-  md: {
-    shadowColor: '#2C2525',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 4,
+  default: {
+    sm: {
+      shadowColor: '#2C2525',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.06,
+      shadowRadius: 6,
+      elevation: 2,
+    },
+    md: {
+      shadowColor: '#2C2525',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.08,
+      shadowRadius: 12,
+      elevation: 4,
+    },
   },
-};
+})!;

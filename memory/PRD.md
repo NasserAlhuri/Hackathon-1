@@ -1,41 +1,42 @@
 # Nekhwa / نخوة - PRD
 
 ## Overview
-Mobile prototype for a community food rescue app in Qatar connecting donors, volunteers, NGOs and people in need.
+Mobile prototype for a community food rescue app in Qatar.
 
 ## Tech Stack
 - React Native + Expo Router (SDK 54)
-- Frontend-only prototype with React Context for state
-- Mock Qatar sample data (no backend / no auth)
+- Frontend-only prototype with React Context state
+- Mock data (no backend, no auth)
+
+## Roles (3)
+- **Donor** — donate food, small or large
+- **Volunteer** — pickup & deliver food
+- **Recipient** — request food for family
+
+## Features
+- **Unified Donate flow**: auto-switches Quick (<50 meals) ↔ Bulk (≥50 meals) based on meal count
+  - Quick: photo, prep hours, storage chips, allergens → safety check result
+  - Bulk: photo, event type, pickup time, packaging, vehicle suggestion, NGO assignment
+- **Role-aware Home**: each role sees own stats + relevant actions only
+- **Role-aware Activity tab**: deliveries (volunteer) / my donations (donor) / my requests (recipient)
+- **Impact Dashboard as bottom-sheet modal (85% height)**:
+  - Hero meal count + people fed
+  - 8 stats: meals, waste, CO₂, water, volunteers, deliveries, areas, response time
+  - Weekly + monthly trend charts
+  - Top areas served (bars), Top NGOs (ranked), Food categories (stacked), Peak hours
+  - Back arrow + "Back" text closes
+- **8 languages**: English, العربية, اردو, हिन्दी, മലയാളം, বাংলা, Filipino, नेपाली
+- **Language picker** as bottom sheet from header globe button or Profile → Language
+- **RTL** auto-applied for Arabic & Urdu
+
+## Routes
+- `/` splash → `/role-select` → `/(tabs)/home|activity|profile`
+- `/donate` (unified), `/request-food`, `/safety-result`, `/impact` (modal)
 
 ## Branding
-- Primary: Qatar Maroon #8A1538
-- Accent: Soft Green #4E7B62 (sustainability)
-- Background: Warm beige #FAF9F6
+- Primary: Qatar maroon `#8A1538`
+- Accent: Soft green `#4E7B62`
+- Background: Beige `#FAF9F6`
 
-## Roles
-1. Individual donor
-2. Organization donor
-3. Volunteer driver
-4. NGO / charity receiver
-5. Person requesting food
-
-## Screens
-- Splash (animated logo) → Role selection → Role-specific home
-- Tabs (donor/individual/org): Home / Deliveries / Impact / Profile
-- Forms: Quick donation, Bulk donation, Request food
-- Safety check result (safe / caution / risky)
-- NGO dashboard
-
-## Core Logic
-- Auto-switch to Bulk mode when meal count >= 50
-- Safety computed from storage × prep-time (cold/hot/room-temp)
-- Vehicle matching: <50 Van, 50-199 Refrigerated Van, 200+ Truck
-- High-risk food routes to NGO review instead of direct delivery
-
-## i18n
-- Default English, toggle to Arabic (نخوة)
-- RTL-aware layouts via `isRTL` flag in context
-
-## Qatar Locations seeded
+## Qatar Locations
 Doha, Al Rayyan, Lusail, The Pearl, Education City, Souq Waqif, Al Wakrah, Al Khor, West Bay
