@@ -68,11 +68,11 @@ export default function FindFood() {
           <View style={styles.legend}>
             <View style={styles.legendItem}>
               <View style={[styles.legendDot, { backgroundColor: '#3A8FB7' }]} />
-              <Text style={styles.legendTxt}>You</Text>
+              <Text style={styles.legendTxt}>{t('you')}</Text>
             </View>
             <View style={styles.legendItem}>
               <View style={[styles.legendDot, { backgroundColor: COLORS.primary }]} />
-              <Text style={styles.legendTxt}>{lang === 'ar' ? 'مطاعم' : 'Restaurants'}</Text>
+              <Text style={styles.legendTxt}>{t('restaurants')}</Text>
             </View>
           </View>
         </View>
@@ -82,9 +82,7 @@ export default function FindFood() {
       <View style={styles.filterRow}>
         {(['all', 'pickup', 'byo'] as const).map((f) => {
           const active = filter === f;
-          const label = f === 'all'
-            ? (lang === 'ar' ? 'الكل' : 'All')
-            : f === 'pickup' ? t('selfPickup') : t('byoContainer');
+          const label = f === 'all' ? t('allFilter') : f === 'pickup' ? t('selfPickup') : t('byoContainer');
           return (
             <TouchableOpacity key={f} testID={`filter-${f}`} onPress={() => setFilter(f)} style={[styles.filterChip, active && styles.filterChipActive]}>
               <Text style={[styles.filterTxt, active && { color: '#fff' }]}>{label}</Text>

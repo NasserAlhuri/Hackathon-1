@@ -69,7 +69,7 @@ export default function Home() {
               <View style={[styles.lbAvatar, isMe && { backgroundColor: COLORS.primary }]}>
                 <Text style={styles.lbAvatarTxt}>{d.avatar}</Text>
               </View>
-              <Text style={[styles.lbName, isMe && { fontWeight: '800', color: COLORS.primary }]} numberOfLines={1}>{d.name}{isMe ? ` (${lang === 'ar' ? 'أنت' : lang === 'fa' ? 'شما' : 'You'})` : ''}</Text>
+              <Text style={[styles.lbName, isMe && { fontWeight: '800', color: COLORS.primary }]} numberOfLines={1}>{d.name}{isMe ? ` (${t('you')})` : ''}</Text>
               <Text style={styles.lbMeals}>{d.meals.toLocaleString()}</Text>
             </View>
           );
