@@ -25,7 +25,7 @@ export default function QatariPattern({
     }
   }
   return (
-    <View pointerEvents="none" style={[styles.wrap, style]}>
+    <View style={[styles.wrap, style, { pointerEvents: 'none' } as any]}>
       {cells.map((cell, i) => (
         <View key={i} style={{ position: 'absolute', left: cell.x, top: cell.y, width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
           {/* 8-point star = 2 rotated squares */}

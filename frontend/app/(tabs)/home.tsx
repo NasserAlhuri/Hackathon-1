@@ -69,7 +69,7 @@ export default function Home() {
               <View style={[styles.tierFill, { width: `${Math.min(progress * 100, 100)}%` }]} />
             </View>
             <Text style={styles.tierNext}>
-              {lang === 'ar' ? `${next.threshold - MY_TOTAL_MEALS} وجبة متبقية لـ ${nextName} ${next.emoji}` : `${next.threshold - MY_TOTAL_MEALS} meals to ${nextName} ${next.emoji}`}
+              {lang === 'ar' ? `${next.threshold - MY_TOTAL_MEALS} وجبة متبقية لـ ${nextName} ${next.emoji}` : lang === 'fa' ? `${next.threshold - MY_TOTAL_MEALS} وعده تا ${nextName} ${next.emoji}` : `${next.threshold - MY_TOTAL_MEALS} meals to ${nextName} ${next.emoji}`}
             </Text>
           </View>
         )}
