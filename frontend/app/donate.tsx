@@ -8,7 +8,7 @@ import Header from '../src/components/Header';
 import Button from '../src/components/Button';
 import { useApp } from '../src/context/AppContext';
 import { COLORS, FONT, RADIUS, SPACING, SHADOW } from '../src/constants/theme';
-import { QATAR_LOCATIONS, MOCK_NGOS, computeSafety, suggestVehicle } from '../src/data/mockData';
+import { MOCK_NGOS, computeSafety, suggestVehicle } from '../src/data/mockData';
 import { ALLERGEN_ICONS } from '../src/constants/gamification';
 
 type Storage = 'hot' | 'cold' | 'room';
@@ -21,7 +21,8 @@ export default function Donate() {
   const [hoursAgo, setHoursAgo] = useState('1');
   const [storage, setStorage] = useState<Storage>('hot');
   const [allergens, setAllergens] = useState<string[]>([]);
-  const [locationId, setLocationId] = useState<string>(QATAR_LOCATIONS[0].id);
+  const [detectedLocation, setDetectedLocation] = useState<string>('');
+  const [detectingLocation, setDetectingLocation] = useState<boolean>(false);
   const [eventType, setEventType] = useState<string>('wedding');
   const [pickupTime, setPickupTime] = useState('19:00');
   const [packagingReady, setPackagingReady] = useState(true);
@@ -63,14 +64,13 @@ export default function Donate() {
       return;
     }
     const safety = computeSafety(parseFloat(hoursAgo || '0'), storage);
-    const loc = QATAR_LOCATIONS.find((l) => l.id === locationId)!;
     router.push({
       pathname: '/safety-result',
       params: {
         level: safety.level,
         window: String(safety.windowMinutes),
         meals: String(mealsNum),
-        location: isRTL ? loc.ar : loc.en,
+        location: detectedLocation || 'Al Wakra, Qatar',
       },
     });
   };
@@ -268,17 +268,29 @@ export default function Donate() {
       {/* Location */}
       <View style={styles.section}>
         <Text style={[styles.label, isRTL && styles.rtl]}>{t('pickupLocation')}</Text>
-        <View style={styles.chipRow}>
-          {QATAR_LOCATIONS.slice(0, 7).map((l) => {
-            const active = locationId === l.id;
-            return (
-              <TouchableOpacity key={l.id} testID={`location-${l.id}`} onPress={() => setLocationId(l.id)} style={[styles.chip, active && styles.chipActive]}>
-                <Ionicons name="location" size={14} color={active ? '#fff' : COLORS.textMuted} />
-                <Text style={[styles.chipTxt, active && { color: '#fff' }]}>{lang === 'en' ? l.en : l.ar}</Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+        <TouchableOpacity
+          testID="detect-location-btn"
+          disabled={detectingLocation}
+          onPress={() => {
+            setDetectingLocation(true);
+            setTimeout(() => {
+              setDetectingLocation(false);
+              setDetectedLocation('Al Wakra, Qatar');
+            }, 1500);
+          }}
+          style={[styles.detectBtn, detectingLocation && { opacity: 0.6 }]}
+        >
+          <Ionicons name="location-outline" size={20} color={COLORS.primary} />
+          <Text style={styles.detectBtnTxt}>
+            {detectingLocation ? '...' : t('detectLocation')}
+          </Text>
+        </TouchableOpacity>
+        {!!detectedLocation && (
+          <View style={styles.detectedBadge}>
+            <Ionicons name="location" size={14} color={COLORS.accentDark} />
+            <Text style={styles.detectedBadgeTxt}>{detectedLocation}</Text>
+          </View>
+        )}
       </View>
 
       <Button testID="submit-donation-btn" label={t('submitDonation')} onPress={submit} style={{ marginTop: SPACING.md, marginBottom: SPACING.xl }} />
@@ -320,6 +332,10 @@ const styles = StyleSheet.create({
   allergenChipActive: { backgroundColor: COLORS.accent + '15', borderColor: COLORS.accent },
   allergenEmoji: { fontSize: 28, marginBottom: 4 },
   allergenLabel: { fontSize: FONT.size.xs, color: COLORS.textPrimary, fontWeight: '600' },
+  detectBtn: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: COLORS.primary + '10', borderWidth: 1, borderColor: COLORS.primary + '40', paddingHorizontal: 18, paddingVertical: 14, borderRadius: RADIUS.full, alignSelf: 'flex-start' },
+  detectBtnTxt: { fontSize: FONT.size.sm, fontWeight: FONT.weight.semibold, color: COLORS.primary },
+  detectedBadge: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: COLORS.accent + '20', borderWidth: 1, borderColor: COLORS.accent + '50', paddingHorizontal: 12, paddingVertical: 6, borderRadius: RADIUS.full, alignSelf: 'flex-start', marginTop: 8 },
+  detectedBadgeTxt: { fontSize: FONT.size.xs, fontWeight: FONT.weight.semibold, color: COLORS.accentDark },
   // Delivery method
   methodRow: { flexDirection: 'row', gap: 10 },
   methodCard: { flex: 1, backgroundColor: COLORS.surface, borderRadius: RADIUS.lg, padding: SPACING.md, borderWidth: 1.5, borderColor: COLORS.border, alignItems: 'flex-start' },

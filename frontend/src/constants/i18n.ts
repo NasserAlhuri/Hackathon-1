@@ -236,6 +236,7 @@ const en = {
   demoPasswordHint: 'Password for all: demo123',
   liveLocation: 'LIVE • QATAR',
   ok: 'OK',
+  detectLocation: 'Detect Location',
 };
 
 type Dict = typeof en;
@@ -326,6 +327,7 @@ const ar: Dict = {
   signIn: 'تسجيل الدخول', continueAsDemo: 'المتابعة كتجربة',
   demoAccounts: 'حسابات تجريبية', demoPasswordHint: 'كلمة مرور الجميع: demo123',
   liveLocation: 'مباشر • قطر', ok: 'حسنًا',
+  detectLocation: 'تحديد الموقع',
 };
 
 const fa: Dict = {
@@ -415,6 +417,7 @@ const fa: Dict = {
   signIn: 'ورود', continueAsDemo: 'ادامه به عنوان نمایش',
   demoAccounts: 'حساب‌های نمایشی', demoPasswordHint: 'رمز همه: demo123',
   liveLocation: 'زنده • قطر', ok: 'باشه',
+  detectLocation: 'تشخیص موقعیت',
 };
 
 const ur: Dict = {
@@ -503,6 +506,7 @@ const ur: Dict = {
   signIn: 'سائن ان', continueAsDemo: 'ڈیمو کے طور پر جاری رکھیں',
   demoAccounts: 'ڈیمو اکاؤنٹس', demoPasswordHint: 'سب کا پاس ورڈ: demo123',
   liveLocation: 'براہ راست • قطر', ok: 'ٹھیک ہے',
+  detectLocation: 'مقام تلاش کریں',
 };
 
 const hi: Dict = {
@@ -591,6 +595,7 @@ const hi: Dict = {
   signIn: 'साइन इन', continueAsDemo: 'डेमो के रूप में जारी रखें',
   demoAccounts: 'डेमो खाते', demoPasswordHint: 'सभी का पासवर्ड: demo123',
   liveLocation: 'लाइव • क़तर', ok: 'ठीक है',
+  detectLocation: 'स्थान पता करें',
 };
 
 const ml: Dict = {
@@ -679,6 +684,7 @@ const ml: Dict = {
   signIn: 'സൈൻ ഇൻ', continueAsDemo: 'ഡെമോ ആയി തുടരുക',
   demoAccounts: 'ഡെമോ അക്കൗണ്ടുകൾ', demoPasswordHint: 'എല്ലാ പാസ്‌വേഡ്: demo123',
   liveLocation: 'തൽസമയം • ഖത്തർ', ok: 'ശരി',
+  detectLocation: 'സ്ഥാനം കണ്ടെത്തുക',
 };
 
 const bn: Dict = {
@@ -767,6 +773,7 @@ const bn: Dict = {
   signIn: 'সাইন ইন', continueAsDemo: 'ডেমো হিসেবে চালিয়ে যান',
   demoAccounts: 'ডেমো অ্যাকাউন্ট', demoPasswordHint: 'সবার পাসওয়ার্ড: demo123',
   liveLocation: 'লাইভ • কাতার', ok: 'ঠিক আছে',
+  detectLocation: 'অবস্থান সনাক্ত করুন',
 };
 
 const fil: Dict = {
@@ -855,6 +862,7 @@ const fil: Dict = {
   signIn: 'Mag-sign In', continueAsDemo: 'Magpatuloy bilang Demo',
   demoAccounts: 'Mga Demo Account', demoPasswordHint: 'Password ng lahat: demo123',
   liveLocation: 'LIVE • QATAR', ok: 'OK',
+  detectLocation: 'Tukuyin ang Lokasyon',
 };
 
 const ne: Dict = {
@@ -943,6 +951,7 @@ const ne: Dict = {
   signIn: 'साइन इन', continueAsDemo: 'डेमोको रूपमा जारी राख्नुहोस्',
   demoAccounts: 'डेमो खाताहरू', demoPasswordHint: 'सबैको पासवर्ड: demo123',
   liveLocation: 'लाइभ • कतार', ok: 'ठिक छ',
+  detectLocation: 'स्थान पत्ता लगाउनुहोस्',
 };
 
 export const translations: Record<Lang, Dict> = {
