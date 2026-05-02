@@ -7,6 +7,7 @@ import { useApp, Role } from '../src/context/AppContext';
 import { COLORS, FONT, RADIUS, SPACING, SHADOW } from '../src/constants/theme';
 import LanguageSheet from '../src/components/LanguageSheet';
 import { LANGUAGES } from '../src/constants/i18n';
+import { TraditionalMinaret } from '../src/components/QatariLandmarks';
 
 const ROLES: { id: Exclude<Role, null>; icon: keyof typeof Ionicons.glyphMap; titleKey: string; descKey: string; color: string }[] = [
   { id: 'donor', icon: 'gift-outline', titleKey: 'donor', descKey: 'donorDesc', color: COLORS.primary },
@@ -28,6 +29,13 @@ export default function RoleSelect() {
 
   return (
     <>
+      {/* Traditional minaret – bottom-right decorative accent */}
+      <TraditionalMinaret
+        height={180}
+        width={90}
+        opacity={0.07}
+        style={{ position: 'absolute', right: 0, bottom: 40, zIndex: 0 }}
+      />
       <Screen testID="role-select-screen">
         <View style={[styles.topBar, isRTL && { flexDirection: 'row-reverse' }]}>
           <View style={[styles.brandRow, isRTL && { flexDirection: 'row-reverse' }]}>

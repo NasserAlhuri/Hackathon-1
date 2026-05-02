@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { LogoFull } from '../src/components/NekhwaLogo';
 import { useApp } from '../src/context/AppContext';
 import { COLORS, FONT, RADIUS, SPACING, SHADOW } from '../src/constants/theme';
+import { FanarMosque } from '../src/components/QatariLandmarks';
 
 const DEMO_CREDENTIALS = [
   { email: 'donor@nekhwa.qa', password: 'demo123', label: 'Donor' },
@@ -35,6 +36,13 @@ export default function Login() {
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.container}>
+      {/* FANAR spiral minaret – top-right decorative accent */}
+      <FanarMosque
+        height={220}
+        width={110}
+        opacity={0.06}
+        style={{ position: 'absolute', right: -20, top: -20 }}
+      />
       <View style={styles.inner}>
         <LogoFull size={90} style={styles.logo} />
 

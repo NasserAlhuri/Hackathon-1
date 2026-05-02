@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { COLORS, FONT, SPACING } from '../src/constants/theme';
 import QatariPattern, { DhowBoat, PalmTree } from '../src/components/QatariPattern';
 import { LogoFull } from '../src/components/NekhwaLogo';
+import { DohaSkyline } from '../src/components/QatariLandmarks';
 
 export default function Splash() {
   const router = useRouter();
@@ -52,6 +53,15 @@ export default function Splash() {
       <Animated.View style={{ position: 'absolute', bottom: 110, alignSelf: 'center', transform: [{ translateY: dhowY }], opacity: 0.7 }}>
         <DhowBoat width={120} height={50} color="#FFD7A8" />
       </Animated.View>
+
+      {/* Doha skyline at the very bottom */}
+      <DohaSkyline
+        white
+        width="100%"
+        height={80}
+        opacity={0.12}
+        style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}
+      />
 
       <Animated.View style={{ opacity: fade, transform: [{ scale }], alignItems: 'center' }}>
         <LogoFull size={120} white testID="splash-logo" />

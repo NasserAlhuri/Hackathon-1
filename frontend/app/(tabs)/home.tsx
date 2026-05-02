@@ -11,6 +11,7 @@ import { getTier, getNextTier } from '../../src/constants/gamification';
 import QatariPattern, { PalmTree } from '../../src/components/QatariPattern';
 import { LogoRow } from '../../src/components/NekhwaLogo';
 import { MOCK_IMPACT, VOLUNTEER_STATS, MOCK_MY_REQUESTS, MOCK_LEADERBOARD, MOCK_LEADERBOARD_ORGS, MY_RANK, MY_TOTAL_MEALS, MY_DONOR_IMPACT } from '../../src/data/mockData';
+import { ConchFountain } from '../../src/components/QatariLandmarks';
 
 export default function Home() {
   const { t, lang, isRTL, role } = useApp();
@@ -95,7 +96,14 @@ export default function Home() {
     const list = lbTab === 'individuals' ? MOCK_LEADERBOARD : MOCK_LEADERBOARD_ORGS;
     const top5 = list.slice(0, 5);
     return (
-      <View style={styles.lbCard} testID="donor-leaderboard">
+      <View style={[styles.lbCard, { overflow: 'hidden' }]} testID="donor-leaderboard">
+        {/* Conch fountain – subtle decorative background */}
+        <ConchFountain
+          height={160}
+          width={80}
+          opacity={0.05}
+          style={{ position: 'absolute', right: -20, bottom: -20 }}
+        />
         <View style={[styles.lbHead, isRTL && { flexDirection: 'row-reverse' }]}>
           <View style={{ flex: 1 }}>
             <Text style={[styles.lbTitle, isRTL && styles.rtl]}>{t('donorLeaderboard')}</Text>
