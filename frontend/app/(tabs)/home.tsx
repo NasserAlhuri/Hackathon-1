@@ -171,8 +171,8 @@ export default function Home() {
               <View style={[styles.statusPill, { backgroundColor: COLORS.accent + '1A', alignSelf: 'flex-start' }]}>
                 <Text style={[styles.statusTxt, { color: COLORS.accentDark }]}>{t('matchedStatus')}</Text>
               </View>
-              <Text style={styles.matchTxt}>
-                {lang === 'ar' || lang === 'fa' ? `${active.match_ar} - ${active.familySize}` : `${t('matchedWith')} ${active.match_en} · ${t('familyOf')} ${active.familySize}`}
+              <Text style={[styles.matchTxt, isRTL && styles.rtl]}>
+                {isRTL ? `${active.match_ar} - ${active.familySize}` : `${t('matchedWith')} ${active.match_en} · ${t('familyOf')} ${active.familySize}`}
               </Text>
             </View>
           ) : (
@@ -236,7 +236,7 @@ export default function Home() {
               <Ionicons name="earth-outline" size={20} color={COLORS.primary} />
               <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
                 <Text style={[styles.communityLabel, isRTL && styles.rtl]}>{t('mealsRescuedToday')}</Text>
-                <Text style={styles.communityValue}>{MOCK_IMPACT.mealsRescued.toLocaleString()}</Text>
+                <Text style={[styles.communityValue, isRTL && styles.rtl]}>{MOCK_IMPACT.mealsRescued.toLocaleString()}</Text>
               </View>
               <View style={styles.liveBadgeSmall}>
                 <View style={styles.liveDotSmall} />

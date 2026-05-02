@@ -79,14 +79,14 @@ export default function ImpactModal() {
               <View style={styles.heroDot} />
               <Text style={styles.heroBadgeTxt}>LIVE • QATAR</Text>
             </View>
-            <Text style={styles.heroLabel}>{t('mealsRescued')}</Text>
+            <Text style={[styles.heroLabel, isRTL && styles.rtl]}>{t('mealsRescued')}</Text>
             <Text style={styles.heroValue}>{MOCK_IMPACT.mealsRescued.toLocaleString()}</Text>
             <View style={styles.heroDivider} />
-            <View style={styles.heroPeopleRow}>
+            <View style={[styles.heroPeopleRow, isRTL && { flexDirection: 'row-reverse' }]}>
               <Text style={styles.heroBigEmoji}>🌟</Text>
               <View style={{ flex: 1, marginHorizontal: 12 }}>
-                <Text style={styles.heroPeopleNum}>{peopleFed.toLocaleString()}</Text>
-                <Text style={styles.heroPeopleLabel}>{t('peopleFed')}</Text>
+                <Text style={[styles.heroPeopleNum, isRTL && styles.rtl]}>{peopleFed.toLocaleString()}</Text>
+                <Text style={[styles.heroPeopleLabel, isRTL && styles.rtl]}>{t('peopleFed')}</Text>
               </View>
             </View>
           </View>
@@ -94,10 +94,10 @@ export default function ImpactModal() {
           {/* 8 stat cards (2x4 grid) */}
           <View style={styles.grid}>
             {stats.map((s) => (
-              <View key={s.key} testID={`impact-stat-${s.key}`} style={[styles.statCard, { borderLeftWidth: 3, borderLeftColor: s.color }]}>
-                <Text style={styles.statEmoji}>{s.emoji}</Text>
-                <Text style={styles.statValue}>{s.value}</Text>
-                <Text style={styles.statLabel} numberOfLines={2}>{s.label}</Text>
+              <View key={s.key} testID={`impact-stat-${s.key}`} style={[styles.statCard, { borderLeftWidth: isRTL ? 0 : 3, borderLeftColor: s.color, borderRightWidth: isRTL ? 3 : 0, borderRightColor: s.color }]}>
+                <Text style={[styles.statEmoji, isRTL && { textAlign: 'right' }]}>{s.emoji}</Text>
+                <Text style={[styles.statValue, isRTL && styles.rtl]}>{s.value}</Text>
+                <Text style={[styles.statLabel, isRTL && styles.rtl]} numberOfLines={2}>{s.label}</Text>
               </View>
             ))}
           </View>
@@ -110,7 +110,7 @@ export default function ImpactModal() {
                 <Text style={styles.todayPillTxt}>+{WEEKLY_SUMMARY.changePct}%</Text>
               </View>
             </View>
-            <View style={styles.weekSummary}>
+            <View style={[styles.weekSummary, isRTL && { flexDirection: 'row-reverse' }]}>
               <View style={styles.weekStat}>
                 <Text style={styles.weekStatVal}>{WEEKLY_SUMMARY.totalThisWeek.toLocaleString()}</Text>
                 <Text style={styles.weekStatLabel}>{t('totalThisWeek')}</Text>
@@ -119,7 +119,7 @@ export default function ImpactModal() {
               <View style={styles.weekStat}>
                 <Text style={styles.weekStatVal}>{WEEKLY_SUMMARY.bestDayValue}</Text>
                 <Text style={styles.weekStatLabel}>
-                  {t('bestDay')} · {lang === 'ar' ? WEEKLY_SUMMARY.bestDayLabel_ar : lang === 'fa' ? WEEKLY_SUMMARY.bestDayLabel_fa : WEEKLY_SUMMARY.bestDayLabel_en}
+                  {t('bestDay')} · {isRTL ? (lang === 'fa' ? WEEKLY_SUMMARY.bestDayLabel_fa : WEEKLY_SUMMARY.bestDayLabel_ar) : WEEKLY_SUMMARY.bestDayLabel_en}
                 </Text>
               </View>
               <View style={styles.weekDivider} />
@@ -150,12 +150,12 @@ export default function ImpactModal() {
               const name = lang === 'ar' || lang === 'fa' || lang === 'ur' ? area.ar : area.en;
               const fillPct = (area.meals / maxAreaMeals) * 100;
               return (
-                <View key={area.id} style={styles.areaRow}>
+                <View key={area.id} style={[styles.areaRow, isRTL && { flexDirection: 'row-reverse' }]}>
                   <Text style={[styles.areaName, isRTL && styles.rtl]} numberOfLines={1}>{name}</Text>
                   <View style={styles.areaBarWrap}>
                     <View style={[styles.areaBar, { width: `${fillPct}%`, backgroundColor: COLORS.primary }]} />
                   </View>
-                  <Text style={styles.areaMeals}>{area.meals.toLocaleString()}</Text>
+                  <Text style={[styles.areaMeals, isRTL && { textAlign: 'left' }]}>{area.meals.toLocaleString()}</Text>
                 </View>
               );
             })}
@@ -177,7 +177,7 @@ export default function ImpactModal() {
                       <View style={[styles.ngoBar, { width: `${fillPct}%`, backgroundColor: COLORS.accent }]} />
                     </View>
                   </View>
-                  <Text style={styles.ngoMeals}>{ngo.meals.toLocaleString()}</Text>
+                  <Text style={[styles.ngoMeals, isRTL && { textAlign: 'left' }]}>{ngo.meals.toLocaleString()}</Text>
                 </View>
               );
             })}
@@ -206,7 +206,7 @@ export default function ImpactModal() {
             <Text style={[styles.envSub, isRTL && styles.rtl]}>{t('envImpactSub')}</Text>
             <View style={styles.envGrid}>
               {ENV_EQUIVALENTS.map((e, i) => {
-                const label = lang === 'ar' ? e.label_ar : lang === 'fa' ? e.label_fa : e.label_en;
+                const label = isRTL ? (lang === 'fa' ? e.label_fa : e.label_ar) : e.label_en;
                 return (
                   <View key={i} style={styles.envCard}>
                     <Text style={styles.envEmoji}>{e.icon}</Text>
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
   heroBlob1: { position: 'absolute', width: 240, height: 240, borderRadius: 240, backgroundColor: COLORS.primaryLight, opacity: 0.4, top: -100, right: -80 },
   heroBlob2: { position: 'absolute', width: 160, height: 160, borderRadius: 160, backgroundColor: COLORS.accent, opacity: 0.25, bottom: -60, left: -40 },
   heroBadge: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.18)', alignSelf: 'flex-start', paddingHorizontal: 10, paddingVertical: 5, borderRadius: RADIUS.full },
-  heroDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: '#5DEE9C', marginRight: 6 },
+  heroDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: '#5DEE9C', marginEnd: 6 },
   heroBadgeTxt: { color: '#fff', fontSize: 9, fontWeight: '800', letterSpacing: 1.4 },
   heroLabel: { color: '#fff', opacity: 0.85, fontSize: FONT.size.sm, marginTop: SPACING.md, letterSpacing: 0.5 },
   heroValue: { color: '#fff', fontSize: 64, fontWeight: FONT.weight.extrabold, marginTop: 4, letterSpacing: -2.5, lineHeight: 70 },

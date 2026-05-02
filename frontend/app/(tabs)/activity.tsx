@@ -46,20 +46,20 @@ export default function Activity() {
                   <Text style={[styles.statusTxt, { color: task.status === 'open' ? COLORS.accentDark : COLORS.warning }]}>{t(statusKey)}</Text>
                 </View>
               </View>
-              <View style={styles.routeRow}>
+              <View style={[styles.routeRow, isRTL && { flexDirection: 'row-reverse' }]}>
                 <View style={styles.routeCol}>
-                  <Text style={styles.routeLabel}>{t('fromLabel')}</Text>
-                  <Text style={styles.routeVal}>{locName(task.from)}</Text>
+                  <Text style={[styles.routeLabel, isRTL && styles.rtl]}>{t('fromLabel')}</Text>
+                  <Text style={[styles.routeVal, isRTL && styles.rtl]}>{locName(task.from)}</Text>
                 </View>
                 <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={18} color={COLORS.textMuted} />
-                <View style={[styles.routeCol, { alignItems: 'flex-end' }]}>
-                  <Text style={styles.routeLabel}>{t('toLabel')}</Text>
-                  <Text style={styles.routeVal}>{isRTL ? task.toNgo_ar : task.toNgo_en}</Text>
+                <View style={[styles.routeCol, { alignItems: isRTL ? 'flex-start' : 'flex-end' }]}>
+                  <Text style={[styles.routeLabel, isRTL && styles.rtl]}>{t('toLabel')}</Text>
+                  <Text style={[styles.routeVal, isRTL && styles.rtl]}>{isRTL ? task.toNgo_ar : task.toNgo_en}</Text>
                 </View>
               </View>
-              <View style={styles.metaRow}>
-                <View style={styles.meta}><Ionicons name="time-outline" size={14} color={COLORS.textMuted} /><Text style={styles.metaTxt}>{task.scheduledIn}</Text></View>
-                <View style={styles.meta}><Ionicons name="car-outline" size={14} color={COLORS.textMuted} /><Text style={styles.metaTxt}>{t(task.vehicle)}</Text></View>
+              <View style={[styles.metaRow, isRTL && { flexDirection: 'row-reverse' }]}>
+                <View style={[styles.meta, isRTL && { flexDirection: 'row-reverse' }]}><Ionicons name="time-outline" size={14} color={COLORS.textMuted} /><Text style={[styles.metaTxt, isRTL && styles.rtl]}>{task.scheduledIn}</Text></View>
+                <View style={[styles.meta, isRTL && { flexDirection: 'row-reverse' }]}><Ionicons name="car-outline" size={14} color={COLORS.textMuted} /><Text style={[styles.metaTxt, isRTL && styles.rtl]}>{t(task.vehicle)}</Text></View>
               </View>
               <TouchableOpacity testID={`task-advance-${task.id}`} activeOpacity={0.85}
                 onPress={() => { updateTask(task.id, { status: nextStatus }); if (nextStatus === 'delivered') Alert.alert(t('taskCompleted'), t('success_thanks')); }}
@@ -79,9 +79,9 @@ export default function Activity() {
     return (
       <Screen testID="activity-screen">
         <Header title={t('myRequests')} showBack={false} />
-        <TouchableOpacity testID="new-request-btn" style={styles.newBtn} onPress={() => router.push('/request-food')}>
+        <TouchableOpacity testID="new-request-btn" style={[styles.newBtn, isRTL && { flexDirection: 'row-reverse' }]} onPress={() => router.push('/request-food')}>
           <Ionicons name="add-circle" size={22} color={COLORS.primary} />
-          <Text style={styles.newBtnTxt}>{t('newRequest')}</Text>
+          <Text style={[styles.newBtnTxt, isRTL && styles.rtl]}>{t('newRequest')}</Text>
         </TouchableOpacity>
         {MOCK_MY_REQUESTS.map((r) => {
           const statusColor = r.status === 'matched' ? COLORS.accent : r.status === 'fulfilled' ? COLORS.accentDark : COLORS.warning;
@@ -111,9 +111,9 @@ export default function Activity() {
   return (
     <Screen testID="activity-screen">
       <Header title={t('myDonations')} showBack={false} />
-      <TouchableOpacity testID="new-donation-btn" style={styles.newBtn} onPress={() => router.push('/donate')}>
+      <TouchableOpacity testID="new-donation-btn" style={[styles.newBtn, isRTL && { flexDirection: 'row-reverse' }]} onPress={() => router.push('/donate')}>
         <Ionicons name="add-circle" size={22} color={COLORS.primary} />
-        <Text style={styles.newBtnTxt}>{t('newDonation')}</Text>
+        <Text style={[styles.newBtnTxt, isRTL && styles.rtl]}>{t('newDonation')}</Text>
       </TouchableOpacity>
       {MOCK_MY_DONATIONS.map((d) => {
         const isDelivered = d.status === 'delivered';
