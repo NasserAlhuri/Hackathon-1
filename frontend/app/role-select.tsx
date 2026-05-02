@@ -11,7 +11,7 @@ import { LANGUAGES } from '../src/constants/i18n';
 const ROLES: { id: Exclude<Role, null>; icon: keyof typeof Ionicons.glyphMap; titleKey: string; descKey: string; color: string }[] = [
   { id: 'donor', icon: 'gift-outline', titleKey: 'donor', descKey: 'donorDesc', color: COLORS.primary },
   { id: 'volunteer', icon: 'car-outline', titleKey: 'volunteer', descKey: 'volunteerDesc', color: COLORS.accent },
-  { id: 'recipient', icon: 'hand-left-outline', titleKey: 'recipient', descKey: 'recipientDesc', color: COLORS.warning },
+  { id: 'recipient', icon: 'people-circle-outline', titleKey: 'recipient', descKey: 'recipientDesc', color: COLORS.warning },
 ];
 
 export default function RoleSelect() {
@@ -30,13 +30,13 @@ export default function RoleSelect() {
     <>
       <Screen testID="role-select-screen">
         <View style={[styles.topBar, isRTL && { flexDirection: 'row-reverse' }]}>
-          <View style={styles.brandRow}>
+          <View style={[styles.brandRow, isRTL && { flexDirection: 'row-reverse' }]}>
             <View style={styles.brandMark}>
               <Ionicons name="restaurant" size={20} color={COLORS.primary} />
             </View>
             <View style={{ marginHorizontal: SPACING.sm }}>
-              <Text style={styles.brandName}>{t('appName')}</Text>
-              <Text style={styles.brandTag}>{t('tagline')}</Text>
+              <Text style={[styles.brandName, isRTL && styles.rtlText]}>{t('appName')}</Text>
+              <Text style={[styles.brandTag, isRTL && styles.rtlText]}>{t('tagline')}</Text>
             </View>
           </View>
           <TouchableOpacity
@@ -45,7 +45,7 @@ export default function RoleSelect() {
             style={styles.langBtn}
           >
             <Text style={styles.langFlag}>{currentLang?.flag}</Text>
-            <Text style={styles.langText} numberOfLines={1}>{currentLang?.native}</Text>
+            <Text style={[styles.langText, isRTL && styles.rtlText]} numberOfLines={1}>{currentLang?.native}</Text>
           </TouchableOpacity>
         </View>
 

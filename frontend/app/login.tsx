@@ -9,7 +9,6 @@ const DEMO_CREDENTIALS = [
   { email: 'donor@nekhwa.qa', password: 'demo123', label: 'Donor' },
   { email: 'volunteer@nekhwa.qa', password: 'demo123', label: 'Volunteer' },
   { email: 'recipient@nekhwa.qa', password: 'demo123', label: 'Recipient' },
-  { email: 'ngo@nekhwa.qa', password: 'demo123', label: 'NGO' },
 ];
 
 export default function Login() {
@@ -80,7 +79,7 @@ export default function Login() {
         </View>
 
         <View style={styles.demoSection}>
-          <Text style={styles.demoTitle}>{t('demoAccounts')}</Text>
+          <Text style={[styles.demoTitle, isRTL && styles.rtl]}>{t('demoAccounts')}</Text>
           <View style={styles.chipRow}>
             {DEMO_CREDENTIALS.map((c) => (
               <TouchableOpacity key={c.label} testID={`demo-chip-${c.label.toLowerCase()}`} style={styles.chip} onPress={() => fillDemo(c)}>
@@ -88,7 +87,7 @@ export default function Login() {
               </TouchableOpacity>
             ))}
           </View>
-          <Text style={styles.demoHint}>{t('demoPasswordHint')}</Text>
+          <Text style={[styles.demoHint, isRTL && styles.rtl]}>{t('demoPasswordHint')}</Text>
         </View>
       </View>
     </KeyboardAvoidingView>

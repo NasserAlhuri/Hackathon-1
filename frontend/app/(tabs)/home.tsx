@@ -207,9 +207,9 @@ export default function Home() {
           </View>
           <Text style={[styles.heroLabel, isRTL && styles.rtl]}>{role === 'donor' ? t('yourMealsRescued') : t('mealsRescuedToday')}</Text>
           <Text style={styles.heroValue}>{display.toLocaleString()}</Text>
-          <View style={styles.translateRow}>
+          <View style={[styles.translateRow, isRTL && { flexDirection: 'row-reverse' }]}>
             <Ionicons name="people" size={14} color="#fff" />
-            <Text style={styles.translateTxt}>{peopleFed.toLocaleString()} {role === 'donor' ? t('yourPeopleFed') : t('peopleFed')}</Text>
+            <Text style={[styles.translateTxt, isRTL && styles.rtl]}>{peopleFed.toLocaleString()} {role === 'donor' ? t('yourPeopleFed') : t('peopleFed')}</Text>
           </View>
           <View style={styles.miniChart}>
             {MOCK_IMPACT.weeklyTrend.map((v, i) => {
@@ -246,23 +246,23 @@ export default function Home() {
           </View>
         )}
 
-        <View style={styles.statsStrip}>
+        <View style={[styles.statsStrip, isRTL && { flexDirection: 'row-reverse' }]}>
           <View style={styles.statBox}>
             <Ionicons name="people-outline" size={20} color={COLORS.accent} />
             <Text style={styles.statNum}>{MOCK_IMPACT.activeVolunteers}</Text>
-            <Text style={styles.statTitle}>{t('activeVolunteers')}</Text>
+            <Text style={[styles.statTitle, isRTL && styles.rtl]}>{t('activeVolunteers')}</Text>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statBox}>
             <Ionicons name="checkmark-circle-outline" size={20} color={COLORS.accent} />
             <Text style={styles.statNum}>{MOCK_IMPACT.completedDeliveries.toLocaleString()}</Text>
-            <Text style={styles.statTitle}>{t('completedDeliveries')}</Text>
+            <Text style={[styles.statTitle, isRTL && styles.rtl]}>{t('completedDeliveries')}</Text>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statBox}>
             <Ionicons name="location-outline" size={20} color={COLORS.accent} />
             <Text style={styles.statNum}>{MOCK_IMPACT.areasServed}</Text>
-            <Text style={styles.statTitle}>{t('areasServed')}</Text>
+            <Text style={[styles.statTitle, isRTL && styles.rtl]}>{t('areasServed')}</Text>
           </View>
         </View>
 
@@ -273,7 +273,7 @@ export default function Home() {
               <View style={[styles.tileIcon, { backgroundColor: a.color + '1A' }]}>
                 <Ionicons name={a.icon} size={22} color={a.color} />
               </View>
-              <Text style={styles.tileLabel}>{a.label}</Text>
+              <Text style={[styles.tileLabel, isRTL && styles.rtl]}>{a.label}</Text>
             </TouchableOpacity>
           ))}
         </View>
