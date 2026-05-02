@@ -26,18 +26,18 @@ export function LogoMark({ size = 64, white = false, style }: MarkProps) {
   );
 }
 
-// Just the bilingual name block: نخوة / NEKHWA
+// Just the bilingual name block: المرفاعة / AL MERFAA
 export function LogoName({ white = false, style }: { white?: boolean; style?: object }) {
   const c = white ? '#fff' : COLORS.primary;
   return (
     <View style={[styles.nameWrap, style]}>
-      <Text style={[styles.nameAr, { color: c }]}>نخوة</Text>
+      <Text style={[styles.nameAr, { color: c }]}>المرفاعة</Text>
       <View style={styles.dividerRow}>
         <View style={[styles.dividerLine, { backgroundColor: c }]} />
         <View style={[styles.diamond, { borderTopColor: c, borderBottomColor: c }]} />
         <View style={[styles.dividerLine, { backgroundColor: c }]} />
       </View>
-      <Text style={[styles.nameEn, { color: c }]}>NEKHWA</Text>
+      <Text style={[styles.nameEn, { color: c }]}>AL MERFAA</Text>
     </View>
   );
 }

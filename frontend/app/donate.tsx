@@ -58,7 +58,7 @@ export default function Donate() {
       Alert.alert(
         t('donationSubmitted'),
         `${t('vehicleSuggested')}: ${t(vehicle)}\n${t('assignedNgo')}: ${lang === 'en' ? assignedNgo.en : assignedNgo.ar}`,
-        [{ text: 'OK', onPress: () => router.replace('/(tabs)/home') }]
+        [{ text: t('ok'), onPress: () => router.replace('/(tabs)/home') }]
       );
       return;
     }
@@ -70,7 +70,7 @@ export default function Donate() {
         level: safety.level,
         window: String(safety.windowMinutes),
         meals: String(mealsNum),
-        location: lang === 'en' ? loc.en : loc.ar,
+        location: isRTL ? loc.ar : loc.en,
       },
     });
   };
@@ -206,7 +206,7 @@ export default function Donate() {
                   >
                     <Text style={styles.allergenEmoji}>{info.emoji}</Text>
                     <Text style={[styles.allergenLabel, active && { color: COLORS.accentDark, fontWeight: '700' }]}>
-                      {lang === 'ar' || lang === 'fa' ? info.ar : info.en}
+                      {isRTL ? info.ar : info.en}
                     </Text>
                   </TouchableOpacity>
                 );

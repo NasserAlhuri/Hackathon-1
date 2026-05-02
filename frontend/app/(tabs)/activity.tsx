@@ -13,7 +13,7 @@ export default function Activity() {
   const router = useRouter();
   const locName = (id: string) => {
     const l = QATAR_LOCATIONS.find((x) => x.id === id);
-    return l ? (lang === 'ar' ? l.ar : l.en) : id;
+    return l ? (isRTL ? l.ar : l.en) : id;
   };
 
   // VOLUNTEER
@@ -39,7 +39,7 @@ export default function Activity() {
               <View style={[styles.cardHead, isRTL && { flexDirection: 'row-reverse' }]}>
                 <View style={styles.iconBadge}><Ionicons name="restaurant-outline" size={18} color={COLORS.primary} /></View>
                 <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
-                  <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'ar' || lang === 'fa' ? task.title_ar : task.title_en}</Text>
+                  <Text style={[styles.title, isRTL && styles.rtl]}>{isRTL ? task.title_ar : task.title_en}</Text>
                   <Text style={[styles.sub, isRTL && styles.rtl]}>{task.meals} {t('meals')} · {task.distanceKm} {t('distance')}</Text>
                 </View>
                 <View style={[styles.statusPill, { backgroundColor: task.status === 'open' ? COLORS.accent + '1A' : COLORS.warning + '26' }]}>
@@ -54,7 +54,7 @@ export default function Activity() {
                 <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={18} color={COLORS.textMuted} />
                 <View style={[styles.routeCol, { alignItems: 'flex-end' }]}>
                   <Text style={styles.routeLabel}>{t('toLabel')}</Text>
-                  <Text style={styles.routeVal}>{lang === 'ar' ? task.toNgo_ar : task.toNgo_en}</Text>
+                  <Text style={styles.routeVal}>{isRTL ? task.toNgo_ar : task.toNgo_en}</Text>
                 </View>
               </View>
               <View style={styles.metaRow}>
@@ -91,14 +91,14 @@ export default function Activity() {
                 <View style={styles.iconBadge}><Ionicons name="hand-left-outline" size={16} color={COLORS.primary} /></View>
                 <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
                   <Text style={[styles.title, isRTL && styles.rtl]}>{t('familyOf')} {r.familySize}</Text>
-                  <Text style={[styles.sub, isRTL && styles.rtl]}>{lang === 'ar' || lang === 'fa' ? r.area_ar : r.area_en} · {r.date}</Text>
+                  <Text style={[styles.sub, isRTL && styles.rtl]}>{isRTL ? r.area_ar : r.area_en} · {r.date}</Text>
                 </View>
                 <View style={[styles.statusPill, { backgroundColor: statusColor + '1A' }]}>
                   <Text style={[styles.statusTxt, { color: statusColor }]}>{r.status === 'matched' ? t('matchedStatus') : r.status === 'fulfilled' ? t('statusFulfilled') : t('statusPending')}</Text>
                 </View>
               </View>
               <Text style={[styles.matchInfo, isRTL && styles.rtl]}>
-                ✓ {t('matchedWith')} {lang === 'ar' || lang === 'fa' ? r.match_ar : r.match_en}
+                ✓ {t('matchedWith')} {isRTL ? r.match_ar : r.match_en}
               </Text>
             </View>
           );
@@ -122,7 +122,7 @@ export default function Activity() {
             <View style={[styles.cardHead, isRTL && { flexDirection: 'row-reverse' }]}>
               <View style={styles.iconBadge}><Ionicons name="gift-outline" size={16} color={COLORS.primary} /></View>
               <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
-                <Text style={[styles.title, isRTL && styles.rtl]}>{lang === 'ar' || lang === 'fa' ? d.title_ar : d.title_en}</Text>
+                <Text style={[styles.title, isRTL && styles.rtl]}>{isRTL ? d.title_ar : d.title_en}</Text>
                 <Text style={[styles.sub, isRTL && styles.rtl]}>{d.meals} {t('meals')} · {d.date}</Text>
               </View>
               <View style={[styles.statusPill, { backgroundColor: (isDelivered ? COLORS.accent : COLORS.warning) + '1A' }]}>

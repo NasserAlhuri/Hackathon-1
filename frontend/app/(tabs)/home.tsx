@@ -10,7 +10,7 @@ import { LANGUAGES } from '../../src/constants/i18n';
 import { getTier, getNextTier } from '../../src/constants/gamification';
 import QatariPattern, { PalmTree } from '../../src/components/QatariPattern';
 import { LogoRow } from '../../src/components/NekhwaLogo';
-import { MOCK_IMPACT, MOCK_RECENT, VOLUNTEER_STATS, MOCK_MY_REQUESTS, MOCK_LEADERBOARD, MOCK_LEADERBOARD_ORGS, MY_RANK, MY_TOTAL_MEALS, MY_DONOR_IMPACT } from '../../src/data/mockData';
+import { MOCK_IMPACT, VOLUNTEER_STATS, MOCK_MY_REQUESTS, MOCK_LEADERBOARD, MOCK_LEADERBOARD_ORGS, MY_RANK, MY_TOTAL_MEALS, MY_DONOR_IMPACT } from '../../src/data/mockData';
 
 export default function Home() {
   const { t, lang, isRTL, role } = useApp();
@@ -29,7 +29,6 @@ export default function Home() {
   }, [role]);
 
   const peopleFed = role === 'donor' ? MY_DONOR_IMPACT.peopleFed : Math.round(MOCK_IMPACT.mealsRescued / 3);
-  const co2SavedTons = Math.round(MOCK_IMPACT.co2AvoidedKg / 1000);
   const maxVal = Math.max(...MOCK_IMPACT.weeklyTrend);
   const days = lang === 'en' ? ['M', 'T', 'W', 'T', 'F', 'S', 'S'] : ['ن', 'ث', 'ر', 'خ', 'ج', 'س', 'ح'];
   const currentLang = LANGUAGES.find((l) => l.id === lang);
@@ -42,7 +41,7 @@ export default function Home() {
       case 'recipient':
         return [
           { id: 'findFood', icon: 'map-outline' as const, label: t('findFoodNearby'), color: COLORS.accent, route: '/find-food' },
-          { id: 'request', icon: 'hand-left-outline' as const, label: t('requestFood'), color: COLORS.warning, route: '/request-food' },
+          { id: 'request', icon: 'basket-outline' as const, label: t('requestFood'), color: COLORS.warning, route: '/request-food' },
         ];
       case 'donor':
       default:
@@ -136,7 +135,7 @@ export default function Home() {
           );
         })}
 
-        <TouchableOpacity testID="lb-view-full" style={styles.lbViewAll} activeOpacity={0.85}>
+        <TouchableOpacity testID="lb-view-full" style={styles.lbViewAll} activeOpacity={0.85} onPress={() => router.push('/impact')}>
           <Text style={styles.lbViewAllTxt}>{t('viewFullLeaderboard')}</Text>
           <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={14} color={COLORS.primary} />
         </TouchableOpacity>
@@ -202,7 +201,7 @@ export default function Home() {
         {renderRoleStats()}
         {renderTierCard()}
 
-        <View testID="home-impact-hero" style={[styles.hero, role === 'volunteer' || role === 'recipient' ? { marginTop: SPACING.md } : null]}>
+        <View testID="home-impact-hero" style={[styles.hero, { marginTop: SPACING.lg }]}>
           <View style={styles.heroBlob1} />
           <View style={styles.heroBlob2} />
           <View style={styles.liveBadge}>
@@ -233,23 +232,40 @@ export default function Home() {
           </TouchableOpacity>
         </View>
 
+        {/* Community meals rescued card — shown below donor personal hero */}
+        {role === 'donor' && (
+          <View style={styles.communityCard} testID="community-meals-card">
+            <View style={[styles.communityRow, isRTL && { flexDirection: 'row-reverse' }]}>
+              <Ionicons name="earth-outline" size={20} color={COLORS.primary} />
+              <View style={{ flex: 1, marginHorizontal: SPACING.md }}>
+                <Text style={[styles.communityLabel, isRTL && styles.rtl]}>{t('mealsRescuedToday')}</Text>
+                <Text style={styles.communityValue}>{MOCK_IMPACT.mealsRescued.toLocaleString()}</Text>
+              </View>
+              <View style={styles.liveBadgeSmall}>
+                <View style={styles.liveDotSmall} />
+                <Text style={styles.liveTxtSmall}>{t('liveLocation')}</Text>
+              </View>
+            </View>
+          </View>
+        )}
+
         <View style={styles.statsStrip}>
-          <View style={styles.statBox}>
-            <Ionicons name="leaf-outline" size={20} color={COLORS.accent} />
-            <Text style={styles.statNum}>{MOCK_IMPACT.wasteReducedKg.toLocaleString()}</Text>
-            <Text style={styles.statTitle}>{t('kg')} {t('wasteReduced').toLowerCase()}</Text>
-          </View>
-          <View style={styles.statDivider} />
-          <View style={styles.statBox}>
-            <Ionicons name="cloud-outline" size={20} color={COLORS.accent} />
-            <Text style={styles.statNum}>{co2SavedTons}t</Text>
-            <Text style={styles.statTitle}>{t('co2Avoided')}</Text>
-          </View>
-          <View style={styles.statDivider} />
           <View style={styles.statBox}>
             <Ionicons name="people-outline" size={20} color={COLORS.accent} />
             <Text style={styles.statNum}>{MOCK_IMPACT.activeVolunteers}</Text>
             <Text style={styles.statTitle}>{t('activeVolunteers')}</Text>
+          </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statBox}>
+            <Ionicons name="checkmark-circle-outline" size={20} color={COLORS.accent} />
+            <Text style={styles.statNum}>{MOCK_IMPACT.completedDeliveries.toLocaleString()}</Text>
+            <Text style={styles.statTitle}>{t('completedDeliveries')}</Text>
+          </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statBox}>
+            <Ionicons name="location-outline" size={20} color={COLORS.accent} />
+            <Text style={styles.statNum}>{MOCK_IMPACT.areasServed}</Text>
+            <Text style={styles.statTitle}>{t('areasServed')}</Text>
           </View>
         </View>
 
@@ -267,16 +283,7 @@ export default function Home() {
 
         {renderLeaderboard()}
 
-        <Text style={[styles.sectionTitle, isRTL && styles.rtl]}>{t('recentActivity')}</Text>
-        <View style={{ marginBottom: SPACING.xl }}>
-          {MOCK_RECENT.map((r) => (
-            <View key={r.id} style={[styles.activity, isRTL && { flexDirection: 'row-reverse' }]}>
-              <View style={styles.activityDot} />
-              <Text style={[styles.activityText, isRTL && styles.rtl]} numberOfLines={2}>{lang === 'ar' ? r.ar : r.en}</Text>
-              <Text style={styles.activityTime}>{r.time}</Text>
-            </View>
-          ))}
-        </View>
+        <View style={{ height: SPACING.xl }} />
       </Screen>
       <LanguageSheet open={langOpen} onClose={() => setLangOpen(false)} />
     </>
@@ -319,6 +326,14 @@ const styles = StyleSheet.create({
   miniDay: { fontSize: 10, color: 'rgba(255,255,255,0.65)', fontWeight: '600' },
   heroCta: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', paddingVertical: 12, borderRadius: RADIUS.full, marginTop: SPACING.md },
   heroCtaTxt: { color: COLORS.primary, fontWeight: FONT.weight.bold, fontSize: FONT.size.sm, marginEnd: 6 },
+
+  communityCard: { backgroundColor: COLORS.surface, borderRadius: RADIUS.xl, padding: SPACING.md, marginTop: SPACING.md, borderWidth: 1, borderColor: COLORS.border, ...SHADOW.sm },
+  communityRow: { flexDirection: 'row', alignItems: 'center' },
+  communityLabel: { fontSize: FONT.size.sm, color: COLORS.textSecondary, fontWeight: FONT.weight.semibold },
+  communityValue: { fontSize: FONT.size.xl, fontWeight: FONT.weight.extrabold, color: COLORS.primary, marginTop: 2 },
+  liveBadgeSmall: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.surfaceAlt, paddingHorizontal: 8, paddingVertical: 4, borderRadius: RADIUS.full },
+  liveDotSmall: { width: 5, height: 5, borderRadius: 3, backgroundColor: '#5DEE9C', marginEnd: 4 },
+  liveTxtSmall: { color: COLORS.textSecondary, fontSize: 8, fontWeight: '800', letterSpacing: 1.2 },
 
   statsStrip: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.surface, borderRadius: RADIUS.xl, paddingVertical: SPACING.md, marginTop: SPACING.md, borderWidth: 1, borderColor: COLORS.border, ...SHADOW.sm },
   statBox: { flex: 1, alignItems: 'center', paddingHorizontal: 4 },

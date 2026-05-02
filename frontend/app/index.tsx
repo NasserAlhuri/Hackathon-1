@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { View, StyleSheet, Animated, Easing } from 'react-native';
+import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
 import { useRouter } from 'expo-router';
-import { COLORS } from '../src/constants/theme';
+import { COLORS, FONT, SPACING } from '../src/constants/theme';
 import QatariPattern, { DhowBoat, PalmTree } from '../src/components/QatariPattern';
 import { LogoFull } from '../src/components/NekhwaLogo';
 
@@ -10,12 +10,15 @@ export default function Splash() {
   const fade = useRef(new Animated.Value(0)).current;
   const scale = useRef(new Animated.Value(0.8)).current;
   const dhowFloat = useRef(new Animated.Value(0)).current;
+  const sloganFade = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.parallel([
       Animated.timing(fade, { toValue: 1, duration: 650, useNativeDriver: true, easing: Easing.out(Easing.cubic) }),
       Animated.spring(scale, { toValue: 1, friction: 5, tension: 40, useNativeDriver: true }),
     ]).start();
+
+    Animated.timing(sloganFade, { toValue: 1, duration: 900, delay: 500, useNativeDriver: true, easing: Easing.out(Easing.cubic) }).start();
 
     Animated.loop(
       Animated.sequence([
@@ -26,7 +29,7 @@ export default function Splash() {
 
     const timer = setTimeout(() => {
       router.replace('/login');
-    }, 2000);
+    }, 2800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -53,6 +56,16 @@ export default function Splash() {
       <Animated.View style={{ opacity: fade, transform: [{ scale }], alignItems: 'center' }}>
         <LogoFull size={120} white testID="splash-logo" />
       </Animated.View>
+
+      <Animated.View style={[styles.sloganWrap, { opacity: sloganFade }]}>
+        <Text style={styles.sloganAr}>ارفع فائضك واصنع أثرك</Text>
+        <View style={styles.dividerRow}>
+          <View style={styles.dividerLine} />
+          <View style={styles.diamond} />
+          <View style={styles.dividerLine} />
+        </View>
+        <Text style={styles.sloganEn}>Lift Your Surplus, Create an Impact.</Text>
+      </Animated.View>
     </View>
   );
 }
@@ -60,4 +73,10 @@ export default function Splash() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.primary, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
   blob: { position: 'absolute', width: 200, height: 200, borderRadius: 200, opacity: 0.5 },
+  sloganWrap: { position: 'absolute', bottom: 56, alignItems: 'center', paddingHorizontal: SPACING.xl },
+  sloganAr: { color: '#fff', fontSize: FONT.size.lg, fontWeight: FONT.weight.bold, opacity: 0.9, textAlign: 'center', letterSpacing: 0.5 },
+  dividerRow: { flexDirection: 'row', alignItems: 'center', marginVertical: 8, width: 180 },
+  dividerLine: { flex: 1, height: 1, backgroundColor: 'rgba(255,255,255,0.5)' },
+  diamond: { width: 7, height: 7, borderTopWidth: 3.5, borderBottomWidth: 3.5, borderLeftWidth: 3.5, borderRightWidth: 3.5, borderLeftColor: 'transparent', borderRightColor: 'transparent', borderTopColor: 'rgba(255,255,255,0.8)', borderBottomColor: 'rgba(255,255,255,0.8)', marginHorizontal: 8, transform: [{ rotate: '45deg' }] },
+  sloganEn: { color: '#fff', fontSize: FONT.size.sm, opacity: 0.8, textAlign: 'center', fontStyle: 'italic', letterSpacing: 0.3 },
 });

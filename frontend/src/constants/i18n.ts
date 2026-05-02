@@ -16,8 +16,8 @@ export const RTL_LANGS: Lang[] = ['ar', 'fa', 'ur'];
 
 // Anchor on English. Each language must override every key for full coverage.
 const en = {
-  appName: 'Nekhwa',
-  tagline: 'Community Food Rescue, Qatar',
+  appName: 'Al Merfaa',
+  tagline: 'Lift Your Surplus, Create an Impact.',
   chooseRole: 'How would you like to help?',
   roleSubtitle: 'Pick a role to continue.',
   donor: 'Donor',
@@ -241,7 +241,7 @@ const en = {
 type Dict = typeof en;
 
 const ar: Dict = {
-  appName: 'نخوة', tagline: 'إنقاذ الطعام المجتمعي، قطر',
+  appName: 'المرفاعة', tagline: 'ارفع فائضك واصنع أثرك',
   chooseRole: 'كيف تحب أن تساعد؟', roleSubtitle: 'اختر دورك للمتابعة.',
   donor: 'متبرع', donorDesc: 'تبرع بالطعام — قليل أو كثير',
   volunteer: 'متطوع', volunteerDesc: 'استلام وتوصيل الطعام',
@@ -329,7 +329,7 @@ const ar: Dict = {
 };
 
 const fa: Dict = {
-  appName: 'نخوه', tagline: 'نجات غذای جامعه، قطر',
+  appName: 'المرفاعه', tagline: 'مازاد خود را بالا ببر، تأثیر بگذار.',
   chooseRole: 'چگونه می‌خواهید کمک کنید؟', roleSubtitle: 'برای ادامه نقش را انتخاب کنید.',
   donor: 'اهداکننده', donorDesc: 'غذا اهدا کنید — کم یا زیاد',
   volunteer: 'داوطلب', volunteerDesc: 'تحویل و توزیع غذا',
@@ -418,7 +418,7 @@ const fa: Dict = {
 };
 
 const ur: Dict = {
-  appName: 'نخوة', tagline: 'کمیونٹی فوڈ ریسکیو، قطر',
+  appName: 'المرفاعه', tagline: 'اپنا فاضل اٹھاؤ، اثر پیدا کرو.',
   chooseRole: 'آپ کیسے مدد کرنا چاہیں گے؟', roleSubtitle: 'جاری رکھنے کے لیے کردار منتخب کریں۔',
   donor: 'عطیہ کنندہ', donorDesc: 'کھانا عطیہ کریں — کم یا زیادہ',
   volunteer: 'رضاکار', volunteerDesc: 'کھانا اٹھائیں اور پہنچائیں',
@@ -506,7 +506,7 @@ const ur: Dict = {
 };
 
 const hi: Dict = {
-  appName: 'नेखवा', tagline: 'सामुदायिक भोजन बचाव, क़तर',
+  appName: 'अल मरफ़ा', tagline: 'अपना अतिरिक्त उठाएँ, असर डालें।',
   chooseRole: 'आप कैसे मदद करना चाहेंगे?', roleSubtitle: 'आगे बढ़ने के लिए भूमिका चुनें।',
   donor: 'दानदाता', donorDesc: 'भोजन दान करें — छोटा या बड़ा',
   volunteer: 'स्वयंसेवक', volunteerDesc: 'भोजन उठाएँ और पहुँचाएँ',
@@ -594,7 +594,7 @@ const hi: Dict = {
 };
 
 const ml: Dict = {
-  appName: 'നെഖ്‌വ', tagline: 'കമ്മ്യൂണിറ്റി ഫുഡ് റെസ്ക്യൂ, ഖത്തർ',
+  appName: 'അൽ മർഫ', tagline: 'നിങ്ങളുടെ മിച്ചം ഉയർത്തുക, സ്വാധീനം സൃഷ്ടിക്കുക.',
   chooseRole: 'നിങ്ങൾക്ക് എങ്ങനെ സഹായിക്കാൻ ആഗ്രഹമുണ്ട്?', roleSubtitle: 'തുടരാൻ ഒരു റോൾ തിരഞ്ഞെടുക്കുക.',
   donor: 'ദാതാവ്', donorDesc: 'ഭക്ഷണം ദാനം ചെയ്യുക — ചെറുത് അല്ലെങ്കിൽ വലുത്',
   volunteer: 'വളണ്ടിയർ', volunteerDesc: 'ഭക്ഷണം എടുത്ത് എത്തിക്കുക',
@@ -682,7 +682,7 @@ const ml: Dict = {
 };
 
 const bn: Dict = {
-  appName: 'নেখওয়া', tagline: 'সম্প্রদায় খাবার উদ্ধার, কাতার',
+  appName: 'আল মেরফা', tagline: 'আপনার উদ্বৃত্ত তুলুন, প্রভাব তৈরি করুন।',
   chooseRole: 'আপনি কীভাবে সাহায্য করতে চান?', roleSubtitle: 'চালিয়ে যেতে একটি ভূমিকা বেছে নিন।',
   donor: 'দাতা', donorDesc: 'খাবার দান করুন — ছোট বা বড়',
   volunteer: 'স্বেচ্ছাসেবক', volunteerDesc: 'খাবার তুলে নিয়ে পৌঁছান',
@@ -770,7 +770,7 @@ const bn: Dict = {
 };
 
 const fil: Dict = {
-  appName: 'Nekhwa', tagline: 'Komunidad na Pagsalba ng Pagkain, Qatar',
+  appName: 'Al Merfaa', tagline: 'Itaas ang Iyong Sobra, Lumikha ng Epekto.',
   chooseRole: 'Paano mo gustong tumulong?', roleSubtitle: 'Pumili ng tungkulin upang magpatuloy.',
   donor: 'Tagapag-donate', donorDesc: 'Mag-donate ng pagkain — maliit o malaki',
   volunteer: 'Boluntaryo', volunteerDesc: 'Pulutin at i-deliver ang pagkain',
@@ -858,7 +858,7 @@ const fil: Dict = {
 };
 
 const ne: Dict = {
-  appName: 'नेख्वा', tagline: 'सामुदायिक खाना उद्धार, कतार',
+  appName: 'अल मर्फा', tagline: 'आफ्नो बाँकी उठाउनुहोस्, प्रभाव पार्नुहोस्।',
   chooseRole: 'तपाईं कसरी मद्दत गर्न चाहनुहुन्छ?', roleSubtitle: 'जारी राख्न भूमिका छनोट गर्नुहोस्।',
   donor: 'दाता', donorDesc: 'खाना दान गर्नुहोस् — सानो वा ठूलो',
   volunteer: 'स्वयंसेवक', volunteerDesc: 'खाना लिएर पुर्‍याउनुहोस्',
