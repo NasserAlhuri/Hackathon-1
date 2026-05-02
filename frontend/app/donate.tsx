@@ -75,6 +75,8 @@ export default function Donate() {
     });
   };
 
+  const allergenLabel = (info: any) => info[lang] ?? (isRTL ? info.ar : info.en);
+
   const allergenOpts = ['gluten', 'dairy', 'nuts', 'seafood', 'eggs', 'soy'];
   const storageOpts: { id: Storage; key: string; icon: keyof typeof Ionicons.glyphMap }[] = [
     { id: 'hot', key: 'storageHot', icon: 'flame-outline' },
@@ -206,7 +208,7 @@ export default function Donate() {
                   >
                     <Text style={styles.allergenEmoji}>{info.emoji}</Text>
                     <Text style={[styles.allergenLabel, active && { color: COLORS.accentDark, fontWeight: '700' }]}>
-                      {isRTL ? info.ar : info.en}
+                      {allergenLabel(info)}
                     </Text>
                   </TouchableOpacity>
                 );
