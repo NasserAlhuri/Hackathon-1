@@ -1,6 +1,8 @@
 import React from 'react';
-import { Image, Text, View, StyleSheet, Platform } from 'react-native';
+import { Text, View, StyleSheet, Platform } from 'react-native';
+import { Image } from 'expo-image';
 import { COLORS, FONT, SPACING } from '../constants/theme';
+import { useApp } from '../context/AppContext';
 
 // SVG logo mark — maroon on transparent
 const MARK_DARK_B64 =
@@ -21,7 +23,7 @@ export function LogoMark({ size = 64, white = false, style }: MarkProps) {
     <Image
       source={{ uri: `data:image/svg+xml;base64,${b64}` }}
       style={[{ width: w, height: h }, style]}
-      resizeMode="contain"
+      contentFit="contain"
     />
   );
 }
@@ -54,8 +56,9 @@ export function LogoFull({ size = 100, white = false, style }: MarkProps) {
 
 // Horizontal row: icon left + name right (for home header)
 export function LogoRow({ size = 44, style }: { size?: number; style?: object }) {
+  const { isRTL } = useApp();
   return (
-    <View style={[styles.rowWrap, style]}>
+    <View style={[styles.rowWrap, isRTL && { flexDirection: 'row-reverse' }, style]}>
       <LogoMark size={size} />
       <LogoName style={{ marginStart: SPACING.sm }} />
     </View>
