@@ -183,28 +183,6 @@ export default function ImpactModal() {
             })}
           </View>
 
-          {/* Food Categories */}
-          <View style={styles.chartCard}>
-            <Text style={[styles.cardTitle, isRTL && styles.rtl]}>{t('foodCategories')}</Text>
-            <View style={styles.stackedBar}>
-              {MOCK_IMPACT.foodCategories.map((cat, i) => (
-                <View key={i} style={[styles.stackSeg, { flex: cat.share, backgroundColor: cat.color }]} />
-              ))}
-            </View>
-            <View style={styles.legendGrid}>
-              {MOCK_IMPACT.foodCategories.map((cat, i) => {
-                const name = lang === 'ar' || lang === 'fa' || lang === 'ur' ? cat.ar : cat.en;
-                return (
-                  <View key={i} style={styles.legendItem}>
-                    <View style={[styles.legendDot, { backgroundColor: cat.color }]} />
-                    <Text style={styles.legendName} numberOfLines={1}>{name}</Text>
-                    <Text style={styles.legendVal}>{cat.share}%</Text>
-                  </View>
-                );
-              })}
-            </View>
-          </View>
-
           {/* Peak Hours */}
           <View style={styles.chartCard}>
             <Text style={[styles.cardTitle, isRTL && styles.rtl]}>{t('peakHours')}</Text>
@@ -316,15 +294,6 @@ const styles = StyleSheet.create({
   ngoBarWrap: { height: 8, backgroundColor: COLORS.surfaceAlt, borderRadius: 4, overflow: 'hidden' },
   ngoBar: { height: '100%', borderRadius: 4 },
   ngoMeals: { fontSize: FONT.size.xs, fontWeight: '800', color: COLORS.accentDark, width: 50, textAlign: 'right' },
-
-  // Food categories stacked bar
-  stackedBar: { flexDirection: 'row', height: 24, borderRadius: 12, overflow: 'hidden', marginBottom: SPACING.md },
-  stackSeg: { height: '100%' },
-  legendGrid: { flexDirection: 'row', flexWrap: 'wrap' },
-  legendItem: { width: '50%', flexDirection: 'row', alignItems: 'center', paddingVertical: 5, gap: 6 },
-  legendDot: { width: 10, height: 10, borderRadius: 5 },
-  legendName: { flex: 1, fontSize: FONT.size.xs, color: COLORS.textPrimary },
-  legendVal: { fontSize: FONT.size.xs, fontWeight: '800', color: COLORS.textSecondary, marginEnd: 4 },
 
   // Peak hours
   peakRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', height: 100 },
