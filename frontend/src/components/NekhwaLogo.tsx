@@ -5,7 +5,10 @@ import { COLORS, FONT, SPACING } from '../constants/theme';
 import { useApp } from '../context/AppContext';
 
 // Full Al Merfaa logo PNG (transparent background, dark red mark)
-const LOGO_PNG = require('../assets/images/logo_back-removebg-preview.png');
+const LOGO_PNG = require('../../assets/images/logo_back-removebg-preview.png');
+
+// Al Merfaa name JPEG — used in the home header
+const LOGO_NAME_JPG = require('../../assets/images/Almerfaaname.jpeg');
 
 // SVG mark only — compact icon for the home header row
 const MARK_DARK_B64 =
@@ -61,13 +64,17 @@ export function LogoName({ white = false, style }: { white?: boolean; style?: ob
   );
 }
 
-// Horizontal row: compact SVG icon + name text (for home header)
+// Horizontal row: compact SVG icon + name JPEG (for home header)
 export function LogoRow({ size = 44, style }: { size?: number; style?: object }) {
   const { isRTL } = useApp();
   return (
     <View style={[styles.rowWrap, isRTL && { flexDirection: 'row-reverse' }, style]}>
       <LogoMark size={size} />
-      <LogoName style={{ marginStart: SPACING.sm }} />
+      <Image
+        source={LOGO_NAME_JPG}
+        style={{ height: size * 0.85, width: 120, marginStart: SPACING.sm }}
+        contentFit="contain"
+      />
     </View>
   );
 }

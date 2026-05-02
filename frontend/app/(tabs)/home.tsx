@@ -11,7 +11,7 @@ import { getTier, getNextTier } from '../../src/constants/gamification';
 import QatariPattern, { PalmTree } from '../../src/components/QatariPattern';
 import { LogoRow } from '../../src/components/NekhwaLogo';
 import { MOCK_IMPACT, VOLUNTEER_STATS, MOCK_MY_REQUESTS, MOCK_LEADERBOARD, MOCK_LEADERBOARD_ORGS, MY_RANK, MY_TOTAL_MEALS, MY_DONOR_IMPACT } from '../../src/data/mockData';
-import { ConchFountain } from '../../src/components/QatariLandmarks';
+import { ConchFountain, FanarMosque } from '../../src/components/QatariLandmarks';
 
 export default function Home() {
   const { t, lang, isRTL, role } = useApp();
@@ -101,7 +101,7 @@ export default function Home() {
         <ConchFountain
           height={160}
           width={80}
-          opacity={0.05}
+          opacity={0.15}
           style={{ position: 'absolute', right: -20, bottom: -20 }}
         />
         <View style={[styles.lbHead, isRTL && { flexDirection: 'row-reverse' }]}>
@@ -209,6 +209,13 @@ export default function Home() {
         <View testID="home-impact-hero" style={[styles.hero, { marginTop: SPACING.lg }]}>
           <View style={styles.heroBlob1} />
           <View style={styles.heroBlob2} />
+          <FanarMosque
+            white
+            width={72}
+            height={130}
+            opacity={0.15}
+            style={{ position: 'absolute', right: 12, top: -10 }}
+          />
           <View style={styles.liveBadge}>
             <View style={styles.liveDot} />
             <Text style={styles.liveTxt}>{t('liveLocation')}</Text>
@@ -275,10 +282,10 @@ export default function Home() {
         </View>
 
         <Text style={[styles.sectionTitle, isRTL && styles.rtl]}>{t('quickActions')}</Text>
-        <View style={styles.grid}>
+        <View style={[styles.grid, isRTL && { flexDirection: 'row-reverse' }]}>
           {actions.map((a) => (
             <TouchableOpacity key={a.id} testID={`home-action-${a.id}`} activeOpacity={0.85} onPress={() => router.push(a.route as any)} style={[styles.tile, actions.length === 1 ? { width: '100%' } : null]}>
-              <View style={[styles.tileIcon, { backgroundColor: a.color + '1A' }]}>
+              <View style={[styles.tileIcon, { backgroundColor: a.color + '1A' }, isRTL && { alignSelf: 'flex-end' }]}>
                 <Ionicons name={a.icon} size={22} color={a.color} />
               </View>
               <Text style={[styles.tileLabel, isRTL && styles.rtl]}>{a.label}</Text>
@@ -346,7 +353,7 @@ const styles = StyleSheet.create({
   statTitle: { fontSize: 10, color: COLORS.textMuted, marginTop: 2, textAlign: 'center' },
   statDivider: { width: 1, height: 36, backgroundColor: COLORS.border },
 
-  sectionTitle: { fontSize: FONT.size.lg, fontWeight: FONT.weight.bold, color: COLORS.textPrimary, marginTop: SPACING.lg, marginBottom: SPACING.md },
+  sectionTitle: { fontSize: FONT.size.lg, fontWeight: FONT.weight.bold, color: COLORS.textPrimary, marginTop: SPACING.lg, marginBottom: SPACING.md, alignSelf: 'stretch' },
   grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
   tile: { width: '48%', backgroundColor: COLORS.surface, borderRadius: RADIUS.xl, borderWidth: 1, borderColor: COLORS.border, padding: SPACING.md, marginBottom: SPACING.md, ...SHADOW.sm },
   tileIcon: { width: 44, height: 44, borderRadius: 14, alignItems: 'center', justifyContent: 'center', marginBottom: 10 },

@@ -40,7 +40,7 @@ export default function Login() {
       <FanarMosque
         height={220}
         width={110}
-        opacity={0.06}
+        opacity={0.18}
         style={{ position: 'absolute', right: -20, top: -20 }}
       />
       <View style={styles.inner}>

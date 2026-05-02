@@ -59,7 +59,7 @@ export default function Splash() {
         white
         width="100%"
         height={80}
-        opacity={0.12}
+        opacity={0.25}
         style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}
       />
 

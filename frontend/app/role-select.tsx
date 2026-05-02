@@ -33,7 +33,7 @@ export default function RoleSelect() {
       <TraditionalMinaret
         height={180}
         width={90}
-        opacity={0.07}
+        opacity={0.18}
         style={{ position: 'absolute', right: 0, bottom: 40, zIndex: 0 }}
       />
       <Screen testID="role-select-screen">
