@@ -135,10 +135,7 @@ export default function Home() {
           );
         })}
 
-        <TouchableOpacity testID="lb-view-full" style={styles.lbViewAll} activeOpacity={0.85} onPress={() => router.push('/impact')}>
-          <Text style={styles.lbViewAllTxt}>{t('viewFullLeaderboard')}</Text>
-          <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={14} color={COLORS.primary} />
-        </TouchableOpacity>
+
       </View>
     );
   };
@@ -386,6 +383,5 @@ const styles = StyleSheet.create({
   lbTab: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 8, borderRadius: RADIUS.full },
   lbTabActive: { backgroundColor: COLORS.primary },
   lbTabTxt: { fontSize: FONT.size.sm, fontWeight: '600', color: COLORS.textSecondary, marginStart: 4 },
-  lbViewAll: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: SPACING.md, paddingVertical: 12, borderTopWidth: 1, borderTopColor: COLORS.border },
-  lbViewAllTxt: { fontSize: FONT.size.sm, fontWeight: '700', color: COLORS.primary, marginEnd: 6 },
+
 });
