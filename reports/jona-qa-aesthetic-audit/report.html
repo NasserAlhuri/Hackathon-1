@@ -22,6 +22,7 @@ p{margin:0 0 2.5mm}
 .ar{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl;unicode-bidi:isolate}
 .kicker{font-size:8pt;letter-spacing:.18em;text-transform:uppercase;color:var(--olive);font-weight:600;margin-bottom:3mm}
 .num{font-family:Fraunces,serif;color:var(--rose);font-size:11pt;margin-right:2mm}
+body{counter-reset:pg}.page{counter-increment:pg}.pn::after{content:counter(pg)}
 .folio{position:absolute;bottom:9mm;left:18mm;right:18mm;display:flex;justify-content:space-between;font-size:7.5pt;color:var(--muted);border-top:1px solid #d9d3c4;padding-top:2.5mm}
 .lead{font-size:11.5pt;color:#3b423e;line-height:1.6}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:7mm}
@@ -79,6 +80,7 @@ img.shot{width:100%;border-radius:2.5mm;border:1px solid #d9d3c4;display:block}
 .scale-l{display:flex;gap:2.2mm;padding:0 1mm;font-size:6.5pt;color:var(--muted)}
 .scale-l span{flex:1;text-align:center}
 
+table.compact td{padding:1.4mm 2mm;font-size:8.4pt}
 table{width:100%;border-collapse:collapse;font-size:8.8pt}
 th{text-align:left;font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--olive);font-weight:600;padding:2mm 2mm;border-bottom:1.5px solid var(--green)}
 td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
@@ -100,27 +102,54 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
 <section class="page cover">
   <div class="inner">
     <div class="brand">Website &amp; Aesthetic Audit · October 2026</div>
-    <div class="score"><span>6<small style="font-size:14pt;letter-spacing:0;opacity:.6">/10</small></span><small>Overall</small></div>
+    <div class="score"><span>5<small style="font-size:14pt;letter-spacing:0;opacity:.6">/10</small></span><small>Overall</small></div>
     <h1>jona.qa<br><em>where nature<br>meets luxury?</em></h1>
-    <p class="sub">A visual review of the Jona Natural Products homepage, covering brand, typography, imagery, layout, mobile, accessibility and polish, with a prioritised plan to make it feel truly premium.</p>
+    <p class="sub">A full-site visual review of Jona Natural Products: the homepage in depth, plus 14 more page types and the purchase flow, with a prioritised plan to make the whole store feel truly premium.</p>
     <p class="ar">جونة للمنتجات الطبيعية — حيث تلتقي الطبيعة بالفخامة</p>
     <div class="shot-wrap"><img src="screenshots/desktop-above-fold.jpg" alt=""></div>
     <div class="meta">
-      <div><b>Site</b>https://jona.qa/ · Arabic homepage (RTL)</div>
+      <div><b>Scope</b>https://jona.qa/ · 15 page types + cart → checkout flow</div>
       <div><b>Viewports</b>Desktop 1440 × 900<br>Mobile 390 × 844</div>
       <div><b>Stack</b>WordPress · WooCommerce · Woodmart · Elementor</div>
     </div>
   </div>
 </section>
 
+<!-- SITE-WIDE SUMMARY -->
+<section class="page">
+  <div class="kicker">Site-wide summary</div>
+  <h2>The homepage is polished. The rest of the site still shows the theme demo.</h2>
+  <p class="lead">I reviewed 15 page types at desktop and mobile widths, and walked through select size → add to cart → mini-cart → cart → checkout. The homepage and product pages are well built. But <b style="color:var(--green)">six key pages still use the Woodmart furniture-demo banner</b>, the English site is an empty placeholder, and 16 products have no photo. A visitor who leaves the homepage quickly meets content that doesn't belong to Jona.</p>
+  <table style="margin-top:4mm">
+    <tr><th>Page</th><th style="width:14mm">Score</th><th>Biggest issue</th></tr>
+    <tr><td><b>Homepage</b></td><td class="pass">6</td><td>Faux-bold type and clashing photography (pages 3–8)</td></tr>
+    <tr><td><b>Checkout</b></td><td class="pass">7</td><td>Clean and focused. Field widths are inconsistent and there's no H1.</td></tr>
+    <tr><td><b>Blog &amp; articles</b></td><td class="pass">7</td><td>Strong content. The byline reads "Admin2".</td></tr>
+    <tr><td><b>Product page</b></td><td class="pass">6</td><td>SKU shows "غير محدد". Off-palette "Buy now" button.</td></tr>
+    <tr><td><b>Category pages</b></td><td class="pass">6</td><td>Good branded banners, but placeholder images in the grid.</td></tr>
+    <tr><td><b>Mini-cart &amp; cart</b></td><td class="pass">6</td><td>The delivery-info block repeats the refund text.</td></tr>
+    <tr><td><b>Contact</b></td><td class="warn">6</td><td>Clear details and FAQ, but no page heading or H1.</td></tr>
+    <tr><td><b>Account / login</b></td><td class="warn">5</td><td>Furniture-demo banner</td></tr>
+    <tr><td><b>Shop (all products)</b></td><td class="fail">4</td><td>Furniture-demo banner. Duplicate "herbs" category.</td></tr>
+    <tr><td><b>Search results</b></td><td class="fail">4</td><td>Furniture-demo banner, with the title overlapping chairs</td></tr>
+    <tr><td><b>404 page</b></td><td class="fail">4</td><td>Stock copy ("This is somewhat embarrassing…"). Searches posts, not products.</td></tr>
+    <tr><td><b>About us</b></td><td class="fail">3</td><td>Furniture-demo banner, plus a wall of text with no brand imagery</td></tr>
+    <tr><td><b>Product without photo</b></td><td class="fail">3</td><td>Grey placeholder on a 235 QAR honey. 16 products are affected.</td></tr>
+    <tr><td><b>English homepage</b></td><td class="fail">1</td><td>An empty "Home – English" page with a public "create menu" prompt</td></tr>
+  </table>
+  <div class="overall"><span class="big">5/10</span><span>Site-wide score. Fixing the three critical items on the next pages would lift it to about 7 within a week.</span></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
+</section>
+
+
 <!-- SUMMARY + SCORECARD -->
 <section class="page">
-  <div class="kicker">01 · Executive summary</div>
+  <div class="kicker">Homepage · Summary</div>
   <h2>A strong foundation, held back by small inconsistencies</h2>
   <p class="lead">The palette is a deep forest green and warm cream that suits a premium natural-products brand. Packaging photography is consistent, and the homepage tells a clear story: discover, browse, learn, reassure. Right-to-left layout is handled properly throughout.</p>
   <p class="lead">What keeps the site from feeling truly luxurious is a set of small, fixable details: synthesized bold headings, two clashing photography styles, orphaned grid tiles, uneven product cards, a clip-art avatar and leftover theme-demo content. <b style="color:var(--green)">Most fixes are low effort.</b></p>
 
-  <h3 style="margin-top:4mm">Scorecard</h3>
+  <h3 style="margin-top:4mm">Homepage scorecard</h3>
   <div class="score-row"><span class="label">Brand &amp; colour</span><div class="bar"><i style="width:80%"></i></div><span class="val">8</span><span class="snote">Strong, coherent green/cream. One off-palette dusty-rose pill.</span></div>
   <div class="score-row"><span class="label">Typography</span><div class="bar"><i class="low" style="width:50%"></i></div><span class="val">5</span><span class="snote">One font file, faux-bold headings, 17 font sizes.</span></div>
   <div class="score-row"><span class="label">Imagery &amp; photography</span><div class="bar"><i class="mid" style="width:60%"></i></div><span class="val">6</span><span class="snote">Beautiful lifestyle scenes clash with cool grey studio packshots. Some images are reused.</span></div>
@@ -130,13 +159,13 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
   <div class="score-row"><span class="label">Polish &amp; consistency</span><div class="bar"><i class="low" style="width:50%"></i></div><span class="val">5</span><span class="snote">Demo leftovers, clip-art avatar, mixed text alignment.</span></div>
   <div class="score-row"><span class="label">Performance (perceived)</span><div class="bar"><i class="low" style="width:50%"></i></div><span class="val">5</span><span class="snote">About 191 requests (81 CSS, 66 JS) and about 4.6 MB on desktop.</span></div>
 
-  <div class="overall"><span class="big">6/10</span><span>A good foundation that needs one focused polish pass. Five of the top six fixes take under a day each.</span></div>
-  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>2</span></div>
+  <div class="overall"><span class="big">6/10</span><span>Homepage score. A good foundation that needs one focused polish pass. Five of the top six fixes take under a day each.</span></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
 </section>
 
 <!-- BRAND & COLOUR -->
 <section class="page">
-  <div class="kicker">02 · Brand &amp; colour</div>
+  <div class="kicker">Homepage · Brand &amp; colour</div>
   <h2>A restrained, on-brand palette with one stray accent</h2>
   <p>Colours below were extracted from the live page's computed styles, ranked by how often they appear.</p>
   <div class="swatches">
@@ -162,12 +191,12 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
   <h3 style="margin-top:8mm">Header &amp; footer details</h3>
   <img class="shot" src="screenshots/desktop-above-fold.jpg" style="height:62mm;object-fit:cover;object-position:top" alt="">
   <p class="caption">Busy three-row header with the off-palette rose pill (top left) and the clip-art call-centre avatar (top right).</p>
-  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>3</span></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
 </section>
 
 <!-- TYPOGRAPHY -->
 <section class="page">
-  <div class="kicker">03 · Typography</div>
+  <div class="kicker">Homepage · Typography</div>
   <h2>A distinctive typeface, rendered with fake bold</h2>
   <p class="lead">29LT Bukra is a modern Arabic typeface that suits the brand. But only <code>29LT-Bukra-Regular.woff</code> is loaded, and every heading asks for weight 700. The browser therefore <b>synthesizes the bold</b>, which looks smudgy and uneven on Arabic letterforms, most noticeably in the 42px hero headline.</p>
 
@@ -194,12 +223,12 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
     </ul></div>
   </div>
   <div class="note" style="margin-top:6mm"><b>Sample headline</b>, currently rendered in synthesized bold: <span class="ar" style="font-size:13pt;font-weight:600;color:var(--green)">منتجات طبيعية مختارة بعناية في قطر</span></div>
-  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>4</span></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
 </section>
 
 <!-- IMAGERY -->
 <section class="page">
-  <div class="kicker">04 · Imagery &amp; photography</div>
+  <div class="kicker">Homepage · Imagery &amp; photography</div>
   <h2>Two photographic worlds on one page</h2>
   <img class="shot" src="screenshots/desktop-categories-products.jpg" style="height:108mm;object-fit:cover;object-position:top" alt="">
   <p class="caption">Warm, sunlit category scenes (top) sit directly above cool, grey-gradient studio packshots (bottom). Note the uneven product image heights and the empty slot in the category grid.</p>
@@ -215,12 +244,12 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
       <li>The <b>clip-art avatar</b> in the top bar feels off-brand.<span class="fix">Replace it with a line icon or a real team photo.</span></li>
     </ul></div>
   </div>
-  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>5</span></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
 </section>
 
 <!-- LAYOUT + MOBILE -->
 <section class="page">
-  <div class="kicker">05 · Layout &amp; mobile</div>
+  <div class="kicker">Homepage · Layout &amp; mobile</div>
   <h2>Clean sections, but the grid and mobile need care</h2>
   <div class="mobile-pair">
     <div><img class="shot" src="screenshots/mobile-above-fold.jpg" alt=""><p class="caption">Mobile hero: both CTAs wrap onto two lines, and the "0" badge overlaps the cart icon.</p></div>
@@ -240,12 +269,12 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
       <li>35 tap targets are smaller than 32px.</li>
     </ul></div>
   </div>
-  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>6</span></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
 </section>
 
 <!-- ACCESSIBILITY, POLISH, PERFORMANCE -->
 <section class="page">
-  <div class="kicker">06 · Accessibility, polish &amp; performance</div>
+  <div class="kicker">Homepage · Accessibility, polish &amp; performance</div>
   <h2>The details that signal quality</h2>
   <table>
     <tr><th>Check</th><th>Result</th><th>Recommendation</th></tr>
@@ -271,36 +300,212 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
     <li><b>Oversized images:</b> the logo is a 1439px PNG shown at 197px, and blog images are 1024px shown at 336px.<span class="fix">Use SVG for the logo, and correctly sized WebP/AVIF for photos.</span></li>
   </ul>
   <p class="caption" style="margin-top:3mm">These timings come from a sandboxed cloud browser and are indicative only. Confirm them with PageSpeed Insights.</p>
-  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>7</span></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
+</section>
+
+<!-- B1 FURNITURE BANNER -->
+<section class="page">
+  <div class="kicker">Beyond the homepage · Critical #1</div>
+  <h2>Furniture-store banners on a natural-products shop</h2>
+  <p class="lead">The default page-title background still uses the Woodmart <i>"Furniture 2"</i> demo image: chairs and a sofa. It appears on <b>Shop, About us, Search results, Cart (empty and checkout steps), My account</b> and the <b>English homepage</b>. These are some of the most-visited pages after the homepage, and on most of them the page title is drawn straight over the chairs.</p>
+  <img class="shot" src="screenshots/pages/furniture-banners.jpg" alt="">
+  <p class="caption">Shop · About · Search · Cart steps · My account · English homepage, all captured from the live site on 2 Oct 2026.</p>
+  <div class="cols" style="margin-top:5mm">
+    <div class="card issues"><h4>Why it matters</h4><ul>
+      <li>It instantly breaks the "nature meets luxury" story and signals an unfinished template.</li>
+      <li>Titles such as <span class="ar">نتائج البحث</span> and <span class="ar">حسابي</span> collide with the chairs, which hurts legibility.</li>
+      <li>On mobile, the banner is squeezed into a thin strip that still shows furniture.</li>
+    </ul></div>
+    <div class="card works"><h4>Fix (≈30 minutes)</h4><ul>
+      <li>Woodmart → Theme Settings → <b>Page title</b> → replace the background image site-wide.</li>
+      <li>Reuse the style of the category banners, which already work well: a cream stone backdrop with a product on one side.</li>
+      <li>Or use a plain cream (#F5F3EE) background with the green title. It's simple and premium.</li>
+    </ul></div>
+  </div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
+</section>
+
+<!-- B2 ENGLISH -->
+<section class="page">
+  <div class="kicker">Beyond the homepage · Critical #2</div>
+  <h2>The English site is an empty demo page</h2>
+  <div style="display:grid;grid-template-columns:2.2fr 1fr;gap:5mm;align-items:start">
+    <div><img class="shot" src="screenshots/pages/en-home-desktop.jpg" alt=""><p class="caption">/en/home-furniture2-english/ on desktop</p></div>
+    <div><img class="shot" src="screenshots/pages/en-home-mobile.jpg" alt="" style="height:96mm;object-fit:cover;object-position:top"><p class="caption">Mobile</p></div>
+  </div>
+  <div class="card issues" style="margin-top:4mm"><h4>What an English-speaking visitor sees</h4><ul>
+    <li>The page heading reads <b>"Home – English"</b> over the furniture banner. The body is empty except for blank WordPress widgets ("Categories: No categories", "Recent Posts", "Recent Comments").</li>
+    <li>An admin prompt is shown publicly: <b>"Create your first navigation menu here"</b>. It links to <code>/wp-admin/nav-menus.php</code>.</li>
+    <li>The header is English, but the menu links, footer and copyright are Arabic. The page's <code>&lt;title&gt;</code> is Arabic too.</li>
+    <li>The mobile tab bar reads <b>"Shop · Sidebar · Wishlist · Cart · My acc…"</b>. "Sidebar" is a demo label and "My account" is truncated.</li>
+    <li>The URL slug <code>home-furniture2-english</code> exposes the demo origin, and no product or category has an English version.</li>
+  </ul></div>
+  <div class="note" style="margin-top:4mm"><b>Recommendation:</b> until the English catalogue is translated, <b>hide the language switcher and unpublish <code>/en/</code></b>. A missing English site is better than a broken one. When it's ready, build it from the Arabic homepage template, assign an English menu and use the slug <code>/en/</code>.</div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
+</section>
+
+<!-- B3 SHOP & CATEGORY -->
+<section class="page">
+  <div class="kicker">Beyond the homepage · Shop &amp; categories</div>
+  <h2>A tidy grid, let down by catalogue gaps</h2>
+  <div class="cols">
+    <div><img class="shot" src="screenshots/pages/category-essential-oils.jpg" alt=""><p class="caption">Essential oils: a well-branded banner, but the <b>first product is a placeholder</b>.</p></div>
+    <div><img class="shot" src="screenshots/pages/honey-category.jpg" alt=""><p class="caption">Honey has only 3 products, and the most expensive (235 QAR) has no photo.</p></div>
+  </div>
+  <img class="shot" src="screenshots/pages/shop-grid-sidebar.jpg" alt="" style="margin-top:4mm;height:70mm;object-fit:cover;object-position:top">
+  <p class="caption">Shop grid and filter sidebar</p>
+  <div class="cols" style="margin-top:4mm">
+    <div class="card works"><h4>What works</h4><ul>
+      <li><b>Category banners are excellent:</b> on-brand stone and botanical scenes with large green titles. Use this pattern everywhere.</li>
+      <li>Rounded white cards, clear prices, and a filter sidebar with counts.</li>
+      <li>The sidebar promo card ("Orange blossom water, 10% off the large bottle") is a nice touch.</li>
+    </ul></div>
+    <div class="card issues"><h4>Issues</h4><ul>
+      <li><b>Duplicate category:</b> "الأعشاب والبهارات" (1 product) next to "الأعشاب والتوابل" (43). Merge them.</li>
+      <li><b>Button colour drifts:</b> "Select options" is grey-green on Shop and Category pages, but dark forest green on the homepage.</li>
+      <li>The price-filter slider shows no visible handles, so it reads as a plain line.</li>
+      <li>Cards with placeholders are shorter than their neighbours, which breaks the row rhythm.</li>
+    </ul></div>
+  </div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
+</section>
+
+<!-- B4 PRODUCT -->
+<section class="page">
+  <div class="kicker">Beyond the homepage · Product page &amp; catalogue health</div>
+  <h2>A solid product page, but the catalogue has gaps</h2>
+  <img class="shot" src="screenshots/pages/product.jpg" alt="" style="height:78mm;object-fit:cover;object-position:top">
+  <p class="caption">Hemp seed oil: gallery on the right, clear price, size pills, quantity, add to cart and "Buy now"</p>
+  <div class="cols" style="margin-top:4mm">
+    <div class="card works"><h4>What works</h4><ul>
+      <li>Clean two-column layout, a large product image and a thumbnail rail.</li>
+      <li>Size is shown as pill swatches rather than a dropdown, which is clear and tappable.</li>
+      <li>Well-written descriptions, with a benefits checklist.</li>
+      <li>The mini-cart drawer has a <b>free-shipping progress bar</b> ("add 145 QAR more…"). Good.</li>
+    </ul></div>
+    <div class="card issues"><h4>Issues</h4><ul>
+      <li><b>SKU: "غير محدد"</b> (Not specified) is shown on every product. Hide the SKU row or fill it in.</li>
+      <li>"Buy now" uses the off-palette dusty rose. Make it an outline button in green.</li>
+      <li>The cart shows the variation slug <b>"100-مل"</b> instead of "100 مل".</li>
+      <li>The "Reviews (0)" tab shows on every product (0 reviews site-wide). Hide it until reviews exist.</li>
+      <li>No meta description or OG image, so shared links have no preview.</li>
+    </ul></div>
+  </div>
+  <h3>Catalogue health (from the store's public product API, 165 products)</h3>
+  <div class="grid4" style="margin-top:2mm">
+    <div class="stat"><b>16</b><span>products with no photo</span></div>
+    <div class="stat"><b>66</b><span>products with only one photo</span></div>
+    <div class="stat"><b>4</b><span>Jona-branded products with no category</span></div>
+    <div class="stat"><b>0</b><span>customer reviews</span></div>
+  </div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
+</section>
+
+<!-- B5 CART & CHECKOUT -->
+<section class="page">
+  <div class="kicker">Beyond the homepage · Cart &amp; checkout</div>
+  <h2>Checkout is the best-designed part of the site</h2>
+  <div class="cols">
+    <div><img class="shot" src="screenshots/pages/cart.jpg" alt=""><p class="caption">Cart: progress bar, totals, trust badges</p></div>
+    <div><img class="shot" src="screenshots/pages/checkout.jpg" alt=""><p class="caption">Checkout: no navigation, three numbered accordion steps</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:5mm;margin-top:4mm;align-items:start">
+    <div><img class="shot" src="screenshots/pages/cart-copy-bug.jpg" alt=""><p class="caption">"Delivery information" repeats the refund paragraph word for word.</p></div>
+    <div class="card issues"><h4>Issues</h4><ul>
+      <li><b>Copy bug:</b> the delivery block says nothing about delivery. Write real delivery times and areas.</li>
+      <li><b>Payment logos</b> show PayPal, Stripe and Maestro, which look like theme defaults. Checkout offers MyFatoorah. Show only the methods you accept.</li>
+      <li><b>Checkout fields</b> have uneven widths on mobile (the company field is wider than the rest).</li>
+      <li>"Expand all / Collapse all" buttons add clutter, and the order summary is collapsed by default.</li>
+      <li>The full footer shows on checkout. Trim it to reduce distraction.</li>
+      <li>Cart, checkout and contact have no H1.</li>
+    </ul></div>
+  </div>
+  <div class="card works" style="margin-top:4mm"><h4>What works</h4><ul>
+    <li>Distraction-free checkout with only the logo, numbered steps and a pre-filled country (Qatar).</li>
+    <li>Cart trust cards (secure shopping, privacy, need help?) in brand colours. Shipping options are clear: standard 30 QAR or in-store pickup.</li>
+  </ul></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
+</section>
+
+<!-- B6 CONTENT PAGES -->
+<section class="page">
+  <div class="kicker">Beyond the homepage · Content pages</div>
+  <h2>Great guides, a forgettable About page</h2>
+  <div class="cols">
+    <div><img class="shot" src="screenshots/pages/blog-post.jpg" alt=""><p class="caption">Article: "What is a hydrosol?"</p></div>
+    <div><img class="shot" src="screenshots/pages/about-text.jpg" alt=""><p class="caption">About us: lines run about 1,400px wide in small text</p></div>
+  </div>
+  <div class="cols" style="margin-top:4mm">
+    <div class="card works"><h4>Blog &amp; articles · 7/10</h4><ul>
+      <li>Excellent structure: a quick-summary callout, a table of contents, H2/H3 sections and an FAQ.</li>
+      <li>A helpful sidebar ("Explore hydrosols", "Need help?").</li>
+      <li><b>But:</b> the byline reads <b>"Admin2"</b>. Use "فريق جونة" (Jona team) or a real author.</li>
+      <li><b>Missed opportunity:</b> no product cards inside articles. Embed the products being discussed.</li>
+    </ul></div>
+    <div class="card issues"><h4>About · Contact · 404</h4><ul>
+      <li><b>About:</b> furniture banner, then a full-width wall of text with no photos of the team, sourcing or products.<span class="fix">Limit line width to 70ch, and add imagery and the 9 collections as visual tiles.</span></li>
+      <li><b>Contact:</b> clear info row and a good FAQ, but no page banner (inconsistent with other pages) and no H1.</li>
+      <li><b>404:</b> theme stock copy <span class="ar">"هذا محرج نوعًا ما، أليس كذلك؟"</span>, and the search box looks only in blog posts.<span class="fix">Write a warm, on-brand message, use a product search and show bestsellers.</span></li>
+    </ul></div>
+  </div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
+</section>
+
+<!-- B7 MOBILE -->
+<section class="page">
+  <div class="kicker">Beyond the homepage · Mobile</div>
+  <h2>Mobile shopping works well. Fix the banners.</h2>
+  <img class="shot" src="screenshots/pages/mobile-strip.jpg" alt="">
+  <p class="caption">Shop · Product with a size selected · Mobile menu · Checkout (390px)</p>
+  <div class="cols" style="margin-top:5mm">
+    <div class="card works"><h4>What works</h4><ul>
+      <li>A swipeable product gallery, large size pills, and add-to-cart and buy-now buttons side by side.</li>
+      <li>The mobile menu has search, category and menu tabs, and a clean list.</li>
+      <li>A persistent bottom tab bar (Store, Wishlist, Cart, Account), plus Filters on the Shop page.</li>
+      <li>No horizontal overflow on any of the 15 pages tested.</li>
+    </ul></div>
+    <div class="card issues"><h4>Issues</h4><ul>
+      <li>The furniture banner is squeezed into a thin strip, with page titles overlapping the chairs.</li>
+      <li>The cart badge "0" overlaps the cart icon in the header on every page.</li>
+      <li>Every product card has a heavy "تحديد أحد الخيارات" (Select options) button. Use a lighter "+" icon.</li>
+      <li>The cart's info cards sit in a carousel whose arrows overlap the card edges.</li>
+      <li>English mobile tab bar: "Sidebar" and a truncated "My acc…".</li>
+    </ul></div>
+  </div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
 </section>
 
 <!-- ACTION PLAN -->
 <section class="page">
-  <div class="kicker">07 · Action plan</div>
-  <h2>Eleven fixes, ranked by impact</h2>
-  <table>
-    <tr><th>#</th><th>Fix</th><th>Impact</th><th>Effort</th></tr>
-    <tr><td class="num">01</td><td>Load the real <b>Bukra Bold</b> in WOFF2 to end faux-bold headings</td><td><span class="pill high">High</span></td><td><span class="pill low">Low</span></td></tr>
-    <tr><td class="num">02</td><td>Put <b>packshots on a warm cream backdrop</b> and use one aspect ratio</td><td><span class="pill high">High</span></td><td><span class="pill med">Med</span></td></tr>
-    <tr><td class="num">03</td><td>Fix the <b>category grid orphan</b> (3×3 grid, or an "All products" tile)</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
-    <tr><td class="num">04</td><td>Darken the <b>grey meta text</b> and recolour the promo pill</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
-    <tr><td class="num">05</td><td>Replace the <b>clip-art avatar</b> and use a knockout footer logo</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
-    <tr><td class="num">06</td><td>Mobile: <b>stack the hero CTAs</b>, lighten the card buttons, hide the "0" badge</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
-    <tr><td class="num">07</td><td>Consolidate the <b>type scale</b> and right-align the guide cards</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
-    <tr><td class="num">08</td><td>Add a <b>meta description and Open Graph image</b></td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
-    <tr><td class="num">09</td><td>Remove <b>demo leftovers</b> and fix the English page title</td><td><span class="pill low">Low</span></td><td><span class="pill low">Low</span></td></tr>
-    <tr><td class="num">10</td><td>Re-enable <b>pinch-zoom</b> and add alt text</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
-    <tr><td class="num">11</td><td>Combine/defer CSS and JS, and resize the logo and blog images</td><td><span class="pill med">Med</span></td><td><span class="pill med">Med</span></td></tr>
+  <div class="kicker">Action plan · whole site</div>
+  <h2>Sixteen fixes, ranked by impact</h2>
+  <table class="compact">
+    <tr><th>#</th><th>Fix</th><th>Where</th><th>Impact</th><th>Effort</th></tr>
+    <tr><td class="num">01</td><td>Replace the <b>furniture-demo page-title banner</b> site-wide</td><td>6 pages</td><td><span class="pill high">Critical</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">02</td><td><b>Unpublish or rebuild the English site</b> and remove the public "create menu" prompt</td><td>/en/</td><td><span class="pill high">Critical</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">03</td><td><b>Photograph the 16 products with no photo</b>, or hide them until they have one</td><td>Catalogue</td><td><span class="pill high">High</span></td><td><span class="pill med">Med</span></td></tr>
+    <tr><td class="num">04</td><td>Load the real <b>Bukra Bold</b> in WOFF2 to end faux-bold headings</td><td>Site-wide</td><td><span class="pill high">High</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">05</td><td>Put <b>packshots on a warm cream backdrop</b> and use one aspect ratio</td><td>Catalogue</td><td><span class="pill high">High</span></td><td><span class="pill med">Med</span></td></tr>
+    <tr><td class="num">06</td><td>Fix the <b>cart copy bug</b> and show only the payment logos you actually accept</td><td>Cart</td><td><span class="pill high">High</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">07</td><td>Hide <b>"SKU: Not specified"</b> and the "Reviews (0)" tab. Fix the "100-مل" label.</td><td>Product</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">08</td><td><b>Merge the duplicate herbs category</b> and assign categories to the 4 Jona products</td><td>Shop</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">09</td><td>Unify <b>button colours</b>. Make "Buy now" and the promo pill green or gold.</td><td>Site-wide</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">10</td><td>Redesign <b>About us</b> with imagery and a 70ch line length</td><td>About</td><td><span class="pill med">Med</span></td><td><span class="pill med">Med</span></td></tr>
+    <tr><td class="num">11</td><td>Write an on-brand <b>404</b> with product search and bestsellers. Change the "Admin2" byline.</td><td>404 · Blog</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">12</td><td>Homepage: fix the category orphan, darken the grey text, replace the clip-art avatar</td><td>Home</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">13</td><td>Mobile: stack the hero CTAs, use lighter card buttons, hide the "0" badge</td><td>Mobile</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">14</td><td>Add a <b>meta description and OG image</b> to every page. Add H1s to contact, cart and checkout.</td><td>Site-wide</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">15</td><td>Re-enable <b>pinch-zoom</b>, add alt text, and consolidate the type scale</td><td>Site-wide</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">16</td><td>Combine and defer CSS/JS. Resize the logo (1439px shown at 197px) and other images.</td><td>Site-wide</td><td><span class="pill med">Med</span></td><td><span class="pill med">Med</span></td></tr>
   </table>
-
-  <h3 style="margin-top:8mm">Methodology &amp; caveats</h3>
+  <h3 style="margin-top:4mm">Methodology &amp; caveats</h3>
   <div class="note">
-    <p>The homepage was rendered in headless Chromium at 1440px and 390px widths. Computed styles (fonts, colours, sizes, headings, buttons, images) were extracted, and contrast was calculated with the WCAG 2.x formula.</p>
-    <p>The audit environment's network proxy blocked a few third-party resources: Tawk.to chat, the Hostinger Reach embed and the payment-method icons. These likely load normally for visitors and are not counted as defects.</p>
-    <p style="margin:0">Scope: Arabic homepage only. Product, category, cart and checkout pages were not reviewed.</p>
+    <p>15 page types were rendered in headless Chromium at 1440px and 390px: home, shop, two categories, two products, English home, blog, article, about, contact, search, 404, account, and cart/checkout. The purchase flow was walked through as far as the checkout form. <b>No order was placed.</b> Catalogue figures come from the store's public WooCommerce product API.</p>
+    <p>The audit environment blocked a few third-party resources: chat widget, Google Map, Hostinger embed and payment icons. These are not counted as defects. Interactive mega-menu hover states were not captured.</p>
   </div>
-  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>8</span></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
 </section>
+
 
 </body>
 </html>

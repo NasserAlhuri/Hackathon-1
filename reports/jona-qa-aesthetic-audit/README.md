@@ -174,7 +174,73 @@ Full pages: [desktop](screenshots/desktop-full-page.jpg) · [mobile](screenshots
 
 ---
 
+---
+
+## Beyond the homepage (site-wide audit)
+
+**Site-wide score: 5/10.** 15 page types were reviewed at desktop and mobile widths, and the purchase flow was walked through up to the checkout form. No order was placed. Screenshots are in [`screenshots/pages/`](screenshots/pages/).
+
+| Page | Score | Biggest issue |
+|---|:-:|---|
+| Checkout | 7 | Clean and focused. Field widths are inconsistent and there's no H1. |
+| Blog & articles | 7 | Strong content. The byline reads "Admin2". |
+| Product page | 6 | "SKU: غير محدد" shown. Off-palette "Buy now" button. |
+| Category pages | 6 | Good branded banners, but placeholder images in the grid. |
+| Mini-cart & cart | 6 | "Delivery information" repeats the refund text. |
+| Contact | 6 | No page heading or H1 |
+| Account / login | 5 | Furniture-demo banner |
+| Shop | 4 | Furniture-demo banner. Duplicate herbs category. |
+| Search results | 4 | Furniture-demo banner |
+| 404 | 4 | Stock "This is somewhat embarrassing" copy. Searches posts, not products. |
+| About us | 3 | Furniture-demo banner and a wall of text |
+| Product without photo | 3 | Grey placeholder. 16 products are affected. |
+| English homepage | 1 | Empty "Home – English" page with a public "create menu" prompt |
+
+### Critical findings
+1. **Furniture-demo banner on 6 pages:** Shop, About, Search, Cart (empty), My account and the English homepage still use the Woodmart "Furniture 2" page-title image (chairs and a sofa).
+   ![Furniture banners](screenshots/pages/furniture-banners.jpg)
+2. **The English site is an empty demo page:**
+   - It shows "Home – English" over chairs and empty widgets ("No categories").
+   - A public "Create your first navigation menu here" link points to `/wp-admin/nav-menus.php`.
+   - The footer and `<title>` are in Arabic, and the mobile tab bar includes "Sidebar".
+   → Unpublish it until it's translated.
+3. **Catalogue gaps** (public WooCommerce product API, 165 products):
+   - 16 products have no photo, including the 235 QAR Talh honey.
+   - 66 products have only one photo.
+   - 4 Jona-branded products have no category.
+   - A duplicate category "الأعشاب والبهارات" (1 product) sits next to "الأعشاب والتوابل" (43).
+   - There are 0 reviews, but every product shows a "Reviews (0)" tab.
+
+### Other findings
+- **Cart:**
+  - The "Delivery information" block repeats the 14-day refund paragraph word for word.
+  - Payment logos show PayPal, Stripe and Maestro, while checkout uses MyFatoorah.
+  - The variation label shows the slug "100-مل".
+- **Product:**
+  - "SKU: Not specified" appears on every product.
+  - "Buy now" uses the off-palette dusty rose.
+  - "Select options" buttons are grey-green on shop/category pages but dark green on the homepage.
+- **Content pages:**
+  - The article byline is "Admin2".
+  - About-page text runs about 1,400px wide with no imagery.
+  - The 404 page uses theme stock copy, and its search looks only in blog posts.
+- **Site-wide:**
+  - No page has a meta description or Open Graph tags.
+  - Contact, cart and checkout have no H1.
+- **What works:**
+  - Category banners
+  - The product page layout
+  - The mini-cart free-shipping progress bar
+  - Distraction-free checkout
+  - The article structure
+  - The mobile menu and bottom tab bar
+  - No horizontal overflow on any page
+
+See the PDF for the full 16-item site-wide action plan.
+
+---
+
 ### Methodology & caveats
 - I rendered the homepage in headless Chromium (Playwright) at desktop and mobile widths, and extracted computed styles for fonts, colours, sizes, headings, buttons and images. Contrast was calculated with the WCAG 2.x formula.
 - The audit environment's network proxy blocked a few third-party resources: Tawk.to chat, the Hostinger Reach embed, and the MyFatoorah/Google Pay payment-icon images. They therefore appear broken in the screenshots. **These may load correctly for real visitors** and are not counted as site defects here.
-- The audit covers the Arabic homepage only. Product, category, cart and checkout pages were not reviewed.
+- The homepage was audited in depth, and 14 further page types plus the cart → checkout flow were audited in the site-wide section. Mega-menu hover states were not captured.
