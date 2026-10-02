@@ -19,6 +19,7 @@ h1,h2,h3{font-family:Fraunces,serif;font-weight:600;color:var(--green);margin:0}
 h2{font-size:24pt;line-height:1.1;margin-bottom:4mm}
 h3{font-size:12.5pt;margin:5mm 0 2mm}
 p{margin:0 0 2.5mm}
+.nw{white-space:nowrap}
 .ar{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl;unicode-bidi:isolate}
 .kicker{font-size:8pt;letter-spacing:.18em;text-transform:uppercase;color:var(--olive);font-weight:600;margin-bottom:3mm}
 .num{font-family:Fraunces,serif;color:var(--rose);font-size:11pt;margin-right:2mm}
@@ -80,6 +81,7 @@ img.shot{width:100%;border-radius:2.5mm;border:1px solid #d9d3c4;display:block}
 .scale-l{display:flex;gap:2.2mm;padding:0 1mm;font-size:6.5pt;color:var(--muted)}
 .scale-l span{flex:1;text-align:center}
 
+.mock-grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm 5mm;margin-top:3mm}.mock-grid figure{margin:0}.mock-grid figcaption{font-size:8pt;color:var(--ink);margin-top:1.5mm;display:flex;align-items:center;gap:2mm}.tag{font-size:6.5pt;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.3mm 1.8mm;border-radius:1mm;color:#fff}.tag.bad{background:var(--bad)}.tag.good{background:var(--good)}
 table.compact td{padding:1.4mm 2mm;font-size:8.4pt}
 table{width:100%;border-collapse:collapse;font-size:8.8pt}
 th{text-align:left;font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--olive);font-weight:600;padding:2mm 2mm;border-bottom:1.5px solid var(--green)}
@@ -125,10 +127,10 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
     <tr><td><b>Homepage</b></td><td class="pass">6</td><td>Faux-bold type and clashing photography (pages 3–8)</td></tr>
     <tr><td><b>Checkout</b></td><td class="pass">7</td><td>Clean and focused. Field widths are inconsistent and there's no H1.</td></tr>
     <tr><td><b>Blog &amp; articles</b></td><td class="pass">7</td><td>Strong content. The byline reads "Admin2".</td></tr>
-    <tr><td><b>Product page</b></td><td class="pass">6</td><td>SKU shows "غير محدد". Off-palette "Buy now" button.</td></tr>
+    <tr><td><b>Product page</b></td><td class="pass">6</td><td>SKU shows <span class="nw">“<span class="ar">غير محدد</span>”</span>. Off-palette "Buy now" button.</td></tr>
     <tr><td><b>Category pages</b></td><td class="pass">6</td><td>Good branded banners, but placeholder images in the grid.</td></tr>
     <tr><td><b>Mini-cart &amp; cart</b></td><td class="pass">6</td><td>The delivery-info block repeats the refund text.</td></tr>
-    <tr><td><b>Contact</b></td><td class="warn">6</td><td>Clear details and FAQ, but no page heading or H1.</td></tr>
+    <tr><td><b>Contact</b></td><td class="pass">6</td><td>Clear details and FAQ, but no page heading or H1.</td></tr>
     <tr><td><b>Account / login</b></td><td class="warn">5</td><td>Furniture-demo banner</td></tr>
     <tr><td><b>Shop (all products)</b></td><td class="fail">4</td><td>Furniture-demo banner. Duplicate "herbs" category.</td></tr>
     <tr><td><b>Search results</b></td><td class="fail">4</td><td>Furniture-demo banner, with the title overlapping chairs</td></tr>
@@ -137,7 +139,7 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
     <tr><td><b>Product without photo</b></td><td class="fail">3</td><td>Grey placeholder on a 235 QAR honey. 16 products are affected.</td></tr>
     <tr><td><b>English homepage</b></td><td class="fail">1</td><td>An empty "Home – English" page with a public "create menu" prompt</td></tr>
   </table>
-  <div class="overall"><span class="big">5/10</span><span>Site-wide score. Fixing the three critical items on the next pages would lift it to about 7 within a week.</span></div>
+  <div class="overall"><span class="big">5/10</span><span>Site-wide score. Fixing the three critical items (pages 9–13) would lift it to about 7 within a week.</span></div>
   <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
 </section>
 
@@ -159,7 +161,7 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
   <div class="score-row"><span class="label">Polish &amp; consistency</span><div class="bar"><i class="low" style="width:50%"></i></div><span class="val">5</span><span class="snote">Demo leftovers, clip-art avatar, mixed text alignment.</span></div>
   <div class="score-row"><span class="label">Performance (perceived)</span><div class="bar"><i class="low" style="width:50%"></i></div><span class="val">5</span><span class="snote">About 191 requests (81 CSS, 66 JS) and about 4.6 MB on desktop.</span></div>
 
-  <div class="overall"><span class="big">6/10</span><span>Homepage score. A good foundation that needs one focused polish pass. Five of the top six fixes take under a day each.</span></div>
+  <div class="overall"><span class="big">6/10</span><span>Homepage score. A good foundation that needs one focused polish pass. Most of these fixes take under a day each.</span></div>
   <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
 </section>
 
@@ -188,7 +190,7 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
       <li>The <b>footer logo</b> sits in a pale box on dark green and looks pasted on.<span class="fix">Use a cream knockout logo.</span></li>
     </ul></div>
   </div>
-  <h3 style="margin-top:8mm">Header &amp; footer details</h3>
+  <h3 style="margin-top:8mm">Header details</h3>
   <img class="shot" src="screenshots/desktop-above-fold.jpg" style="height:62mm;object-fit:cover;object-position:top" alt="">
   <p class="caption">Busy three-row header with the off-palette rose pill (top left) and the clip-art call-centre avatar (top right).</p>
   <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
@@ -222,7 +224,7 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
       <li>Right-align guide cards to match the rest of the RTL layout.</li>
     </ul></div>
   </div>
-  <div class="note" style="margin-top:6mm"><b>Sample headline</b>, currently rendered in synthesized bold: <span class="ar" style="font-size:13pt;font-weight:600;color:var(--green)">منتجات طبيعية مختارة بعناية في قطر</span></div>
+  <div class="note" style="margin-top:6mm"><b>Affected hero headline</b> (shown here in a substitute font): <span class="ar" style="font-size:13pt;font-weight:600;color:var(--green)">منتجات طبيعية مختارة بعناية في قطر</span></div>
   <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
 </section>
 
@@ -230,7 +232,7 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
 <section class="page">
   <div class="kicker">Homepage · Imagery &amp; photography</div>
   <h2>Two photographic worlds on one page</h2>
-  <img class="shot" src="screenshots/desktop-categories-products.jpg" style="height:108mm;object-fit:cover;object-position:top" alt="">
+  <img class="shot" src="screenshots/desktop-categories-products.jpg" alt="">
   <p class="caption">Warm, sunlit category scenes (top) sit directly above cool, grey-gradient studio packshots (bottom). Note the uneven product image heights and the empty slot in the category grid.</p>
   <div class="cols" style="margin-top:5mm">
     <div class="card works"><h4>What works</h4><ul>
@@ -263,7 +265,7 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
       <li>Section links are inconsistent: some have an arrow (←) and some don't.</li>
     </ul></div>
     <div class="card issues"><h4>Mobile</h4><ul>
-      <li><b>Hero CTAs wrap.</b><span class="fix">Stack them full width, or shorten them to "تسوق الآن".</span></li>
+      <li><b>Hero CTAs wrap.</b><span class="fix">Stack them full width, or shorten them to <span class="nw">“<span class="ar">تسوق الآن</span>”</span>.</span></li>
       <li><b>8 identical dark buttons</b> outweigh the products.<span class="fix">Use an outline or "+" icon button, or make the whole card tappable.</span></li>
       <li>Hide the cart badge when it shows 0.</li>
       <li>35 tap targets are smaller than 32px.</li>
@@ -316,10 +318,36 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
       <li>Titles such as <span class="ar">نتائج البحث</span> and <span class="ar">حسابي</span> collide with the chairs, which hurts legibility.</li>
       <li>On mobile, the banner is squeezed into a thin strip that still shows furniture.</li>
     </ul></div>
-    <div class="card works"><h4>Fix (≈30 minutes)</h4><ul>
-      <li>Woodmart → Theme Settings → <b>Page title</b> → replace the background image site-wide.</li>
-      <li>Reuse the style of the category banners, which already work well: a cream stone backdrop with a product on one side.</li>
-      <li>Or use a plain cream (#F5F3EE) background with the green title. It's simple and premium.</li>
+    <div class="card works"><h4>Evidence</h4><ul>
+      <li>The image file is <code>wd-furniture-pt-def.jpg</code>, uploaded in 2023 by the Woodmart demo import.</li>
+      <li>It's set as the theme's <b>default</b> page title, so every page without its own banner falls back to it.</li>
+      <li>Category pages already override it with Jona photography, so the fix is proven on the site.</li>
+    </ul></div>
+  </div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
+</section>
+
+
+<!-- B1b FURNITURE BANNER FIX -->
+<section class="page">
+  <div class="kicker">Beyond the homepage · Critical #1 · The fix</div>
+  <h2>What should replace it? Not plain cream.</h2>
+  <p class="lead">I restyled the live Shop page in the browser to compare the options. The header, navigation and title are the real site, and only the banner changes.</p>
+  <div class="mock-grid">
+    <figure><img class="shot" src="screenshots/pages/banner-mock-0-current.jpg" alt=""><figcaption><span class="tag bad">Today</span>Furniture demo image</figcaption></figure>
+    <figure><img class="shot" src="screenshots/pages/banner-mock-1-cream.jpg" alt=""><figcaption><span class="tag bad">Avoid</span>Plain cream #F5F3EE</figcaption></figure>
+    <figure><img class="shot" src="screenshots/pages/banner-mock-3-photo.jpg" alt=""><figcaption><span class="tag good">Best</span>Jona photography (the existing honey banner, reused)</figcaption></figure>
+    <figure><img class="shot" src="screenshots/pages/banner-mock-2-green.jpg" alt=""><figcaption><span class="tag good">Good</span>Forest-green band #082C26, cream title</figcaption></figure>
+  </div>
+  <div class="cols" style="margin-top:4mm">
+    <div class="card issues"><h4>Why not plain cream</h4><ul>
+      <li>The header and page are already cream, so the band <b>merges into both</b>. The title floats with no top edge, and the page looks unfinished.</li>
+      <li>It wastes the brand moment on some of the most-visited pages.</li>
+    </ul></div>
+    <div class="card works"><h4>Recommendation</h4><ul>
+      <li><b>Shop and About:</b> photo banners in the style of the category pages (warm stone, botanicals, title on the right). About 1–2 days including photography.</li>
+      <li><b>Search, Cart, Account and 404:</b> the forest-green band. It echoes the footer, cream on green has 13.5:1 contrast, and it takes about 30 minutes in Theme Settings → Page title.</li>
+      <li>Do the green band first as the site-wide default, so no page can fall back to furniture again.</li>
     </ul></div>
   </div>
   <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
@@ -361,7 +389,7 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
       <li>The sidebar promo card ("Orange blossom water, 10% off the large bottle") is a nice touch.</li>
     </ul></div>
     <div class="card issues"><h4>Issues</h4><ul>
-      <li><b>Duplicate category:</b> "الأعشاب والبهارات" (1 product) next to "الأعشاب والتوابل" (43). Merge them.</li>
+      <li><b>Duplicate category:</b> <span class="nw">“<span class="ar">الأعشاب والبهارات</span>”</span> (1 product) next to <span class="nw">“<span class="ar">الأعشاب والتوابل</span>”</span> (43). Merge them.</li>
       <li><b>Button colour drifts:</b> "Select options" is grey-green on Shop and Category pages, but dark forest green on the homepage.</li>
       <li>The price-filter slider shows no visible handles, so it reads as a plain line.</li>
       <li>Cards with placeholders are shorter than their neighbours, which breaks the row rhythm.</li>
@@ -384,9 +412,9 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
       <li>The mini-cart drawer has a <b>free-shipping progress bar</b> ("add 145 QAR more…"). Good.</li>
     </ul></div>
     <div class="card issues"><h4>Issues</h4><ul>
-      <li><b>SKU: "غير محدد"</b> (Not specified) is shown on every product. Hide the SKU row or fill it in.</li>
+      <li><b>SKU: <span class="nw">“<span class="ar">غير محدد</span>”</span></b> (Not specified) is shown on every product. Hide the SKU row or fill it in.</li>
       <li>"Buy now" uses the off-palette dusty rose. Make it an outline button in green.</li>
-      <li>The cart shows the variation slug <b>"100-مل"</b> instead of "100 مل".</li>
+      <li>The cart shows the size as its URL slug (with a hyphen) instead of the label <span class="nw">“<span class="ar">100 مل</span>”</span>.</li>
       <li>The "Reviews (0)" tab shows on every product (0 reviews site-wide). Hide it until reviews exist.</li>
       <li>No meta description or OG image, so shared links have no preview.</li>
     </ul></div>
@@ -439,13 +467,13 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
     <div class="card works"><h4>Blog &amp; articles · 7/10</h4><ul>
       <li>Excellent structure: a quick-summary callout, a table of contents, H2/H3 sections and an FAQ.</li>
       <li>A helpful sidebar ("Explore hydrosols", "Need help?").</li>
-      <li><b>But:</b> the byline reads <b>"Admin2"</b>. Use "فريق جونة" (Jona team) or a real author.</li>
+      <li><b>But:</b> the byline reads <b>"Admin2"</b>. Use <span class="nw">“<span class="ar">فريق جونة</span>”</span> (Jona team) or a real author.</li>
       <li><b>Missed opportunity:</b> no product cards inside articles. Embed the products being discussed.</li>
     </ul></div>
     <div class="card issues"><h4>About · Contact · 404</h4><ul>
       <li><b>About:</b> furniture banner, then a full-width wall of text with no photos of the team, sourcing or products.<span class="fix">Limit line width to 70ch, and add imagery and the 9 collections as visual tiles.</span></li>
       <li><b>Contact:</b> clear info row and a good FAQ, but no page banner (inconsistent with other pages) and no H1.</li>
-      <li><b>404:</b> theme stock copy <span class="ar">"هذا محرج نوعًا ما، أليس كذلك؟"</span>, and the search box looks only in blog posts.<span class="fix">Write a warm, on-brand message, use a product search and show bestsellers.</span></li>
+      <li><b>404:</b> theme stock copy<span class="ar" style="display:block;text-align:right;margin:1mm 0">هذا محرج نوعًا ما، أليس كذلك؟</span>The search box also looks only in blog posts.<span class="fix">Write a warm, on-brand message, use a product search and show bestsellers.</span></li>
     </ul></div>
   </div>
   <div class="folio"><span>jona.qa · Aesthetic Audit</span><span class="pn"></span></div>
@@ -467,7 +495,7 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
     <div class="card issues"><h4>Issues</h4><ul>
       <li>The furniture banner is squeezed into a thin strip, with page titles overlapping the chairs.</li>
       <li>The cart badge "0" overlaps the cart icon in the header on every page.</li>
-      <li>Every product card has a heavy "تحديد أحد الخيارات" (Select options) button. Use a lighter "+" icon.</li>
+      <li>Every product card has a heavy <span class="nw">“<span class="ar">تحديد أحد الخيارات</span>”</span> (Select options) button. Use a lighter "+" icon.</li>
       <li>The cart's info cards sit in a carousel whose arrows overlap the card edges.</li>
       <li>English mobile tab bar: "Sidebar" and a truncated "My acc…".</li>
     </ul></div>
@@ -481,13 +509,13 @@ td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
   <h2>Sixteen fixes, ranked by impact</h2>
   <table class="compact">
     <tr><th>#</th><th>Fix</th><th>Where</th><th>Impact</th><th>Effort</th></tr>
-    <tr><td class="num">01</td><td>Replace the <b>furniture-demo page-title banner</b> site-wide</td><td>6 pages</td><td><span class="pill high">Critical</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">01</td><td>Replace the <b>furniture-demo page-title banner</b>: forest-green default now, Jona photo banners on Shop and About</td><td>6 pages</td><td><span class="pill high">Critical</span></td><td><span class="pill low">Low</span></td></tr>
     <tr><td class="num">02</td><td><b>Unpublish or rebuild the English site</b> and remove the public "create menu" prompt</td><td>/en/</td><td><span class="pill high">Critical</span></td><td><span class="pill low">Low</span></td></tr>
     <tr><td class="num">03</td><td><b>Photograph the 16 products with no photo</b>, or hide them until they have one</td><td>Catalogue</td><td><span class="pill high">High</span></td><td><span class="pill med">Med</span></td></tr>
     <tr><td class="num">04</td><td>Load the real <b>Bukra Bold</b> in WOFF2 to end faux-bold headings</td><td>Site-wide</td><td><span class="pill high">High</span></td><td><span class="pill low">Low</span></td></tr>
     <tr><td class="num">05</td><td>Put <b>packshots on a warm cream backdrop</b> and use one aspect ratio</td><td>Catalogue</td><td><span class="pill high">High</span></td><td><span class="pill med">Med</span></td></tr>
     <tr><td class="num">06</td><td>Fix the <b>cart copy bug</b> and show only the payment logos you actually accept</td><td>Cart</td><td><span class="pill high">High</span></td><td><span class="pill low">Low</span></td></tr>
-    <tr><td class="num">07</td><td>Hide <b>"SKU: Not specified"</b> and the "Reviews (0)" tab. Fix the "100-مل" label.</td><td>Product</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">07</td><td>Hide <b>"SKU: Not specified"</b> and the "Reviews (0)" tab. Fix the size label in the cart.</td><td>Product</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
     <tr><td class="num">08</td><td><b>Merge the duplicate herbs category</b> and assign categories to the 4 Jona products</td><td>Shop</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
     <tr><td class="num">09</td><td>Unify <b>button colours</b>. Make "Buy now" and the promo pill green or gold.</td><td>Site-wide</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
     <tr><td class="num">10</td><td>Redesign <b>About us</b> with imagery and a 70ch line length</td><td>About</td><td><span class="pill med">Med</span></td><td><span class="pill med">Med</span></td></tr>

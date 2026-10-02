@@ -199,6 +199,16 @@ Full pages: [desktop](screenshots/desktop-full-page.jpg) · [mobile](screenshots
 ### Critical findings
 1. **Furniture-demo banner on 6 pages:** Shop, About, Search, Cart (empty), My account and the English homepage still use the Woodmart "Furniture 2" page-title image (chairs and a sofa).
    ![Furniture banners](screenshots/pages/furniture-banners.jpg)
+
+   **What to replace it with:** not plain cream. The header and page background are already cream (`#F5F3EE`), so a cream band merges into both and the title floats with no top edge. I compared the options on the live Shop page:
+
+   | Today | Plain cream (avoid) |
+   |---|---|
+   | ![](screenshots/pages/banner-mock-0-current.jpg) | ![](screenshots/pages/banner-mock-1-cream.jpg) |
+   | **Jona photography (best)** | **Forest-green band (good)** |
+   | ![](screenshots/pages/banner-mock-3-photo.jpg) | ![](screenshots/pages/banner-mock-2-green.jpg) |
+
+   → Set a **forest-green band (`#082C26`) with a cream title** as the site-wide default now. That takes about 30 minutes, and no page can fall back to furniture again. Then add **category-style photo banners** to Shop and About. Keep the green band on Search, Cart, Account and 404.
 2. **The English site is an empty demo page:**
    - It shows "Home – English" over chairs and empty widgets ("No categories").
    - A public "Create your first navigation menu here" link points to `/wp-admin/nav-menus.php`.
@@ -215,7 +225,7 @@ Full pages: [desktop](screenshots/desktop-full-page.jpg) · [mobile](screenshots
 - **Cart:**
   - The "Delivery information" block repeats the 14-day refund paragraph word for word.
   - Payment logos show PayPal, Stripe and Maestro, while checkout uses MyFatoorah.
-  - The variation label shows the slug "100-مل".
+  - The size label shows the URL slug (with a hyphen) instead of "100 مل".
 - **Product:**
   - "SKU: Not specified" appears on every product.
   - "Buy now" uses the off-palette dusty rose.
