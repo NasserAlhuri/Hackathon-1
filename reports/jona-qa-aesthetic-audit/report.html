@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jona.qa Aesthetic Audit</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=Noto+Kufi+Arabic:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#082C26; --green2:#174833; --olive:#596854; --olive2:#61734F;
+  --cream:#F5F3EE; --sand:#ECE6D8; --rose:#A4847C; --ink:#1d2421; --muted:#6b7068;
+  --good:#3c7a52; --warn:#b8862f; --bad:#b24a3c;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,sans-serif;font-size:10pt;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;padding:20mm 18mm 18mm;position:relative;overflow:hidden;page-break-after:always;background:var(--cream)}
+.page:last-child{page-break-after:auto}
+h1,h2,h3{font-family:Fraunces,serif;font-weight:600;color:var(--green);margin:0}
+h2{font-size:24pt;line-height:1.1;margin-bottom:4mm}
+h3{font-size:12.5pt;margin:5mm 0 2mm}
+p{margin:0 0 2.5mm}
+.ar{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl;unicode-bidi:isolate}
+.kicker{font-size:8pt;letter-spacing:.18em;text-transform:uppercase;color:var(--olive);font-weight:600;margin-bottom:3mm}
+.num{font-family:Fraunces,serif;color:var(--rose);font-size:11pt;margin-right:2mm}
+.folio{position:absolute;bottom:9mm;left:18mm;right:18mm;display:flex;justify-content:space-between;font-size:7.5pt;color:var(--muted);border-top:1px solid #d9d3c4;padding-top:2.5mm}
+.lead{font-size:11.5pt;color:#3b423e;line-height:1.6}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:7mm}
+.card{background:#fff;border-radius:3mm;padding:4.5mm 5mm;border:1px solid #e4dfd2}
+.works{border-left:3px solid var(--good)}
+.issues{border-left:3px solid var(--bad)}
+.card h4{margin:0 0 2mm;font-size:8pt;letter-spacing:.14em;text-transform:uppercase}
+.works h4{color:var(--good)} .issues h4{color:var(--bad)}
+ul{margin:0;padding-left:4.5mm} li{margin-bottom:1.6mm}
+.fix{display:block;color:var(--green2);font-weight:500;margin-top:.6mm}
+.fix::before{content:"→ "}
+code{font-family:ui-monospace,monospace;font-size:8.5pt;background:var(--sand);padding:.2mm 1.2mm;border-radius:1mm}
+img.shot{width:100%;border-radius:2.5mm;border:1px solid #d9d3c4;display:block}
+.caption{font-size:7.5pt;color:var(--muted);margin-top:1.5mm}
+
+/* cover */
+.cover{background:var(--green);color:var(--cream);padding:0}
+.cover .inner{padding:24mm 20mm;height:100%;display:flex;flex-direction:column}
+.cover .brand{font-size:8.5pt;letter-spacing:.25em;text-transform:uppercase;opacity:.75}
+.cover h1{color:var(--cream);font-size:46pt;line-height:1.02;margin:28mm 0 6mm;font-weight:400}
+.cover h1 em{font-style:italic;color:#d8c9a7}
+.cover .sub{font-size:12pt;opacity:.85;max-width:120mm}
+.cover .ar{font-size:14pt;color:#d8c9a7;margin-top:8mm}
+.cover .meta{margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:6mm;border-top:1px solid rgba(245,243,238,.25);padding-top:6mm;font-size:8.5pt}
+.cover .meta b{display:block;font-size:7pt;letter-spacing:.18em;text-transform:uppercase;opacity:.6;font-weight:500;margin-bottom:1mm}
+.cover .score{position:absolute;right:20mm;top:24mm;width:38mm;height:38mm;border-radius:50%;border:1.5px solid #d8c9a7;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cover .score span{font-family:Fraunces,serif;font-size:34pt;line-height:1}
+.cover .score small{font-size:7pt;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-top:1mm}
+.cover .shot-wrap{margin-top:8mm;border-radius:3mm;overflow:hidden;height:78mm;border:1px solid rgba(245,243,238,.2)}
+.cover .shot-wrap img{width:100%;display:block}
+
+/* scorecard */
+.score-row{display:grid;grid-template-columns:44mm 1fr 12mm;align-items:center;gap:1mm 4mm;padding:1.8mm 0;border-bottom:1px solid #e4dfd2}
+.score-row .label{font-weight:600;color:var(--green)}
+.score-row .snote{grid-column:1/-1;font-size:8.5pt;color:var(--muted);margin-top:-1mm}
+.bar{height:2.4mm;background:#e4dfd2;border-radius:2mm;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green2);border-radius:2mm}
+.bar i.mid{background:var(--olive2)} .bar i.low{background:var(--warn)}
+.score-row .val{font-family:Fraunces,serif;font-size:13pt;text-align:right;color:var(--green)}
+.overall{display:flex;align-items:center;gap:6mm;background:var(--green);color:var(--cream);border-radius:3mm;padding:4mm 6mm;margin-top:4mm}
+.overall .big{font-family:Fraunces,serif;font-size:30pt;line-height:1}
+
+/* palette */
+.swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:3mm;margin:3mm 0 2mm}
+.sw{border-radius:2.5mm;overflow:hidden;border:1px solid #e0dacb;background:#fff}
+.sw div{height:16mm}
+.sw p{font-size:7pt;padding:1.5mm 2mm;margin:0;line-height:1.35}
+.sw p b{display:block;font-size:7.5pt;color:var(--green)}
+.flag{display:inline-block;font-size:6.5pt;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--bad);padding:.3mm 1.5mm;border-radius:1mm}
+
+/* type scale */
+.scale{display:flex;align-items:flex-end;gap:2.2mm;height:30mm;margin:3mm 0 1mm;padding:0 1mm;border-bottom:1px solid #cfc8b6}
+.scale div{flex:1;background:var(--olive2);opacity:.85;border-radius:1mm 1mm 0 0;position:relative}
+.scale div.h{background:var(--rose)}
+.scale-l{display:flex;gap:2.2mm;padding:0 1mm;font-size:6.5pt;color:var(--muted)}
+.scale-l span{flex:1;text-align:center}
+
+table{width:100%;border-collapse:collapse;font-size:8.8pt}
+th{text-align:left;font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--olive);font-weight:600;padding:2mm 2mm;border-bottom:1.5px solid var(--green)}
+td{padding:2.2mm 2mm;border-bottom:1px solid #e4dfd2;vertical-align:top}
+.pass{color:var(--good);font-weight:600} .fail{color:var(--bad);font-weight:600} .warn{color:var(--warn);font-weight:600}
+.pill{display:inline-block;font-size:7pt;font-weight:600;padding:.4mm 2mm;border-radius:5mm}
+.pill.high{background:#f1dcd7;color:var(--bad)} .pill.med{background:#f3e7cf;color:#8a6420} .pill.low{background:#dfe8dc;color:var(--good)}
+.stat{background:#fff;border:1px solid #e4dfd2;border-radius:3mm;padding:4mm;text-align:center}
+.stat b{font-family:Fraunces,serif;font-size:20pt;color:var(--green);display:block;line-height:1.1;font-weight:600}
+.stat span{font-size:7.5pt;color:var(--muted);letter-spacing:.06em}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:3.5mm;margin:4mm 0}
+.note{background:var(--sand);border-radius:2.5mm;padding:3.5mm 4.5mm;font-size:8.5pt;color:#4a4f49}
+.mobile-pair{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+.mobile-pair img{height:118mm;object-fit:cover;object-position:top}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="page cover">
+  <div class="inner">
+    <div class="brand">Website &amp; Aesthetic Audit · October 2026</div>
+    <div class="score"><span>6<small style="font-size:14pt;letter-spacing:0;opacity:.6">/10</small></span><small>Overall</small></div>
+    <h1>jona.qa<br><em>where nature<br>meets luxury?</em></h1>
+    <p class="sub">A visual review of the Jona Natural Products homepage, covering brand, typography, imagery, layout, mobile, accessibility and polish, with a prioritised plan to make it feel truly premium.</p>
+    <p class="ar">جونة للمنتجات الطبيعية — حيث تلتقي الطبيعة بالفخامة</p>
+    <div class="shot-wrap"><img src="screenshots/desktop-above-fold.jpg" alt=""></div>
+    <div class="meta">
+      <div><b>Site</b>https://jona.qa/ · Arabic homepage (RTL)</div>
+      <div><b>Viewports</b>Desktop 1440 × 900<br>Mobile 390 × 844</div>
+      <div><b>Stack</b>WordPress · WooCommerce · Woodmart · Elementor</div>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY + SCORECARD -->
+<section class="page">
+  <div class="kicker">01 · Executive summary</div>
+  <h2>A strong foundation, held back by small inconsistencies</h2>
+  <p class="lead">The palette is a deep forest green and warm cream that suits a premium natural-products brand. Packaging photography is consistent, and the homepage tells a clear story: discover, browse, learn, reassure. Right-to-left layout is handled properly throughout.</p>
+  <p class="lead">What keeps the site from feeling truly luxurious is a set of small, fixable details: synthesized bold headings, two clashing photography styles, orphaned grid tiles, uneven product cards, a clip-art avatar and leftover theme-demo content. <b style="color:var(--green)">Most fixes are low effort.</b></p>
+
+  <h3 style="margin-top:4mm">Scorecard</h3>
+  <div class="score-row"><span class="label">Brand &amp; colour</span><div class="bar"><i style="width:80%"></i></div><span class="val">8</span><span class="snote">Strong, coherent green/cream. One off-palette dusty-rose pill.</span></div>
+  <div class="score-row"><span class="label">Typography</span><div class="bar"><i class="low" style="width:50%"></i></div><span class="val">5</span><span class="snote">One font file, faux-bold headings, 17 font sizes.</span></div>
+  <div class="score-row"><span class="label">Imagery &amp; photography</span><div class="bar"><i class="mid" style="width:60%"></i></div><span class="val">6</span><span class="snote">Beautiful lifestyle scenes clash with cool grey studio packshots. Some images are reused.</span></div>
+  <div class="score-row"><span class="label">Layout, grid &amp; spacing</span><div class="bar"><i class="mid" style="width:60%"></i></div><span class="val">6</span><span class="snote">Clean sections and generous whitespace, but orphan tiles and uneven cards.</span></div>
+  <div class="score-row"><span class="label">Mobile experience</span><div class="bar"><i class="mid" style="width:60%"></i></div><span class="val">6</span><span class="snote">Usable, but hero CTAs wrap and cards are dominated by heavy buttons.</span></div>
+  <div class="score-row"><span class="label">Accessibility (visual)</span><div class="bar"><i class="low" style="width:50%"></i></div><span class="val">5</span><span class="snote">Low-contrast meta text, pinch-zoom disabled, missing alt text.</span></div>
+  <div class="score-row"><span class="label">Polish &amp; consistency</span><div class="bar"><i class="low" style="width:50%"></i></div><span class="val">5</span><span class="snote">Demo leftovers, clip-art avatar, mixed text alignment.</span></div>
+  <div class="score-row"><span class="label">Performance (perceived)</span><div class="bar"><i class="low" style="width:50%"></i></div><span class="val">5</span><span class="snote">About 191 requests (81 CSS, 66 JS) and about 4.6 MB on desktop.</span></div>
+
+  <div class="overall"><span class="big">6/10</span><span>A good foundation that needs one focused polish pass. Five of the top six fixes take under a day each.</span></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>2</span></div>
+</section>
+
+<!-- BRAND & COLOUR -->
+<section class="page">
+  <div class="kicker">02 · Brand &amp; colour</div>
+  <h2>A restrained, on-brand palette with one stray accent</h2>
+  <p>Colours below were extracted from the live page's computed styles, ranked by how often they appear.</p>
+  <div class="swatches">
+    <div class="sw"><div style="background:#082C26"></div><p><b>Forest</b>#082C26 · primary</p></div>
+    <div class="sw"><div style="background:#174833"></div><p><b>Pine</b>#174833 · secondary</p></div>
+    <div class="sw"><div style="background:#596854"></div><p><b>Olive</b>#596854 · body accent</p></div>
+    <div class="sw"><div style="background:#F5F3EE"></div><p><b>Cream</b>#F5F3EE · surface</p></div>
+    <div class="sw"><div style="background:#A4847C"></div><p><b>Dusty rose</b>#A4847C <span class="flag">off-palette</span></p></div>
+    <div class="sw"><div style="background:#A5A5A5"></div><p><b>Grey meta</b>#A5A5A5 <span class="flag">2.46:1</span></p></div>
+  </div>
+  <div class="cols" style="margin-top:5mm">
+    <div class="card works"><h4>What works</h4><ul>
+      <li>Forest green on cream has a <b>13.5:1</b> contrast ratio. It is elegant and very readable.</li>
+      <li>Alternating cream and white section backgrounds create a calm, editorial rhythm.</li>
+      <li>Green is used consistently for text, primary buttons, badges and the footer.</li>
+    </ul></div>
+    <div class="card issues"><h4>Issues</h4><ul>
+      <li>The <b>free-shipping pill</b> uses dusty rose, which appears nowhere else. White 11px text on it has only 3.4:1 contrast, which fails WCAG AA.<span class="fix">Use forest green, or adopt a muted gold as an official accent.</span></li>
+      <li>The <b>sale red</b> <code>#E01020</code> is harsh against the earthy tones, and the −8% badge already uses green.<span class="fix">Pick one discount colour.</span></li>
+      <li>The <b>footer logo</b> sits in a pale box on dark green and looks pasted on.<span class="fix">Use a cream knockout logo.</span></li>
+    </ul></div>
+  </div>
+  <h3 style="margin-top:8mm">Header &amp; footer details</h3>
+  <img class="shot" src="screenshots/desktop-above-fold.jpg" style="height:62mm;object-fit:cover;object-position:top" alt="">
+  <p class="caption">Busy three-row header with the off-palette rose pill (top left) and the clip-art call-centre avatar (top right).</p>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>3</span></div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section class="page">
+  <div class="kicker">03 · Typography</div>
+  <h2>A distinctive typeface, rendered with fake bold</h2>
+  <p class="lead">29LT Bukra is a modern Arabic typeface that suits the brand. But only <code>29LT-Bukra-Regular.woff</code> is loaded, and every heading asks for weight 700. The browser therefore <b>synthesizes the bold</b>, which looks smudgy and uneven on Arabic letterforms, most noticeably in the 42px hero headline.</p>
+
+  <h3>Font sizes in use (desktop)</h3>
+  <div class="scale">
+    <div style="height:26%"></div><div style="height:29%"></div><div style="height:31%"></div><div style="height:32%"></div><div style="height:33%"></div><div style="height:34%"></div><div style="height:36%"></div><div style="height:38%"></div><div style="height:40%"></div><div style="height:43%"></div><div style="height:46%"></div><div style="height:48%"></div><div class="h" style="height:57%"></div><div class="h" style="height:67%"></div><div class="h" style="height:71%"></div><div class="h" style="height:76%"></div><div class="h" style="height:100%"></div>
+  </div>
+  <div class="scale-l"><span>11</span><span>12</span><span>13</span><span>13.5</span><span>14</span><span>14.25</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19.5</span><span>20</span><span>24</span><span>28</span><span>30</span><span>32</span><span>42</span></div>
+  <p class="caption">17 distinct sizes. Section headings (rose) alternate between 28, 30 and 32px for no clear reason.</p>
+
+  <div class="cols" style="margin-top:6mm">
+    <div class="card issues"><h4>Issues</h4><ul>
+      <li><b>Faux bold</b> on every heading, because only the Regular weight is loaded.</li>
+      <li><b>Fragmented scale:</b> 17 sizes, with section H2s set at 32, 30 and 28px.</li>
+      <li><b>Inverted hierarchy:</b> the hero feature H3s are 14px, smaller than the 17px product-name H3s.</li>
+      <li><b>Mixed alignment:</b> guide cards are centre-aligned while every other section is right-aligned.</li>
+      <li>The font is legacy WOFF (37 KB) with no preload.</li>
+    </ul></div>
+    <div class="card works"><h4>Recommended</h4><ul>
+      <li>Self-host <b>Bukra Bold</b> (plus Light or Medium) as <b>WOFF2</b>, and preload the primary weight.</li>
+      <li>Adopt one scale: <code>12 · 14 · 16 · 20 · 24 · 32 · 44</code>.</li>
+      <li>Make every section H2 the same size (32px).</li>
+      <li>Right-align guide cards to match the rest of the RTL layout.</li>
+    </ul></div>
+  </div>
+  <div class="note" style="margin-top:6mm"><b>Sample headline</b>, currently rendered in synthesized bold: <span class="ar" style="font-size:13pt;font-weight:600;color:var(--green)">منتجات طبيعية مختارة بعناية في قطر</span></div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>4</span></div>
+</section>
+
+<!-- IMAGERY -->
+<section class="page">
+  <div class="kicker">04 · Imagery &amp; photography</div>
+  <h2>Two photographic worlds on one page</h2>
+  <img class="shot" src="screenshots/desktop-categories-products.jpg" style="height:108mm;object-fit:cover;object-position:top" alt="">
+  <p class="caption">Warm, sunlit category scenes (top) sit directly above cool, grey-gradient studio packshots (bottom). Note the uneven product image heights and the empty slot in the category grid.</p>
+  <div class="cols" style="margin-top:5mm">
+    <div class="card works"><h4>What works</h4><ul>
+      <li>The hero and category photography is warm and aspirational: stone, botanicals, honey dippers.</li>
+      <li>Jona's packaging is consistent (green labels, kraft pouches) and builds recognition.</li>
+    </ul></div>
+    <div class="card issues"><h4>Issues</h4><ul>
+      <li>The <b>colour temperature jumps</b> from warm lifestyle shots to cool grey packshots.<span class="fix">Re-grade or re-shoot packshots on warm cream (#F5F3EE).</span></li>
+      <li><b>Uneven framing:</b> product images vary in height, and some leave a white strip.<span class="fix">Enforce 1:1 or 4:5 frames with the product filling about 70%.</span></li>
+      <li>The <b>orange-blossom scene is used three times</b> (hero, feature card, blog).</li>
+      <li>The <b>clip-art avatar</b> in the top bar feels off-brand.<span class="fix">Replace it with a line icon or a real team photo.</span></li>
+    </ul></div>
+  </div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>5</span></div>
+</section>
+
+<!-- LAYOUT + MOBILE -->
+<section class="page">
+  <div class="kicker">05 · Layout &amp; mobile</div>
+  <h2>Clean sections, but the grid and mobile need care</h2>
+  <div class="mobile-pair">
+    <div><img class="shot" src="screenshots/mobile-above-fold.jpg" alt=""><p class="caption">Mobile hero: both CTAs wrap onto two lines, and the "0" badge overlaps the cart icon.</p></div>
+    <div><img class="shot" src="screenshots/mobile-category-orphan.jpg" alt=""><p class="caption">A lone 9th category tile, followed by heavy dark "Select options" buttons on every card.</p></div>
+  </div>
+  <div class="cols" style="margin-top:4mm">
+    <div class="card issues"><h4>Layout</h4><ul>
+      <li><b>Orphan tile:</b> 9 categories in 5-column (desktop) and 2-column (mobile) grids.<span class="fix">Use a 3×3 grid, or add an "All products" tile.</span></li>
+      <li>The <b>"Discover more" cards</b> are unbalanced: one has an image and one is text only.</li>
+      <li>The <b>three-row header</b> with a 10-item navigation feels busy.</li>
+      <li>Section links are inconsistent: some have an arrow (←) and some don't.</li>
+    </ul></div>
+    <div class="card issues"><h4>Mobile</h4><ul>
+      <li><b>Hero CTAs wrap.</b><span class="fix">Stack them full width, or shorten them to "تسوق الآن".</span></li>
+      <li><b>8 identical dark buttons</b> outweigh the products.<span class="fix">Use an outline or "+" icon button, or make the whole card tappable.</span></li>
+      <li>Hide the cart badge when it shows 0.</li>
+      <li>35 tap targets are smaller than 32px.</li>
+    </ul></div>
+  </div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>6</span></div>
+</section>
+
+<!-- ACCESSIBILITY, POLISH, PERFORMANCE -->
+<section class="page">
+  <div class="kicker">06 · Accessibility, polish &amp; performance</div>
+  <h2>The details that signal quality</h2>
+  <table>
+    <tr><th>Check</th><th>Result</th><th>Recommendation</th></tr>
+    <tr><td>Body text, green on white/cream</td><td class="pass">✓ 13.5–15:1</td><td>Keep</td></tr>
+    <tr><td>Grey category text <code>#A5A5A5</code></td><td class="fail">✕ 2.46:1</td><td>Use olive <code>#596854</code> (5.9:1)</td></tr>
+    <tr><td>White on dusty-rose pill, 11px</td><td class="fail">✕ 3.4:1</td><td>Green background, 12px or larger</td></tr>
+    <tr><td>Pinch-zoom</td><td class="fail">✕ Disabled</td><td>Remove <code>user-scalable=no</code></td></tr>
+    <tr><td>Image alt text</td><td class="warn">! 23 of 30 missing</td><td>Add alt text to the logo and category images</td></tr>
+    <tr><td>Icon-only links without a label</td><td class="warn">! 7</td><td>Add <code>aria-label</code></td></tr>
+    <tr><td>Meta description and Open Graph tags</td><td class="fail">✕ None</td><td>Add <code>og:image</code> for WhatsApp/Instagram sharing</td></tr>
+    <tr><td>Theme-demo leftovers</td><td class="warn">! Present</td><td>Rename <code>/en/home-furniture2-english/</code> and give the EN page an English title</td></tr>
+  </table>
+
+  <h3 style="margin-top:7mm">Page weight (desktop, sandbox measurement)</h3>
+  <div class="grid4">
+    <div class="stat"><b>191</b><span>requests</span></div>
+    <div class="stat"><b>81</b><span>stylesheets</span></div>
+    <div class="stat"><b>4.6 MB</b><span>transferred</span></div>
+    <div class="stat"><b>~6.6 s</b><span>load event</span></div>
+  </div>
+  <ul>
+    <li>Combine and defer CSS/JS (LiteSpeed Cache on Hostinger), and disable unused Woodmart and Elementor modules.</li>
+    <li><b>Oversized images:</b> the logo is a 1439px PNG shown at 197px, and blog images are 1024px shown at 336px.<span class="fix">Use SVG for the logo, and correctly sized WebP/AVIF for photos.</span></li>
+  </ul>
+  <p class="caption" style="margin-top:3mm">These timings come from a sandboxed cloud browser and are indicative only. Confirm them with PageSpeed Insights.</p>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>7</span></div>
+</section>
+
+<!-- ACTION PLAN -->
+<section class="page">
+  <div class="kicker">07 · Action plan</div>
+  <h2>Eleven fixes, ranked by impact</h2>
+  <table>
+    <tr><th>#</th><th>Fix</th><th>Impact</th><th>Effort</th></tr>
+    <tr><td class="num">01</td><td>Load the real <b>Bukra Bold</b> in WOFF2 to end faux-bold headings</td><td><span class="pill high">High</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">02</td><td>Put <b>packshots on a warm cream backdrop</b> and use one aspect ratio</td><td><span class="pill high">High</span></td><td><span class="pill med">Med</span></td></tr>
+    <tr><td class="num">03</td><td>Fix the <b>category grid orphan</b> (3×3 grid, or an "All products" tile)</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">04</td><td>Darken the <b>grey meta text</b> and recolour the promo pill</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">05</td><td>Replace the <b>clip-art avatar</b> and use a knockout footer logo</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">06</td><td>Mobile: <b>stack the hero CTAs</b>, lighten the card buttons, hide the "0" badge</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">07</td><td>Consolidate the <b>type scale</b> and right-align the guide cards</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">08</td><td>Add a <b>meta description and Open Graph image</b></td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">09</td><td>Remove <b>demo leftovers</b> and fix the English page title</td><td><span class="pill low">Low</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">10</td><td>Re-enable <b>pinch-zoom</b> and add alt text</td><td><span class="pill med">Med</span></td><td><span class="pill low">Low</span></td></tr>
+    <tr><td class="num">11</td><td>Combine/defer CSS and JS, and resize the logo and blog images</td><td><span class="pill med">Med</span></td><td><span class="pill med">Med</span></td></tr>
+  </table>
+
+  <h3 style="margin-top:8mm">Methodology &amp; caveats</h3>
+  <div class="note">
+    <p>The homepage was rendered in headless Chromium at 1440px and 390px widths. Computed styles (fonts, colours, sizes, headings, buttons, images) were extracted, and contrast was calculated with the WCAG 2.x formula.</p>
+    <p>The audit environment's network proxy blocked a few third-party resources: Tawk.to chat, the Hostinger Reach embed and the payment-method icons. These likely load normally for visitors and are not counted as defects.</p>
+    <p style="margin:0">Scope: Arabic homepage only. Product, category, cart and checkout pages were not reviewed.</p>
+  </div>
+  <div class="folio"><span>jona.qa · Aesthetic Audit</span><span>8</span></div>
+</section>
+
+</body>
+</html>
