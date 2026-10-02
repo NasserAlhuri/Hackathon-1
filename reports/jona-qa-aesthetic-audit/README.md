@@ -5,6 +5,8 @@
 **Viewports:** Desktop 1440×900 · Mobile 390×844
 **Stack detected:** WordPress 7.1 · WooCommerce 11.1 · Woodmart theme · Elementor / Pro Elements · Polylang (AR/EN) · MyFatoorah · Hostinger Reach · Tawk.to chat
 
+**PDF version:** [jona-qa-aesthetic-audit.pdf](jona-qa-aesthetic-audit.pdf)
+
 ---
 
 ## Summary
@@ -18,7 +20,7 @@ Small inconsistencies keep it from looking as premium as its tagline ("حيث ت
 | Area | Score | Notes |
 |---|:-:|---|
 | Brand & colour palette | **8/10** | Strong, coherent green/cream. One off-palette dusty-rose pill. |
-| Typography | **5/10** | One font file. Faux-bold headings. Too many sizes. |
+| Typography | **5/10** | One font file. Faux-bold headings. 17 font sizes. |
 | Imagery & photography | **6/10** | Lovely lifestyle shots but they clash with grey studio packshots. Some images are reused. |
 | Layout, grid & spacing | **6/10** | Clean sections, but orphan tiles and uneven card heights. |
 | Mobile experience | **6/10** | Usable, but hero CTAs wrap and cards are crowded with heavy buttons. |
@@ -64,7 +66,7 @@ Full pages: [desktop](screenshots/desktop-full-page.jpg) · [mobile](screenshots
 **Issues**
 - **Only one weight is loaded:** `29LT-Bukra-Regular.woff`. Every heading is set to `font-weight: 700`, so the browser **synthesizes bold**. Faux bold on Arabic letterforms looks smudgy and uneven, especially in the 42px H1 and the 32px section titles.
   → Self-host the Bold (and ideally Light or Medium) weights of 29LT Bukra. Serve them as **WOFF2**; the current file is legacy WOFF at 37 KB. Add `<link rel="preload">` for the primary weight.
-- **The type scale is too fragmented.** About 14 distinct sizes are in use: 11, 12, 12.8, 13, 13.5, 14, 14.25, 15, 16, 17, 18, 19.5, 20 and 23–42px. Section H2s alternate between 32, 30 and 28px for no obvious reason.
+- **The type scale is too fragmented.** At least 17 distinct sizes are in use on desktop: 11, 12, 13, 13.5, 14, 14.25, 15, 16, 17, 18, 19.5, 20, 24, 28, 30, 32 and 42px. Section H2s alternate between 32, 30 and 28px for no obvious reason.
   → Standardise on a modular scale such as 12 / 14 / 16 / 20 / 24 / 32 / 44. Make every section H2 the same size.
 - **Heading hierarchy:** the three hero "feature" items are H3s at 14px, smaller than the product-name H3s at 17px. The semantics and visual weight don't match.
 - **Mixed text alignment:** blog/guide cards are **centre-aligned**, while every other section is right-aligned in RTL. It reads as a different template.
